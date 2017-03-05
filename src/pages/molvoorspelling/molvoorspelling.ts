@@ -20,15 +20,11 @@ import {ProfilePage} from "../profile/profile";
 })
 export class MolvoorspellingPage {
 
-  molvoorspellingSub: Subscription;
-  mollenSub: Subscription;
-  vorigemolvoorspellingSub: Subscription;
   postvoorspellingSub: Subscription;
   molvoorspelling: molvoorspellingModel;
-  vorigemolvoorspelling: molvoorspellingModel;
   mollen: mollenModel;
+  mollenSub : Subscription;
   laatsteaflevering = 2;
-  selectOptions: any;
   private voorspelling: FormGroup;
 
   // We need to inject AuthService so that we can
@@ -44,6 +40,16 @@ export class MolvoorspellingPage {
       afvaller: ['', Validators.required],
       aflevering: [this.laatsteaflevering + 1, Validators.required]
     });
+  }
+
+  ionViewWillEnter() {
+    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+      this.mollen = response;
+    });
+  }
+
+  ionViewWillLeave() {
+    this.mollenSub.unsubscribe();
   }
 
   logForm() {

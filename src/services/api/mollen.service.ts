@@ -18,6 +18,11 @@ export class MollenService {
       .map(res => <mollenModel>res.json());
   }
 
+  getactivemollen(): Observable<mollenModel> {
+    return this.http.get(`${this.api}/activemollen`)
+      .map(res => <mollenModel>res.json());
+  }
+
   getmolvoorspelling(aflevering): Observable<molvoorspellingModel> {
     return this.authHttp.get(`${this.api}/molvoorspelling/`+aflevering)
       .map(res => <molvoorspellingModel>res.json());
@@ -28,7 +33,7 @@ export class MollenService {
       .map(res => <any>res.json());
   }
   getmolvoorspellingen(): Observable<molvoorspellingModel[]> {
-    return this.authHttp.get(`${this.api}/molvoorspelling`)
+    return this.authHttp.get(`${this.api}/molvoorspellingen`)
       .map(res => <molvoorspellingModel[]>res.json());
   }
 }

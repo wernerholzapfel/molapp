@@ -9,7 +9,7 @@ import {MollenService} from "../../services/api/mollen.service";
 })
 export class ProfilePage {
   molvoorspellingSub : Subscription;
-  molvoorspelling : molvoorspellingModel[];
+  molvoorspellingen : molvoorspellingModel[];
 
   // We need to inject AuthService so that we can
   // use it in the view
@@ -17,7 +17,7 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     this.molvoorspellingSub = this.mollenService.getmolvoorspellingen().subscribe(response => {
-      this.molvoorspelling = response;
+      this.molvoorspellingen = response;
     });
   }
 

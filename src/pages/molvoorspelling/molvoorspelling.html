@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding *ngIf="auth.authenticated()">
   <form [formGroup]="voorspelling" (ngSubmit)="logForm()">
     <ion-item>
       <ion-label>Mol</ion-label>
@@ -34,6 +34,6 @@
       </ion-select>
     </ion-item>
 
-    <button ion-button type="submit" [disabled]="!voorspelling.valid">Opslaan</button>
+    <button ion-button block type="submit" [disabled]="!voorspelling.valid">Opslaan</button>
   </form>
 </ion-content>
