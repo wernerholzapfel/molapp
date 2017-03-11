@@ -1,3 +1,16 @@
 page-molvoorspelling {
-
+  ion-scroll {
+    white-space: nowrap;
+    height: 10rem;
+  }
+  .mollen {
+    opacity: 0.2;
+    max-width: 8rem;
+    max-height: 8rem;
+    border-radius: 4rem;
+    padding: 2px;
+  }
+  .active {
+    opacity: 1 !important;
+  }
 }

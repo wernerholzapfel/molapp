@@ -4,5 +4,6 @@ export interface mollenModel {
     'name': string,
     'mol': boolean,
     'laatsteaflevering': number,
-    'winnaar': boolean
+    'winnaar': boolean,
+    'selected': boolean
 }

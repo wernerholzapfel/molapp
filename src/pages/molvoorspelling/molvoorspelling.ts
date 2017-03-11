@@ -6,7 +6,6 @@ import {AuthService} from "../../services/auth/auth.service";
 import {MollenService} from "../../services/api/mollen.service";
 import {Validators, FormBuilder, FormGroup} from "@angular/forms";
 import {mollenModel} from "../../models/mollen";
-import {ProfilePage} from "../profile/profile";
 
 /*
  Generated class for the Molvoorspelling page.
@@ -22,15 +21,17 @@ export class MolvoorspellingPage {
 
   postvoorspellingSub: Subscription;
   molvoorspelling: molvoorspellingModel;
-  mollen: mollenModel;
-  mollenSub : Subscription;
+  mollen: mollenModel[];
+  afvallers: mollenModel[];
+  winnaars: mollenModel[];
+  mollenSub: Subscription;
   laatsteaflevering = 2;
   private voorspelling: FormGroup;
 
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public navCtrl: NavController,
-              public viewCtrl : ViewController,
+              public viewCtrl: ViewController,
               public auth: AuthService,
               private mollenService: MollenService,
               private formBuilder: FormBuilder) {
@@ -44,7 +45,14 @@ export class MolvoorspellingPage {
 
   ionViewWillEnter() {
     this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-      this.mollen = response;
+      this.mollen = response;});
+
+    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+      this.afvallers = response;
+    });
+
+    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+      this.winnaars = response;
     });
   }
 
@@ -62,4 +70,31 @@ export class MolvoorspellingPage {
     console.log(this.voorspelling.value)
   }
 
+  setActiveMol(mol) {
+    console.log(mol.name + "is de mol");
+    this.voorspelling.get('mol').setValue(mol.name);
+    this.mollen.forEach(function (mol) {
+      mol.selected = false
+      }
+    );
+    mol.selected = true;
+  }
+  setWinnaar(winnaar) {
+    console.log(winnaar.name + "is de winnaar");
+    this.voorspelling.get('winnaar').setValue(winnaar.name);
+    this.winnaars.forEach(function (winnaar) {
+      winnaar.selected = false
+      }
+    );
+    winnaar.selected = true;
+  }
+  setAfvaller(afvaller) {
+    console.log(afvaller.name + "is de afvaller");
+    this.voorspelling.get('afvaller').setValue(afvaller.name);
+    this.afvallers.forEach(function (afvaller) {
+      afvaller.selected = false
+      }
+    );
+    afvaller.selected = true;
+  }
 }

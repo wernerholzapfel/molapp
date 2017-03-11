@@ -13,14 +13,14 @@ export class MollenService {
   constructor(public http: Http,private authHttp: AuthHttp) {
   }
 
-  getmollen(): Observable<mollenModel> {
+  getmollen(): Observable<mollenModel[]> {
     return this.http.get(`${this.api}/mollen`)
-      .map(res => <mollenModel>res.json());
+      .map(res => <mollenModel[]>res.json());
   }
 
-  getactivemollen(): Observable<mollenModel> {
+  getactivemollen(): Observable<mollenModel[]> {
     return this.http.get(`${this.api}/activemollen`)
-      .map(res => <mollenModel>res.json());
+      .map(res => <mollenModel[]>res.json());
   }
 
   getmolvoorspelling(aflevering): Observable<molvoorspellingModel> {

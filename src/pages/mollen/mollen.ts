@@ -16,7 +16,7 @@ import {mollenModel} from "../../models/mollen";
 })
 export class MollenPage {
   mollenSub : Subscription;
-  mollen : mollenModel;
+  mollen : mollenModel[];
 
   constructor(public navCtrl: NavController,
               private mollenService: MollenService,) {}
@@ -34,5 +34,5 @@ export class MollenPage {
 
   ionViewWillLeave() {
     this.mollenSub.unsubscribe();
-  }
+  };
 }
