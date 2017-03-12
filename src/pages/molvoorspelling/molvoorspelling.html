@@ -1,23 +1,32 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>molvoorspelling</ion-title>
+    <ion-title>Je voorspellingen</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding *ngIf="auth.authenticated()">
   <form [formGroup]="voorspelling" (ngSubmit)="logForm()">
-    <ion-item>
+    <ion-item text-center>
+      <img *ngIf='activeMol' class="mollen active"
+           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeMol[0]?.name.toLowerCase() + '.jpg'"
+           (click)="setKiesMol()">
+      <img *ngIf="activeWinnaar" class="mollen active"
+           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeWinnaar[0]?.name.toLowerCase() + '.jpg'"
+           (click)="setKiesWinnaar()">
+      <img *ngIf="activeAfvaller" class="mollen active"
+           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeAfvaller[0]?.name.toLowerCase() + '.jpg'"
+           (click)="setKiesAfvaller()">
+    </ion-item>
+    <ion-item *ngIf="kiesMol">
       De Mol
+
       <ion-scroll scrollX="true">
         <img class="mollen" [ngClass]="{'active' : mol.selected}" *ngFor="let mol of mollen"
              [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + mol?.name.toLowerCase() + '.jpg'"
              (click)="setActiveMol(mol)">
       </ion-scroll>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="kiesWinnaar">
       Winnaar
       <ion-scroll scrollX="true">
         <img class="mollen" [ngClass]="{'active' : winnaar.selected}" *ngFor="let winnaar of winnaars"
@@ -25,7 +34,7 @@
              (click)="setWinnaar(winnaar)">
       </ion-scroll>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="kiesAfvaller">
       Afvaller
       <ion-scroll scrollX="true">
         <img class="mollen" [ngClass]="{'active' : afvaller.selected}" *ngFor="let afvaller of afvallers"
@@ -36,4 +45,5 @@
 
     <button ion-button block type="submit" [disabled]="!voorspelling.valid">Opslaan</button>
   </form>
+  <!--<pre>mol: {{activeMol | json}}</pre>-->
 </ion-content>

@@ -8,7 +8,7 @@ import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class MollenService {
-  api = 'http://localhost:8080/api';
+  api = 'https://mollotenapi.herokuapp.com/api';
 
   constructor(public http: Http,private authHttp: AuthHttp) {
   }
@@ -25,6 +25,11 @@ export class MollenService {
 
   getmolvoorspelling(aflevering): Observable<molvoorspellingModel> {
     return this.authHttp.get(`${this.api}/molvoorspelling/`+aflevering)
+      .map(res => <molvoorspellingModel>res.json());
+  }
+
+  getlaatstemolvoorspelling(): Observable<molvoorspellingModel> {
+    return this.authHttp.get(`${this.api}/molvoorspelling/`)
       .map(res => <molvoorspellingModel>res.json());
   }
 
