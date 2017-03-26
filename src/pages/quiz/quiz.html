@@ -1,5 +1,5 @@
 <ion-content>
-
+{{countdown}}
   <ion-slides #slides [options]="slideOptions">
 
     <ion-slide class="start-slide">
@@ -8,7 +8,7 @@
 
     <ion-slide *ngFor="let question of questions; let i = index;">
 
-      <h3>Question {{i+1}}</h3>
+      <h3>Question {{actieveVraag}}</h3>
 
       <flash-card [isFlipped]="question.flashCardFlipped">
         <div class="flash-card-front" [innerHTML]="question.flashCardFront"></div>
