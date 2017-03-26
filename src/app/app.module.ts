@@ -10,6 +10,9 @@ import {Http} from "@angular/http";
 import {Storage} from "@ionic/storage";
 import {MollenPage} from "../pages/mollen/mollen";
 import {MolvoorspellingPage} from "../pages/molvoorspelling/molvoorspelling";
+import {Quizpage} from "../pages/quiz/quiz";
+import {Data} from "../providers/data";
+import {FlashCardComponent} from "../components/flash-card/flash-card";
 
 let storage: Storage = new Storage();
 
@@ -26,7 +29,9 @@ export function getAuthHttp(http) {
     ProfilePage,
     TabsPage,
     MollenPage,
-    MolvoorspellingPage
+    MolvoorspellingPage,
+    Quizpage,
+    FlashCardComponent
   ],
   imports: [
     IonicModule.forRoot(AuthApp)
@@ -37,7 +42,9 @@ export function getAuthHttp(http) {
     ProfilePage,
     TabsPage,
     MollenPage,
-    MolvoorspellingPage
+    MolvoorspellingPage,
+    Quizpage,
+    FlashCardComponent
   ],
   providers: [
     AuthService,
@@ -46,7 +53,8 @@ export function getAuthHttp(http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    MollenService
+    MollenService,
+    Data
   ]
 })
 export class AppModule {

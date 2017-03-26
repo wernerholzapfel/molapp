@@ -3,6 +3,7 @@ import { ProfilePage } from '../profile/profile';
 import { AuthService } from '../../services/auth/auth.service';
 import {MollenPage} from "../mollen/mollen";
 import {MolvoorspellingPage} from "../molvoorspelling/molvoorspelling";
+import {Quizpage} from "../quiz/quiz";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,6 +15,7 @@ export class TabsPage {
   tab1Root: any = ProfilePage;
   tab2Root: any = MollenPage;
   tab3Root: any = MolvoorspellingPage;
+  tab4Root: any = Quizpage;
 
   constructor(public auth: AuthService) {}
 }
