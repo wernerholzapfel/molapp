@@ -33,6 +33,7 @@ export class MolvoorspellingPage {
   laatsteaflevering = 2;
   laatstevoorspellingSub: Subscription;
   private voorspelling: FormGroup;
+  opslaanView = false;
   kiesMol = true;
   kiesWinnaar = false;
   kiesAfvaller = false;
@@ -84,7 +85,6 @@ export class MolvoorspellingPage {
           }
         });
         this.activeAfvaller = _.filter(this.afvallers, ['selected', true])
-
       });
 
       this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
@@ -155,7 +155,7 @@ export class MolvoorspellingPage {
     );
     mol.selected = true;
     this.activeMol = _.filter(this.mollen, ['selected', true]);
-    this.setKiesWinnaar();
+    // this.setKiesWinnaar();
   }
 
   setWinnaar(winnaar) {
@@ -167,7 +167,7 @@ export class MolvoorspellingPage {
     );
     winnaar.selected = true;
     this.activeWinnaar = _.filter(this.winnaars, ['selected', true]);
-    this.setKiesAfvaller();
+    // this.setKiesAfvaller();
   }
 
   setAfvaller(afvaller) {
@@ -179,23 +179,26 @@ export class MolvoorspellingPage {
     );
     afvaller.selected = true;
     this.activeAfvaller = _.filter(this.afvallers, ['selected', true]);
-    this.setKiesNiks();
+    // this.setKiesNiks();
   }
 
   setKiesMol(){
     this.kiesMol = true;
     this.kiesAfvaller = false;
     this.kiesWinnaar =false;
+
   }
   setKiesAfvaller(){
     this.kiesMol = false;
     this.kiesAfvaller = true;
     this.kiesWinnaar =false;
+
   }
   setKiesWinnaar(){
     this.kiesMol = false;
     this.kiesAfvaller = false;
     this.kiesWinnaar =true;
+
   }
   setKiesNiks(){
     this.kiesMol = false;
