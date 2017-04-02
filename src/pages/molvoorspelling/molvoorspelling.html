@@ -8,13 +8,22 @@
   <form [formGroup]="voorspelling" (ngSubmit)="logForm()">
     <ion-item text-center>
       <img *ngIf='activeMol' class="mollen" [ngClass]="{'active' : kiesMol}"
-           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeMol[0]?.name.toLowerCase() + '.jpg'"
+           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeMol?.name.toLowerCase() + '.jpg'"
+           (click)="setKiesMol()">
+      <img *ngIf="!activeMol" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
+           [src]="'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTqUvVfY_oOgWd9dwvpempwNIM1wVyBhLVwshX_-53d0_vg1s2K'"
            (click)="setKiesMol()">
       <img *ngIf="activeWinnaar" class="mollen" [ngClass]="{'active' : kiesWinnaar}"
-           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeWinnaar[0]?.name.toLowerCase() + '.jpg'"
+           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeWinnaar?.name.toLowerCase() + '.jpg'"
+           (click)="setKiesWinnaar()">
+      <img *ngIf="!activeWinnaar" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
+           [src]="'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTqUvVfY_oOgWd9dwvpempwNIM1wVyBhLVwshX_-53d0_vg1s2K'"
            (click)="setKiesWinnaar()">
       <img *ngIf="activeAfvaller" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
-           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeAfvaller[0]?.name.toLowerCase() + '.jpg'"
+           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeAfvaller?.name.toLowerCase() + '.jpg'"
+           (click)="setKiesAfvaller()">
+      <img *ngIf="!activeAfvaller" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
+           [src]="'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTqUvVfY_oOgWd9dwvpempwNIM1wVyBhLVwshX_-53d0_vg1s2K'"
            (click)="setKiesAfvaller()">
     </ion-item>
     <ion-item *ngIf="kiesMol">
@@ -43,11 +52,11 @@
     </ion-item>
     <div text-center>
 
-      <button disabled ion-button outline><</button>
-      <button ion-button type="submit" [disabled]="!voorspelling.valid">Opslaan</button>
-      <button ion-button outline> ></button>
+      <button [disabled]="kiesMol" ion-button type="button" outline (click)="setPreviousState()"> < </button>
+      <button [disabled]="!voorspelling.valid" ion-button type="submit" >Opslaan</button>
+      <button [disabled]="kiesAfvaller" ion-button type="button" outline (click)="setNextState()"> > </button>
     </div>
   </form>
 
-  <!--<pre>mol: {{activeMol | json}}</pre>-->
+  <!--<pre>mol: {{activeAfvaller | json}}</pre>-->
 </ion-content>

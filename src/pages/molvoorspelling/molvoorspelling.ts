@@ -23,9 +23,9 @@ export class MolvoorspellingPage {
   showAlertMessage = true;
   postvoorspellingSub: Subscription;
   molvoorspelling: molvoorspellingModel;
-  activeMol: mollenModel[];
-  activeAfvaller: mollenModel[];
-  activeWinnaar: mollenModel[];
+  activeMol: mollenModel;
+  activeAfvaller: mollenModel;
+  activeWinnaar: mollenModel;
   mollen: mollenModel[];
   afvallers: mollenModel[];
   winnaars: mollenModel[];
@@ -63,42 +63,50 @@ export class MolvoorspellingPage {
   ionViewWillEnter() {
 
     this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling().subscribe(laatsteVoorspelling => {
-      this.voorspelling.get('mol').setValue(laatsteVoorspelling.mol);
-      this.voorspelling.get('winnaar').setValue(laatsteVoorspelling.winnaar);
-      this.voorspelling.get('afvaller').setValue(laatsteVoorspelling.afvaller);
+      this.voorspelling.get('mol').setValue(this.getActiveMol(laatsteVoorspelling.mol));
+      this.voorspelling.get('winnaar').setValue(this.getActiveWinnaar(laatsteVoorspelling.winnaar));
+      this.voorspelling.get('afvaller').setValue(this.getActiveAfvaller(laatsteVoorspelling.afvaller));
 
-      this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-        this.mollen = response;
-        this.mollen.forEach(function (mol) {
-          if (mol.name === laatsteVoorspelling.mol) {
-            mol.selected = true;
-          }
-        });
-        this.activeMol = _.filter(this.mollen, ['selected', true])
-      });
-
-      this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-        this.afvallers = response;
-        this.afvallers.forEach(function (afvaller) {
-          if (afvaller.name === laatsteVoorspelling.afvaller) {
-            afvaller.selected = true;
-          }
-        });
-        this.activeAfvaller = _.filter(this.afvallers, ['selected', true])
-      });
-
-      this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-        this.winnaars = response;
-        this.winnaars.forEach(function (winnaar) {
-          if (winnaar.name === laatsteVoorspelling.winnaar) {
-            winnaar.selected = true;
-          }
-        });
-        this.activeWinnaar = _.filter(this.winnaars, ['selected', true])
-
-      });
     });
   };
+
+  getActiveWinnaar(laatsteVoorspelling) {
+    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+      this.winnaars = response;
+      this.winnaars.forEach(function (winnaar) {
+        if (winnaar.name === laatsteVoorspelling) {
+          winnaar.selected = true;
+        }
+      });
+      this.activeWinnaar = _.filter(this.winnaars, ['selected', true])[0]
+
+    });
+  }
+
+  getActiveMol(laatsteVoorspelling) {
+    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+      this.mollen = response;
+      this.mollen.forEach(function (mol) {
+        if (mol.name === laatsteVoorspelling) {
+          mol.selected = true;
+        }
+      });
+      this.activeMol = _.filter(this.mollen, ['selected', true])[0]
+    });
+  }
+
+  getActiveAfvaller(laatsteVoorspelling) {
+    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+      this.afvallers = response;
+      this.afvallers.forEach(function (afvaller) {
+        if (afvaller.name === laatsteVoorspelling) {
+          afvaller.selected = true;
+        }
+      });
+      this.activeAfvaller = _.filter(this.afvallers, ['selected', true])[0]
+    });
+
+  }
 
   ionViewCanLeave() {
 
@@ -154,7 +162,7 @@ export class MolvoorspellingPage {
       }
     );
     mol.selected = true;
-    this.activeMol = _.filter(this.mollen, ['selected', true]);
+    this.activeMol = _.filter(this.mollen, ['selected', true])[0];
     // this.setKiesWinnaar();
   }
 
@@ -166,7 +174,7 @@ export class MolvoorspellingPage {
       }
     );
     winnaar.selected = true;
-    this.activeWinnaar = _.filter(this.winnaars, ['selected', true]);
+    this.activeWinnaar = _.filter(this.winnaars, ['selected', true])[0];
     // this.setKiesAfvaller();
   }
 
@@ -178,32 +186,44 @@ export class MolvoorspellingPage {
       }
     );
     afvaller.selected = true;
-    this.activeAfvaller = _.filter(this.afvallers, ['selected', true]);
+    this.activeAfvaller = _.filter(this.afvallers, ['selected', true])[0];
     // this.setKiesNiks();
   }
 
-  setKiesMol(){
+  setKiesMol() {
     this.kiesMol = true;
     this.kiesAfvaller = false;
-    this.kiesWinnaar =false;
+    this.kiesWinnaar = false;
 
   }
-  setKiesAfvaller(){
+
+  setKiesAfvaller() {
     this.kiesMol = false;
     this.kiesAfvaller = true;
-    this.kiesWinnaar =false;
+    this.kiesWinnaar = false;
 
   }
-  setKiesWinnaar(){
+
+  setKiesWinnaar() {
     this.kiesMol = false;
     this.kiesAfvaller = false;
-    this.kiesWinnaar =true;
+    this.kiesWinnaar = true;
 
   }
-  setKiesNiks(){
+
+  setKiesNiks() {
     this.kiesMol = false;
     this.kiesAfvaller = false;
     this.kiesWinnaar = false;
   }
 
+  setNextState() {
+    if (this.kiesMol) return this.setKiesWinnaar();
+    if (this.kiesWinnaar) return this.setKiesAfvaller();
+  }
+
+  setPreviousState() {
+    if (this.kiesAfvaller) return this.setKiesWinnaar();
+    if (this.kiesWinnaar) return this.setKiesMol();
+  }
 }
