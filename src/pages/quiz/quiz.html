@@ -1,5 +1,5 @@
 <ion-content>
-{{countdown}}
+
   <ion-slides #slides [options]="slideOptions">
 
     <ion-slide class="start-slide">
@@ -7,6 +7,16 @@
     </ion-slide>
 
     <ion-slide *ngFor="let question of questions; let i = index;">
+
+      <div class="countdown">
+        <div class="countdown-number">
+          {{countdown}}
+        </div>
+        <div class="countdown-number"></div>
+        <svg>
+          <circle r="18" cx="20" cy="20"></circle>
+        </svg>
+      </div>
 
       <h3>Question {{actieveVraag}}</h3>
 

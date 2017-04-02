@@ -48,7 +48,8 @@ export class Quizpage {
   nextSlide(actieveVraag) {
     this.slides.slideNext();
     if (this.actieveVraag <= this.aantalVragen) {
-      this.countdown = 6;
+      //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss
+      this.countdown = 10;
       this.timer = TimerObservable
         .interval(1000 /* ms */)
         .timeInterval()
