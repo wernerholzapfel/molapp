@@ -6,15 +6,14 @@
 
 <ion-content padding *ngIf="auth.authenticated()">
   <form [formGroup]="voorspelling" (ngSubmit)="logForm()">
-    <ion-item text-center>
       <ion-row text-center>
         <ion-col col-4>Mol</ion-col>
         <ion-col col-4>Winnaar</ion-col>
         <ion-col col-4>Afvaller</ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row text-center>
         <ion-col col-4>
-          <img *ngIf='activeMol' class="mollen" [ngClass]="{'active' : kiesMol}"
+          <img *ngIf='activeMol' class="mollen" [ngClass]="{'active' : kiesMol || kiesNiks}"
                [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeMol?.name.toLowerCase() + '.jpg'"
                (click)="setKiesMol()">
           <img *ngIf="!activeMol" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
@@ -22,7 +21,7 @@
                (click)="setKiesMol()">
         </ion-col>
         <ion-col col-4>
-          <img *ngIf="activeWinnaar" class="mollen" [ngClass]="{'active' : kiesWinnaar}"
+          <img *ngIf="activeWinnaar" class="mollen" [ngClass]="{'active' : kiesWinnaar || kiesNiks}"
                [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeWinnaar?.name.toLowerCase() + '.jpg'"
                (click)="setKiesWinnaar()">
           <img *ngIf="!activeWinnaar" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
@@ -30,7 +29,7 @@
                (click)="setKiesWinnaar()">
         </ion-col>
         <ion-col col-4>
-          <img *ngIf="activeAfvaller" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
+          <img *ngIf="activeAfvaller" class="mollen" [ngClass]="{'active' : kiesAfvaller || kiesNiks}"
                [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + activeAfvaller?.name.toLowerCase() + '.jpg'"
                (click)="setKiesAfvaller()">
           <img *ngIf="!activeAfvaller" class="mollen" [ngClass]="{'active' : kiesAfvaller}"
@@ -38,7 +37,6 @@
                (click)="setKiesAfvaller()">
         </ion-col>
       </ion-row>
-    </ion-item>
     <carousel *ngIf="kiesMol" [buttonText]="'Mijn mol'" [slides]="slides"
               (selectSlide)="setActiveMol($event);"></carousel>
     <carousel *ngIf="kiesWinnaar" [buttonText]="'De Winnaar'" [slides]="slides"
@@ -47,17 +45,17 @@
               (selectSlide)="setAfvaller($event);"></carousel>
     <div text-center>
       <ion-row>
-        <ion-col col-2>
-          <button [disabled]="kiesMol" ion-button block round type="button" outline (click)="setPreviousState()"> <
-          </button>
-        </ion-col>
-        <ion-col col-8>
+        <!--<ion-col col-2>-->
+          <!--<button [disabled]="kiesMol" ion-button block round type="button" outline (click)="setPreviousState()"> <-->
+          <!--</button>-->
+        <!--</ion-col>-->
+        <!--<ion-col col-8>-->
           <button [disabled]="!voorspelling.valid" ion-button block round type="submit">Opslaan</button>
-        </ion-col>
-        <ion-col col-2>
-          <button [disabled]="kiesAfvaller" ion-button block round type="button" outline (click)="setNextState()"> >
-          </button>
-        </ion-col>
+        <!--</ion-col>-->
+        <!--<ion-col col-2>-->
+          <!--<button [disabled]="kiesAfvaller" ion-button block round type="button" outline (click)="setNextState()"> >-->
+          <!--</button>-->
+        <!--</ion-col>-->
       </ion-row>
     </div>
   </form>
