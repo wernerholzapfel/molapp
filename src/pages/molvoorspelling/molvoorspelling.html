@@ -39,40 +39,24 @@
         </ion-col>
       </ion-row>
     </ion-item>
-    <ion-item text-center *ngIf="kiesMol">
-      De Mol
-      <ion-scroll scrollX="true">
-        <img class="mollen active" *ngFor="let mol of mollen"
-             [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + mol?.name.toLowerCase() + '.jpg'"
-             (click)="setActiveMol(mol)">
-      </ion-scroll>
-    </ion-item>
-    <ion-item text-center *ngIf="kiesWinnaar">
-      Winnaar
-      <ion-scroll scrollX="true">
-        <img class="mollen active" *ngFor="let winnaar of winnaars"
-             [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + winnaar?.name.toLowerCase() + '.jpg'"
-             (click)="setWinnaar(winnaar)">
-      </ion-scroll>
-    </ion-item>
-    <ion-item text-center *ngIf="kiesAfvaller">
-      Afvaller
-      <ion-scroll scrollX="true">
-        <img class="mollen active" *ngFor="let afvaller of afvallers"
-             [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + afvaller?.name.toLowerCase() + '.jpg'"
-             (click)="setAfvaller(afvaller)">
-      </ion-scroll>
-    </ion-item>
+    <carousel *ngIf="kiesMol" [buttonText]="'Mijn mol'" [slides]="slides"
+              (selectSlide)="setActiveMol($event);"></carousel>
+    <carousel *ngIf="kiesWinnaar" [buttonText]="'De Winnaar'" [slides]="slides"
+              (selectSlide)="setWinnaar($event);"></carousel>
+    <carousel *ngIf="kiesAfvaller" [buttonText]="'Afvaller'" [slides]="slides"
+              (selectSlide)="setAfvaller($event);"></carousel>
     <div text-center>
       <ion-row>
         <ion-col col-2>
-          <button [disabled]="kiesMol" ion-button block round type="button" outline (click)="setPreviousState()"> <</button>
+          <button [disabled]="kiesMol" ion-button block round type="button" outline (click)="setPreviousState()"> <
+          </button>
         </ion-col>
         <ion-col col-8>
           <button [disabled]="!voorspelling.valid" ion-button block round type="submit">Opslaan</button>
         </ion-col>
         <ion-col col-2>
-          <button [disabled]="kiesAfvaller" ion-button block round type="button" outline (click)="setNextState()"> ></button>
+          <button [disabled]="kiesAfvaller" ion-button block round type="button" outline (click)="setNextState()"> >
+          </button>
         </ion-col>
       </ion-row>
     </div>

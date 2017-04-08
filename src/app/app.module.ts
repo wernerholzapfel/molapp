@@ -13,6 +13,7 @@ import {MolvoorspellingPage} from "../pages/molvoorspelling/molvoorspelling";
 import {Quizpage} from "../pages/quiz/quiz";
 import {Data} from "../providers/data";
 import {FlashCardComponent} from "../components/flash-card/flash-card";
+import {CarouselComponent} from "../shared/carousel/carousel.component";
 
 let storage: Storage = new Storage();
 
@@ -31,7 +32,8 @@ export function getAuthHttp(http) {
     MollenPage,
     MolvoorspellingPage,
     Quizpage,
-    FlashCardComponent
+    FlashCardComponent,
+    CarouselComponent
   ],
   imports: [
     IonicModule.forRoot(AuthApp)
@@ -44,7 +46,8 @@ export function getAuthHttp(http) {
     MollenPage,
     MolvoorspellingPage,
     Quizpage,
-    FlashCardComponent
+    FlashCardComponent,
+    CarouselComponent
   ],
   providers: [
     AuthService,
