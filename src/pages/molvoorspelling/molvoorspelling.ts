@@ -8,7 +8,6 @@ import {Validators, FormBuilder, FormGroup} from "@angular/forms";
 import {mollenModel} from "../../models/mollen";
 import {ProfilePage} from "../profile/profile";
 import _ from "lodash";
-import { CarouselComponent } from "../../shared/carousel/carousel.component"
 
 /*
  Generated class for the Molvoorspelling page.
@@ -28,7 +27,7 @@ export class MolvoorspellingPage {
   activeMol: mollenModel;
   activeAfvaller: mollenModel;
   activeWinnaar: mollenModel;
-  slides: mollenModel[] = [];
+  // slides: mollenModel[] = [];
   mollen: mollenModel[];
   afvallers: mollenModel[];
   winnaars: mollenModel[];
@@ -42,6 +41,9 @@ export class MolvoorspellingPage {
   kiesWinnaar = false;
   kiesAfvaller = false;
   kiesNiks = false;
+  activeMolId: number = 1;
+  activeWinnaarId: number = 1;
+  activeAfvallerId: number = 1;
 
   // We need to inject AuthService so that we can
   // use it in the view
@@ -59,7 +61,92 @@ export class MolvoorspellingPage {
       aflevering: [this.laatsteaflevering + 1, Validators.required]
     });
   }
-  // private slides = [{"_id":"58970ce4734d1d3956c4ab16","uid":3,"name":"Jochem","mol":false,"laatsteaflevering":null,"winnaar":false},{"_id":"5897184d734d1d3956c4ad61","uid":10,"name":"Roos","mol":false,"laatsteaflevering":3,"winnaar":false},{"_id":"58970d09734d1d3956c4ab20","uid":5,"name":"Sanne","mol":false,"laatsteaflevering":null,"winnaar":false},{"_id":"589717f8734d1d3956c4ad43","uid":7,"name":"Sigrid","mol":false,"laatsteaflevering":4,"winnaar":false},{"_id":"5897068c734d1d3956c4a990","uid":1,"name":"Thomas","mol":true,"laatsteaflevering":null,"winnaar":false},{"_id":"58971803734d1d3956c4ad47","uid":8,"name":"Vincent","mol":false,"laatsteaflevering":1,"winnaar":false},{"_id":"58971825734d1d3956c4ad5a","uid":9,"name":"Yvonne","mol":false,"laatsteaflevering":2,"winnaar":false}]
+
+  private slides = [
+    {
+      "_id": "5897068c734d1d3956c4a990",
+      "uid": 1,
+      "name": "Thomas",
+      "mol": true,
+      "laatsteaflevering": null,
+      "winnaar": false
+    },
+    {
+      "_id": "58970cd5734d1d3956c4ab13",
+      "uid": 2,
+      "name": "Jeroen",
+      "mol": false,
+      "laatsteaflevering": null,
+      "winnaar": false
+    },
+    {
+      "_id": "58970ce4734d1d3956c4ab16",
+      "uid": 3,
+      "name": "Jochem",
+      "mol": false,
+      "laatsteaflevering": null,
+      "winnaar": false
+    },
+    {
+      "_id": "58970cf3734d1d3956c4ab19",
+      "uid": 4,
+      "name": "Imanuelle",
+      "mol": false,
+      "laatsteaflevering": 3,
+      "winnaar": false
+    },
+    {
+      "_id": "58970d09734d1d3956c4ab20",
+      "uid": 5,
+      "name": "Sanne",
+      "mol": false,
+      "laatsteaflevering": null,
+      "winnaar": false
+    },
+
+    {
+      "_id": "589717e4734d1d3956c4ad40",
+      "uid": 6,
+      "name": "Diederik",
+      "mol": false,
+      "laatsteaflevering": null,
+      "winnaar": false
+    },
+    {
+      "_id": "589717f8734d1d3956c4ad43",
+      "uid": 7,
+      "name": "Sigrid",
+      "mol": false,
+      "laatsteaflevering": 4,
+      "winnaar": false
+    },
+
+
+    {
+      "_id": "58971803734d1d3956c4ad47",
+      "uid": 8,
+      "name": "Vincent",
+      "mol": false,
+      "laatsteaflevering": 1,
+      "winnaar": false
+    },
+    {
+      "_id": "58971825734d1d3956c4ad5a",
+      "uid": 9,
+      "name": "Yvonne",
+      "mol": false,
+      "laatsteaflevering": 2,
+      "winnaar": false
+    },
+    {
+      "_id": "5897184d734d1d3956c4ad61",
+      "uid": 10,
+      "name": "Roos",
+      "mol": false,
+      "laatsteaflevering": 3,
+      "winnaar": false
+    }
+  ]
 
   pushPage() {
     this.navCtrl.push(ProfilePage)
@@ -68,10 +155,10 @@ export class MolvoorspellingPage {
 
   ionViewWillEnter() {
 
-    this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
-        this.slides = response;
-      }
-    );
+    // this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
+    //     this.slides = response;
+    //   }
+    // );
 
     this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling().subscribe(laatsteVoorspelling => {
       this.voorspelling.get('mol').setValue(laatsteVoorspelling.mol);
@@ -86,6 +173,10 @@ export class MolvoorspellingPage {
           }
         });
         this.activeMol = _.filter(this.mollen, ['selected', true])[0]
+        if (this.activeMol) {
+          this.activeMolId = this.activeMol.uid;
+        }
+
         if (!this.activeMol) {
           this.voorspelling.get('mol').setValue(null);
         }
@@ -99,8 +190,12 @@ export class MolvoorspellingPage {
           }
         });
         this.activeAfvaller = _.filter(this.afvallers, ['selected', true])[0]
-       if (!this.activeAfvaller) {
-            this.voorspelling.get('afvaller').setValue(null);
+        if (this.activeAfvaller) {
+          this.activeAfvallerId = this.activeAfvaller.uid;
+        }
+
+        if (!this.activeAfvaller) {
+          this.voorspelling.get('afvaller').setValue(null);
         }
       });
 
@@ -112,6 +207,9 @@ export class MolvoorspellingPage {
           }
         });
         this.activeWinnaar = _.filter(this.winnaars, ['selected', true])[0]
+        if (this.activeWinnaar) {
+          this.activeWinnaarId = this.activeWinnaar.uid;
+        }
         if (!this.activeWinnaar) {
           this.voorspelling.get('winnaar').setValue(null);
         }
@@ -175,6 +273,7 @@ export class MolvoorspellingPage {
     );
     mol.selected = true;
     this.activeMol = mol;
+    this.activeMolId = mol.uid;
     this.setKiesWinnaar();
   }
 
@@ -187,6 +286,7 @@ export class MolvoorspellingPage {
     );
     winnaar.selected = true;
     this.activeWinnaar = winnaar;
+    this.activeWinnaarId = winnaar.uid;
     this.setKiesAfvaller();
   }
 
@@ -199,6 +299,7 @@ export class MolvoorspellingPage {
     );
     afvaller.selected = true;
     this.activeAfvaller = afvaller;
+    this.activeAfvallerId = afvaller.uid;
     this.setKiesNiks();
   }
 

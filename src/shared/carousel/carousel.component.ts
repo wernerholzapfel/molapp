@@ -47,11 +47,13 @@ export class CarouselComponent {
   private containerWidth: number = 250;
   private tz: number;
 
+  @Input() molid;
   @Input() buttonText;
   @Input() set slides(values: Array<CourselItem>) {
     if (!values.length) return;
 
-    let degree: number = 0;
+    let degree: number = 0 - ((this.molid-1) * 360/values.length);
+    console.log("this is the degree: " + degree);
     this.tz = 250;//Math.round((this.containerWidth / 2) /
       //Math.tan(Math.PI / values.length));
     this.items = <Array<SlideItem>>values.map((item: CourselItem, index: number) => {
@@ -66,7 +68,7 @@ export class CarouselComponent {
         'selected': item.selected,
         currentPlacement: degree
       };
-      console.log(values.length)
+      console.log("dit is molid: " +this.molid);
       degree = degree + (360/values.length);
       return slideItem;
     })
@@ -76,6 +78,7 @@ export class CarouselComponent {
 
   constructor(private eleRef: ElementRef) {
    }
+
 
   onSwipeLeft() {
     this.currentDeg = this.currentDeg - (360/this.items.length);
