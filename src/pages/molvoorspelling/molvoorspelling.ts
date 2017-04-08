@@ -63,50 +63,50 @@ export class MolvoorspellingPage {
   ionViewWillEnter() {
 
     this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling().subscribe(laatsteVoorspelling => {
-      this.voorspelling.get('mol').setValue(this.getActiveMol(laatsteVoorspelling.mol));
-      this.voorspelling.get('winnaar').setValue(this.getActiveWinnaar(laatsteVoorspelling.winnaar));
-      this.voorspelling.get('afvaller').setValue(this.getActiveAfvaller(laatsteVoorspelling.afvaller));
+      this.voorspelling.get('mol').setValue(laatsteVoorspelling.mol);
+      this.voorspelling.get('winnaar').setValue(laatsteVoorspelling.winnaar);
+      this.voorspelling.get('afvaller').setValue(laatsteVoorspelling.afvaller);
 
+      this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+        this.mollen = response;
+        this.mollen.forEach(function (mol) {
+          if (mol.name === laatsteVoorspelling.mol) {
+            mol.selected = true;
+          }
+        });
+        this.activeMol = _.filter(this.mollen, ['selected', true])[0]
+        if (!this.activeMol) {
+          this.voorspelling.get('mol').setValue(null);
+        }
+      });
+
+      this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+        this.afvallers = response;
+        this.afvallers.forEach(function (afvaller) {
+          if (afvaller.name === laatsteVoorspelling.afvaller) {
+            afvaller.selected = true;
+          }
+        });
+        this.activeAfvaller = _.filter(this.afvallers, ['selected', true])[0]
+       if (!this.activeAfvaller) {
+            this.voorspelling.get('afvaller').setValue(null);
+        }
+      });
+
+      this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
+        this.winnaars = response;
+        this.winnaars.forEach(function (winnaar) {
+          if (winnaar.name === laatsteVoorspelling.winnaar) {
+            winnaar.selected = true;
+          }
+        });
+        this.activeWinnaar = _.filter(this.winnaars, ['selected', true])[0]
+        if (!this.activeWinnaar) {
+          this.voorspelling.get('winnaar').setValue(null);
+        }
+      });
     });
   };
-
-  getActiveWinnaar(laatsteVoorspelling) {
-    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-      this.winnaars = response;
-      this.winnaars.forEach(function (winnaar) {
-        if (winnaar.name === laatsteVoorspelling) {
-          winnaar.selected = true;
-        }
-      });
-      this.activeWinnaar = _.filter(this.winnaars, ['selected', true])[0]
-
-    });
-  }
-
-  getActiveMol(laatsteVoorspelling) {
-    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-      this.mollen = response;
-      this.mollen.forEach(function (mol) {
-        if (mol.name === laatsteVoorspelling) {
-          mol.selected = true;
-        }
-      });
-      this.activeMol = _.filter(this.mollen, ['selected', true])[0]
-    });
-  }
-
-  getActiveAfvaller(laatsteVoorspelling) {
-    this.mollenSub = this.mollenService.getactivemollen().subscribe(response => {
-      this.afvallers = response;
-      this.afvallers.forEach(function (afvaller) {
-        if (afvaller.name === laatsteVoorspelling) {
-          afvaller.selected = true;
-        }
-      });
-      this.activeAfvaller = _.filter(this.afvallers, ['selected', true])[0]
-    });
-
-  }
 
   ionViewCanLeave() {
 

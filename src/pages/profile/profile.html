@@ -23,7 +23,7 @@
   <div *ngIf="auth.authenticated()">
 
     <ion-card *ngFor="let voorspelling of molvoorspellingen">
-      <ion-card-header>
+      <ion-card-header color="secondary">
         Aflevering {{voorspelling?.aflevering}}
       </ion-card-header>
       <ion-item>
