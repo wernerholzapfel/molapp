@@ -14,6 +14,9 @@ import {Quizpage} from "../pages/quiz/quiz";
 import {Data} from "../providers/data";
 import {FlashCardComponent} from "../components/flash-card/flash-card";
 import {CarouselComponent} from "../shared/carousel/carousel.component";
+import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
+import {StandenService} from "../services/api/standen.service";
+import {Detailafleveringstand} from "../pages/detailafleveringstand/detailafleveringstand";
 
 let storage: Storage = new Storage();
 
@@ -32,6 +35,8 @@ export function getAuthHttp(http) {
     MollenPage,
     MolvoorspellingPage,
     Quizpage,
+    TotaalstandPage,
+    Detailafleveringstand,
     FlashCardComponent,
     CarouselComponent
   ],
@@ -45,7 +50,9 @@ export function getAuthHttp(http) {
     TabsPage,
     MollenPage,
     MolvoorspellingPage,
+    TotaalstandPage,
     Quizpage,
+    Detailafleveringstand,
     FlashCardComponent,
     CarouselComponent
   ],
@@ -57,6 +64,7 @@ export function getAuthHttp(http) {
       deps: [Http]
     },
     MollenService,
+    StandenService,
     Data
   ]
 })

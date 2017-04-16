@@ -12,7 +12,7 @@
   width: 100%;
   position: absolute;
   transform-style: preserve-3d;
-  transition: transform 2s;
+  transition: transform 0.5s;
 }
 
 .carousel-slide-item {
@@ -27,6 +27,9 @@
   opacity: 1;
   //border-radius: 10px;
   border: solid 1px #000;
+  -webkit-border-radius: 12.5%;
+  -moz-border-radius: 12.5%;
+  border-radius: 12.5%;
 }
 
 .inactive {
@@ -37,7 +40,7 @@
   opacity: 0.4;
 }
 
-.carousel_image{
+.carousel_image {
   border: solid 3px black;
   border-bottom: 0px;
 }

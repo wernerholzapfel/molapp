@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>De stand</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <detailafleveringstand *ngFor="let standline of totaalstand" [totaalstandline]='standline'>
+    </detailafleveringstand>
+  </ion-card>
+</ion-content>

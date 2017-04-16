@@ -14,3 +14,22 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+ion-card{
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+ion-avatar img{
+  max-width: 4rem !important;
+  max-height: 4rem !important;
+  border-radius: 0.5rem !important;
+}
+
+img{
+  -webkit-border-radius: 12.5%;
+  -moz-border-radius: 12.5%;
+  border-radius: 12.5%;
+
+}

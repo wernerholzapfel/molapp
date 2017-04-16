@@ -24,7 +24,7 @@ interface SlideItem {
 @Component({
   selector: 'carousel',
   template: `
-    <div class="carousel-container">
+    <div class="carousel-container" *ngIf="items.length > 0">
       <div class="carousel">
         <div radio-group class="carousel-slide-item" [ngClass]="{'inactive' : item.laatsteaflevering}"
         *ngFor="let item of items"
@@ -33,9 +33,7 @@ interface SlideItem {
         '-o-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)'}"
         (swipeleft)="onSwipeLeft($event);"
         (swiperight)="onSwipeRight($event);">
-          <!--<p>{{item.name}}</p>-->
           <img class="carousel_image" [ngClass]="{'img_inactive' : item.laatsteaflevering}"  max-height="100%" [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + item.name.toLowerCase() + '.jpg'"/>
-          <!--<button [disabled]="item.laatsteaflevering" ion-button block type="button" (click)="selectItem(item)"> {{buttonText}} </button>-->
         </div>
       </div>
     </div>
