@@ -7,7 +7,10 @@
 
 <ion-content>
   <ion-card>
-    <detailafleveringstand *ngFor="let standline of totaalstand" [totaalstandline]='standline'>
+    <detailafleveringstand *ngFor="let standline of totaalstand let index =index;
+            let isOdd=odd;
+            let isEven=even" [totaalstandline]='standline' [isOdd]="isOdd"
+                           [isEven]="isEven">
     </detailafleveringstand>
   </ion-card>
 </ion-content>

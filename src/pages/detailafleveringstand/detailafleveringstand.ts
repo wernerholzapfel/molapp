@@ -21,6 +21,8 @@ export class Detailafleveringstand {
   showDetails: boolean = false;
 
   @Input() totaalstandline: totaalstandModel;
+  @Input() isEven: boolean;
+  @Input() isOdd: boolean;
 
   constructor(public navCtrl: NavController,
               private standenService: StandenService) {
@@ -32,18 +34,16 @@ export class Detailafleveringstand {
 
   ionViewWillEnter() {
     console.log("ion view enter detail");
-
-
   }
 
   fetchDetails(){
-    console.log("button geklikt")
+    console.log("button geklikt");
     this.afleveringstandSub = this.standenService.getafleveringstand(this.totaalstandline.molloot).subscribe((response => {
       console.log(response);
-      this.afleveringstand = response
+      this.afleveringstand = response;
       this.showDetails = !this.showDetails
     }))
-  }
+  };
 
   ionViewWillLeave() {
     this.afleveringstandSub.unsubscribe();

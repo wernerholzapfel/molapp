@@ -2,25 +2,63 @@
 </ion-list>
 
 <ion-list>
-  <ion-item>
-    {{totaalstandline.molloot}} {{totaalstandline.totaalpunten}}
-    <button ion-button *ngIf="!showDetails" (click)="fetchDetails()" item-right>+</button>
-    <button ion-button *ngIf="showDetails" (click)="showDetails = !showDetails" item-right>-</button>
-
+  <ion-item [class.headerodd]="isOdd"
+            [class.headereven]="isEven" (click)="fetchDetails()">
+    <ion-thumbnail item-left>
+      <div class="punten"></div>
+      {{totaalstandline.totaalpunten}}
+    </ion-thumbnail>
+    {{totaalstandline.molloot}}
+    <ion-icon *ngIf="!showDetails" item-right name="arrow-down"></ion-icon>
+    <ion-icon *ngIf="showDetails" item-right name="arrow-up"></ion-icon>
   </ion-item>
 
-  <ion-list *ngFor="let afleveringstandline of afleveringstand">
-    <ion-item *ngIf="showDetails">
+
+  <ion-list *ngFor="let afleveringstandline of afleveringstand;
+            let index =index;
+            let isOdd=odd;
+            let isEven=even">
+    <ion-item *ngIf="showDetails" [class.odd]="isOdd"
+              [class.even]="isEven">
       <ion-thumbnail item-left>
+        <div class="punten"></div>
+        {{afleveringstandline.molafgevallenpunten + afleveringstandline.molpunten + afleveringstandline.afvallerpunten +
+        afleveringstandline.winnaarpunten}}
+      </ion-thumbnail>
+      <ion-thumbnail item-right>
         <img
           [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + afleveringstandline?.afgevallen.toLowerCase() + '.jpg'">
       </ion-thumbnail>
-      <h2>  Aflevering {{afleveringstandline.aflevering}}
+      <h2> Aflevering {{afleveringstandline.aflevering}}
       </h2>
-      <p>Jouw mol: {{afleveringstandline.mol}} {{afleveringstandline.molafgevallenpunten}}</p>
+      <p>Jouw mol: {{afleveringstandline.mol}} {{afleveringstandline.molafgevallenpunten +
+        afleveringstandline.molpunten}} </p>
       <p>Jouw afvaller: {{afleveringstandline.afvaller}} {{afleveringstandline.afvallerpunten}}</p>
+      <p *ngIf="afleveringstandline.laatsteaflevering">Jouw winnaar: {{afleveringstandline.winnaar}}
+        {{afleveringstandline.winnaarpunten}}</p>
+
     </ion-item>
   </ion-list>
+  <!--odd en even omgedraaid, omdat er een extra item getoond wordt -->
+  <div *ngFor="let afleveringstandline of afleveringstand; let index =index;
+            let isOdd=odd;
+            let isEven=even">
+    <ion-list *ngIf="showDetails && afleveringstandline.laatsteaflevering">
+      <ion-item [class.even]="isOdd"
+                [class.odd]="isEven">
+        <ion-thumbnail item-left>
+          <div class="punten"></div>
+          9999
+        </ion-thumbnail>
+        <h2>Punten voor de quiz</h2>
+        <p>Totaal punten: 9999</p>
+        <ion-thumbnail *ngIf="afleveringstandline.laatsteaflevering" item-right>
+          <img
+            [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + afleveringstandline?.ditisdemol.toLowerCase() + '.jpg'">
+        </ion-thumbnail>
+      </ion-item>
+    </ion-list>
+  </div>
 
 </ion-list>
 

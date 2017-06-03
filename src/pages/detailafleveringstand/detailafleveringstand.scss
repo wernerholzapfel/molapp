@@ -1,3 +1,53 @@
-page-detailafleveringstand {
+detailafleveringstand {
+  ion-thumbnail {
+    height: 6.4rem;
+    width: 6.4rem;
+    line-height: 6.4rem;
+    text-align: center;
+  }
+  &.span {
+    vertical-align: middle;
+  }
+  ion-thumbnail img {
+    max-height: 6.4rem !important;
+    max-width: 6.4rem !important;
+  }
+  ion-thumbnail[item-left]{
+    margin: 0 16px 0 0 !important;
+  };
+  ion-thumbnail[item-right]{
+    margin: 0 0 0 16px !important;
+  };
+  ion-item.item-block{
+    padding-left: 0;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+  }
+  .item-inner{
+    height: 6.4rem;
+    padding-right: 0 !important;
+  }
+  .headerodd{
+    background-color: cadetblue;
 
+  }
+  .headereven{
+    background-color: lighten(cadetblue,20%);
+  }
+
+  .odd{
+    background-color: lighten(#cecece, 5%);
+  }
+  .even{
+    background-color: lighten(#cecece, 10%);
+  }
+  div.punten{
+    top: 0.6rem;
+    border-radius: 100%;
+    border: 1px solid;
+    height: 5rem;
+    width: 5rem;
+    position: absolute;
+    margin-left: 0.6rem;
+  }
 }
