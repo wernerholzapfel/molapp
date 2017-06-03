@@ -1,16 +1,11 @@
 import {Component, ViewChild} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {Data} from "../../providers/data";
+// import {Data} from "../../providers/data";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Subscription} from "rxjs";
+import {QuizService} from "../../services/api/quiz.service";
+import {vragenModel} from "../../models/vragenModel";
 
-
-/*
- Generated class for the Quiz page.
-
- See http://ionicframework.com/docs/v2/components/#navigation for more info on
- Ionic pages and navigation.
- */
 @Component({
   selector: 'page-quiz',
   templateUrl: 'quiz.html'
@@ -23,9 +18,12 @@ export class Quizpage {
   aantalVragen: number;
   actieveVraag: number = 1;
   slideOptions: any;
-  questions: any;
+  questions: vragenModel[];
+  quizSub: Subscription;
+  postQuizSub: Subscription;
+  answer: any;
 
-  constructor(public navCtrl: NavController, public dataService: Data) {
+  constructor(public navCtrl: NavController, public quizService: QuizService) {
 
     this.slideOptions = {
       onlyExternal: true
@@ -33,23 +31,42 @@ export class Quizpage {
   }
 
   ionViewDidLoad() {
+  }
 
-    this.dataService.load().then((data) => {
+  ionViewWillEnter() {
+
+    this.quizSub = this.quizService.getquiz(1).subscribe(data => {
       this.aantalVragen = data.length;
-      data.map((question) => {
-        let originalOrder = question.answers;
-        question.answers = this.randomizeAnswers(originalOrder);
-        return question;
-      });
+      // data.map((question) => {
+      //   let originalOrder = question.antwoord;
+      //   question.antwoord = this.randomizeAnswers(originalOrder);
+      //   return question;
+      // });
       this.questions = data;
     });
+
   }
+
+  ionViewWillLeave() {
+    this.quizSub.unsubscribe();
+    // this.postQuizSub.unsubscribe();
+  };
+
+  // this.dataService.load().then((data) => {
+  //   this.aantalVragen = data.length;
+  //   data.map((question) => {
+  //     let originalOrder = question.answers;
+  //     question.answers = this.randomizeAnswers(originalOrder);
+  //     return question;
+  //   });
+  //   this.questions = data;
+  // });
 
   nextSlide(actieveVraag) {
     this.slides.slideNext();
     if (this.actieveVraag <= this.aantalVragen) {
       //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss
-      this.countdown = 10;
+      this.countdown = 60;
       this.timer = TimerObservable
         .interval(1000 /* ms */)
         .timeInterval()
@@ -68,9 +85,10 @@ export class Quizpage {
   }
 
   selectAnswer(answer, question) {
-    if (answer.correct) {
-      this.score++;
-    }
+    question.antwoord.splice(0, question.antwoord.length);
+    question.antwoord.push(answer);
+
+    this.postQuizSub = this.quizService.saveAnswer(question).subscribe();
 
     this.countdown = 0;
     this.timer.unsubscribe();

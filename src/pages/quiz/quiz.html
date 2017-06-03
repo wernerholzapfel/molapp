@@ -17,29 +17,22 @@
           <circle r="18" cx="20" cy="20"></circle>
         </svg>
       </div>
+      <ion-card>
+        <ion-card-header>
+          Vraag {{actieveVraag}}
+        </ion-card-header>
+        <ion-card-content>
 
-      <h3>Question {{actieveVraag}}</h3>
-
-      <flash-card [isFlipped]="question.flashCardFlipped">
-        <div class="flash-card-front" [innerHTML]="question.flashCardFront"></div>
-        <div class="flash-card-back" [innerHTML]="question.flashCardBack"></div>
-      </flash-card>
-
-      <h3>{{question.questionText}}</h3>
-
-      <ion-list no-lines radio-group>
-
-        <ion-item color="primary" *ngFor="let answer of question.answers; let i = index;">
-
-          <ion-label>{{i+1}}. {{answer.answer}}</ion-label>
-          <ion-radio (click)="selectAnswer(answer, question)" [checked]="answer.selected"></ion-radio>
-
-        </ion-item>
-
-      </ion-list>
-
+          <h3>{{question.vraag}}</h3>
+          <ion-list no-lines radio-group>
+            <ion-item color="primary" *ngFor="let answer of question.antwoord; let i = index;">
+              <ion-label>{{i+1}}. {{answer.antwoord}}</ion-label>
+              <ion-radio (click)="selectAnswer(answer, question)" [checked]="answer.selected"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </ion-slide>
-
     <ion-slide>
       <h2>Final Score: {{score}}</h2>
 

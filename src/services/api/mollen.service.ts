@@ -37,6 +37,7 @@ export class MollenService {
     return this.authHttp.post(`${this.api}/molvoorspelling/`,value)
       .map(res => <any>res.json());
   }
+
   getmolvoorspellingen(): Observable<molvoorspellingModel[]> {
     return this.authHttp.get(`${this.api}/molvoorspellingen`)
       .map(res => <molvoorspellingModel[]>res.json());

@@ -17,6 +17,7 @@ import {CarouselComponent} from "../shared/carousel/carousel.component";
 import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
 import {StandenService} from "../services/api/standen.service";
 import {Detailafleveringstand} from "../pages/detailafleveringstand/detailafleveringstand";
+import {QuizService} from "../services/api/quiz.service";
 
 let storage: Storage = new Storage();
 
@@ -65,6 +66,7 @@ export function getAuthHttp(http) {
     },
     MollenService,
     StandenService,
+    QuizService,
     Data
   ]
 })

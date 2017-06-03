@@ -8,5 +8,6 @@ export interface afleveringstandModel {
   winnaarpunten: number,
   afvaller:string,
   afvallerpunten: number,
-  afgevallen: string
+  afgevallen: string,
+  laatsteaflevering: boolean
 }
