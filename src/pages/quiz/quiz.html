@@ -1,42 +1,51 @@
-<ion-content>
+<ion-content class="quiz">
 
   <ion-slides #slides [options]="slideOptions">
 
     <ion-slide class="start-slide">
-      <button ion-button color="primary" (click)="nextSlide()">Start!</button>
+      <ion-grid>
+        <ion-row>
+          <ion-col></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button color="button" (click)="nextSlide()">Start!</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
 
     <ion-slide *ngFor="let question of questions; let i = index;">
-
-      <div class="countdown">
-        <div class="countdown-number">
-          {{countdown}}
-        </div>
-        <div class="countdown-number"></div>
-        <svg>
-          <circle r="18" cx="20" cy="20"></circle>
-        </svg>
-      </div>
-      <ion-card>
-        <ion-card-header>
-          Vraag {{actieveVraag}}
-        </ion-card-header>
-        <ion-card-content>
-
-          <h3>{{question.vraag}}</h3>
-          <ion-list no-lines radio-group>
-            <ion-item color="primary" *ngFor="let answer of question.antwoord; let i = index;">
-              <ion-label>{{i+1}}. {{answer.antwoord}}</ion-label>
-              <ion-radio (click)="selectAnswer(answer, question)" [checked]="answer.selected"></ion-radio>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+      <ion-grid>
+        <ion-row style="background-color: #f1c40f;">
+          <ion-col>
+            Vraag {{actieveVraag}}
+            <h3>{{question.vraag}}</h3>
+            <div class="countdown">
+              <div class="countdown-number">
+                {{countdown}}
+              </div>
+              <div class="countdown-number"></div>
+              <svg>
+                <circle r="18" cx="20" cy="20"></circle>
+              </svg>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="background-color: purple;">
+          <ion-col col-12>
+            <button ion-button color="button" full *ngFor="let answer of question.antwoord; let i = index;"
+                    (click)="selectAnswer(answer, question)">
+              {{i+1}}. {{answer.antwoord}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
     <ion-slide>
-      <h2>Final Score: {{score}}</h2>
+      <h2>Dit waren de vragen, zet nu je jokers in</h2>
 
-      <button (click)="restartQuiz()" ion-button full color="primary">Start Again</button>
+      <button ion-button (clikc)="restartQuiz()" full color="button">Zet Jokers in</button>
 
     </ion-slide>
 

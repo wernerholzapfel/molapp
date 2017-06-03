@@ -1,11 +1,8 @@
 <ion-list>
-</ion-list>
-
-<ion-list>
   <ion-item [class.headerodd]="isOdd"
             [class.headereven]="isEven" (click)="fetchDetails()">
     <ion-thumbnail item-left>
-      <div class="punten"></div>
+      <div class="thumbnailtext"></div>
       {{totaalstandline.totaalpunten}}
     </ion-thumbnail>
     {{totaalstandline.molloot}}
@@ -21,7 +18,7 @@
     <ion-item *ngIf="showDetails" [class.odd]="isOdd"
               [class.even]="isEven">
       <ion-thumbnail item-left>
-        <div class="punten"></div>
+        <div class="thumbnailtext"></div>
         {{afleveringstandline.molafgevallenpunten + afleveringstandline.molpunten + afleveringstandline.afvallerpunten +
         afleveringstandline.winnaarpunten}}
       </ion-thumbnail>
@@ -47,7 +44,7 @@
       <ion-item [class.even]="isOdd"
                 [class.odd]="isEven">
         <ion-thumbnail item-left>
-          <div class="punten"></div>
+          <div class="thumbnailtext"></div>
           9999
         </ion-thumbnail>
         <h2>Punten voor de quiz</h2>

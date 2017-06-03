@@ -2,8 +2,26 @@
 
   page-quiz {
 
+    .slide-zoom {
+      height: 100%;
+    }
     ion-slide {
       align-items: flex-start;
+
+      scroll-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      ion-grid {
+        padding: 0;
+        height: 100%;
+      }
+
+      ion-row {
+        flex: 1;
+      }
+
     }
 
     ion-item {
@@ -21,15 +39,15 @@
       }
     }
 
-    .start-slide {
-      justify-content: center;
-      align-items: center;
-
-      button {
-        font-size: 1.3em;
-        font-weight: bold;
-      }
-    }
+    //.start-slide {
+    //  justify-content: center;
+    //  align-items: center;
+    //
+    //  button {
+    //    font-size: 1.3em;
+    //    font-weight: bold;
+    //  }
+    //}
   }
 }
 

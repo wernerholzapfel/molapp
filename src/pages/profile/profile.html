@@ -1,56 +1,54 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="navbar">
     <ion-title>Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <button *ngIf="!auth.authenticated()" ion-button full (click)="auth.login()">Login</button>
-
-
-  <ion-card *ngIf="auth.authenticated()">
+  <ion-list *ngIf="auth.authenticated()">
 
     <ion-item *ngIf="auth.user">
-      <ion-avatar item-left>
+      <ion-thumbnail item-left>
         <img src="{{ auth.user.picture }}">
-      </ion-avatar>
+      </ion-thumbnail>
       <h2>{{ auth.user.nickname }}</h2>
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
-  </ion-card>
-  <div *ngIf="auth.authenticated()">
 
-    <ion-card *ngFor="let voorspelling of molvoorspellingen">
-      <ion-card-header color="secondary">
-        Aflevering {{voorspelling?.aflevering}}
-      </ion-card-header>
-      <ion-item>
-        <ion-avatar item-left>
+    <div *ngFor="let voorspelling of molvoorspellingen">
+    <ion-item color="navbar">
+          Aflevering {{voorspelling?.aflevering}}
+      </ion-item>
+      <ion-item class="even">
+        <ion-thumbnail item-left>
           <img
             [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + voorspelling?.mol.toLowerCase() + '.jpg'">
-        </ion-avatar>
+        </ion-thumbnail>
         <h2>De Mol:{{ voorspelling?.mol }}</h2>
       </ion-item>
-      <ion-item>
-        <ion-avatar item-left>
+      <ion-item class="odd">
+        <ion-thumbnail item-left>
           <img
             [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + voorspelling?.winnaar.toLowerCase() + '.jpg'">
-        </ion-avatar>
+        </ion-thumbnail>
         <h2>De Winnaar:{{ voorspelling?.winnaar }}</h2>
       </ion-item>
-      <ion-item>
-        <ion-avatar item-left>
+      <ion-item class="even">
+        <ion-thumbnail item-left>
           <img
             [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + voorspelling?.afvaller.toLowerCase() + '.jpg'">
-        </ion-avatar>
+        </ion-thumbnail>
         <h2>Afvaller:{{ voorspelling?.afvaller }}</h2>
       </ion-item>
+    </div>
+  </ion-list>
 
-    </ion-card>
-  </div>
-
-  <button ion-button full (click)="auth.logout()" *ngIf="auth.authenticated()">Logout</button>
 
 </ion-content>
+<ion-footer>
+  <button *ngIf="!auth.authenticated()" ion-button color="button" full (click)="auth.login()">Login</button>
+  <button ion-button color="button" full (click)="auth.logout()" *ngIf="auth.authenticated()">Logout</button>
+
+</ion-footer>

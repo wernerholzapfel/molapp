@@ -62,7 +62,7 @@ export class Quizpage {
   //   this.questions = data;
   // });
 
-  nextSlide(actieveVraag) {
+  nextSlide(actieveVraag?) {
     this.slides.slideNext();
     if (this.actieveVraag <= this.aantalVragen) {
       //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss

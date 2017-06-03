@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,9 +14,81 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
-ion-card{
+ion-card {
   margin: 0 !important;
   width: 100% !important;
 }
 
+.headereven {
+  background-color: cadetblue;
+}
+
+.headerodd {
+  background-color: lighten(cadetblue, 20%);
+}
+
+div.thumbnailtext {
+  top: 0.5em;
+  border-radius: 100%;
+  border: 1px solid;
+  height: 3em;
+  width: 3em;
+  position: absolute;
+  margin-left: 0.5em;
+}
+
+ion-thumbnail {
+  height: 4.0em;
+  width: 4.0em;
+  line-height: 4.0em;
+  text-align: center;
+}
+
+.item-md p {
+  font-size: 1.0rem;
+}
+//&.span {
+//  vertical-align: middle;
+//}
+ion-thumbnail img {
+  max-height: 4.0em !important;
+  max-width: 4.0em !important;
+}
+
+ion-thumbnail[item-left] {
+  margin: 0 16px 0 0 !important;
+}
+
+ion-thumbnail[item-right] {
+  margin: 0 0 0 16px !important;
+}
+
+ion-item.item-block {
+  padding-left: 0;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  min-height: 4.0em;
+}
+
+.item-inner {
+  height: 4.0em;
+  padding-right: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.odd {
+  background-color: lighten(#cecece, 5%);
+}
+
+.even {
+  background-color: lighten(#cecece, 10%);
+}
+
+.button {
+  height: 4.0em;
+}
+
+.item-md ion-thumbnail {
+  min-width: 4em;
+  min-height: 4em;
+}

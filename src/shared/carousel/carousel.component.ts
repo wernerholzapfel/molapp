@@ -10,7 +10,7 @@ export interface CourselItem {
   'selected': boolean
 }
 
-interface SlideItem {
+export interface SlideItem {
   '_id': string,
   'uid': number,
   'name': string,
@@ -41,7 +41,7 @@ interface SlideItem {
 })
 export class CarouselComponent {
   private currentDeg: number = 0;
-  private items: Array<SlideItem> = [];
+  public items: Array<SlideItem> = [];
   private containerWidth: number = 250;
   private tz: number;
 

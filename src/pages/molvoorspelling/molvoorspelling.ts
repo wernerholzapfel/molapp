@@ -35,7 +35,7 @@ export class MolvoorspellingPage {
   mollenlijstSub: Subscription;
   laatsteaflevering = 2;
   laatstevoorspellingSub: Subscription;
-  private voorspelling: FormGroup;
+  voorspelling: FormGroup;
   opslaanView = false;
   kiesMol = true;
   kiesWinnaar = false;
