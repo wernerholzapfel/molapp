@@ -85,10 +85,20 @@ ion-item.item-block {
 }
 
 .button {
-  height: 4.0em;
+  height: 4.5em;
+  margin: 0;
 }
 
 .item-md ion-thumbnail {
   min-width: 4em;
   min-height: 4em;
+}
+
+footer.button {
+  height: 4.4em !important;
+  margin: 0;
+}
+
+ion-list{
+  margin: 0 !important;
 }

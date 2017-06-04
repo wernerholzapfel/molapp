@@ -18,6 +18,7 @@ import {TotaalstandPage} from "../pages/totaalstand/totaalstand";
 import {StandenService} from "../services/api/standen.service";
 import {Detailafleveringstand} from "../pages/detailafleveringstand/detailafleveringstand";
 import {QuizService} from "../services/api/quiz.service";
+import {HomePage} from "../pages/homepage/homepage";
 
 let storage: Storage = new Storage();
 
@@ -39,7 +40,8 @@ export function getAuthHttp(http) {
     TotaalstandPage,
     Detailafleveringstand,
     FlashCardComponent,
-    CarouselComponent
+    CarouselComponent,
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(AuthApp)
@@ -55,7 +57,8 @@ export function getAuthHttp(http) {
     Quizpage,
     Detailafleveringstand,
     FlashCardComponent,
-    CarouselComponent
+    CarouselComponent,
+    HomePage
   ],
   providers: [
     AuthService,

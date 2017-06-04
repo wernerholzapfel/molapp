@@ -1,0 +1,47 @@
+<ion-content no-padding class="home">
+
+  <ion-grid>
+
+    <ion-row *ngIf="auth.authenticated()" style="background-color: #90CAF9;">
+      <ion-col (click)="startQuiz()">
+        <h2 text-center>Start de Quiz</h2>
+        <!--<img class="quiz" src="../../assets/icon/quiz-on-computer-with-question-signs-around.svg">-->
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col (click)="openStand()" style="background-color: #81D4FA;">
+        <h2 text-center>De stand</h2>
+
+        <!--<img class="scoreboard" src="./assets/icon/scoreboard.svg">-->
+      </ion-col>
+      <ion-col *ngIf="auth.authenticated()" (click)="openVoorspelling()" style="background-color: #80CBC4;">
+        <h2 text-center>Voorspel</h2>
+
+        <!--<img class="questions" src="./assets/icon/questions.svg">-->
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="auth.authenticated()" style="background-color: #80DEEA;">
+      <ion-col (click)="openProfile()">
+        <h2 text-center>Jouw profiel</h2>
+
+        <!--<img class="profile" src="./assets/icon/id-card.svg">-->
+      </ion-col>
+    </ion-row>
+    <ion-row style="background-color: #9fc5c6;" class="login">
+      <ion-col *ngIf="!auth.authenticated()" (click)="auth.login()">
+        <h2 text-center>
+          Login
+        </h2>
+      </ion-col>
+      <ion-col *ngIf="auth.authenticated()" (click)="auth.logout()">
+        <h2 text-center>
+          Logout
+        </h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+

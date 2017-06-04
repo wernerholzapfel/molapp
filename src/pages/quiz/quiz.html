@@ -10,6 +10,7 @@
         <ion-row>
           <ion-col>
             <button ion-button color="button" (click)="nextSlide()">Start!</button>
+            <button ion-button color="button" (click)="goBack()">Terug!</button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -43,9 +44,9 @@
       </ion-grid>
     </ion-slide>
     <ion-slide>
-      <h2>Dit waren de vragen, zet nu je jokers in</h2>
+      <h2>Dit waren de vragen, keer terug naar het hoofdmenu</h2>
 
-      <button ion-button (clikc)="restartQuiz()" full color="button">Zet Jokers in</button>
+      <button ion-button (click)="goBack()" full color="button">Menu</button>
 
     </ion-slide>
 

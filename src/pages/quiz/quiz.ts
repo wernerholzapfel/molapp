@@ -84,6 +84,10 @@ export class Quizpage {
     }
   }
 
+  goBack(){
+    this.navCtrl.pop();
+  }
+
   selectAnswer(answer, question) {
     question.antwoord.splice(0, question.antwoord.length);
     question.antwoord.push(answer);

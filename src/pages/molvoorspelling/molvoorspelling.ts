@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
-import {NavController, ViewController, AlertController} from "ionic-angular";
+import {NavController, AlertController} from "ionic-angular";
 import {Subscription} from "rxjs";
 import {molvoorspellingModel} from "../../models/molvoorspelling";
 import {AuthService} from "../../services/auth/auth.service";
 import {MollenService} from "../../services/api/mollen.service";
 import {Validators, FormBuilder, FormGroup} from "@angular/forms";
 import {mollenModel} from "../../models/mollen";
-import {ProfilePage} from "../profile/profile";
 import _ from "lodash";
+import {ProfilePage} from "../profile/profile";
 
 /*
  Generated class for the Molvoorspelling page.
@@ -23,7 +23,6 @@ export class MolvoorspellingPage {
 
   showAlertMessage = true;
   postvoorspellingSub: Subscription;
-  molvoorspelling: molvoorspellingModel;
   activeMol: mollenModel;
   activeAfvaller: mollenModel;
   activeWinnaar: mollenModel;
@@ -33,7 +32,8 @@ export class MolvoorspellingPage {
   winnaars: mollenModel[];
   mollenSub: Subscription;
   mollenlijstSub: Subscription;
-  laatsteaflevering = 2;
+  //todo get laatsteaflevering
+  laatsteaflevering = 3;
   laatstevoorspellingSub: Subscription;
   voorspelling: FormGroup;
   opslaanView = false;
@@ -44,12 +44,13 @@ export class MolvoorspellingPage {
   activeMolId: number = 1;
   activeWinnaarId: number = 1;
   activeAfvallerId: number = 1;
+  laatstevoorspelling: molvoorspellingModel;
 
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public alertCtrl: AlertController,
               public navCtrl: NavController,
-              public viewCtrl: ViewController,
+              // public viewCtrl: ViewController,
               public auth: AuthService,
               private mollenService: MollenService,
               private formBuilder: FormBuilder) {
@@ -146,9 +147,10 @@ export class MolvoorspellingPage {
       "laatsteaflevering": 3,
       "winnaar": false
     }
-  ]
+  ];
 
   pushPage() {
+    this.navCtrl.pop();
     this.navCtrl.push(ProfilePage)
       .catch(() => console.log('should I stay or should I go now'))
   }
@@ -161,6 +163,8 @@ export class MolvoorspellingPage {
     // );
 
     this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling().subscribe(laatsteVoorspelling => {
+      this.laatstevoorspelling = laatsteVoorspelling;
+
       this.voorspelling.get('mol').setValue(laatsteVoorspelling.mol);
       this.voorspelling.get('winnaar').setValue(laatsteVoorspelling.winnaar);
       this.voorspelling.get('afvaller').setValue(laatsteVoorspelling.afvaller);
@@ -172,7 +176,7 @@ export class MolvoorspellingPage {
             mol.selected = true;
           }
         });
-        this.activeMol = _.filter(this.mollen, ['selected', true])[0]
+        this.activeMol = _.filter(this.mollen, ['selected', true])[0];
         if (this.activeMol) {
           this.activeMolId = this.activeMol.uid;
         }
@@ -218,47 +222,51 @@ export class MolvoorspellingPage {
   };
 
   ionViewCanLeave() {
+    if (this.showAlertMessage && this.laatsteaflevering+1 !== this.laatstevoorspelling.aflevering) {
+      return new Promise((resolve, reject) => {
+        let alert = this.alertCtrl.create({
+          title: 'Voorspellingen incompleet',
+          subTitle: 'Je voorspellingen zijn nog niet opgeslagen, weet je zeker dat je de pagina wilt verlaten?',
+          buttons: [
+            {
+              text: 'Nee',
+              role: 'cancel',
+              handler: () => {
+                reject();
+              }
+            },
+            {
+              text: 'Ja',
+              handler: () => {
+                alert.dismiss().then(() => {
+                  resolve();
+                });
+              }
+            }
+          ]
+        });
 
-    return new Promise((resolve, reject) => {
-      let alert = this.alertCtrl.create({
-        title: 'Log out',
-        subTitle: 'Are you sure you want to log out?',
-        buttons: [
-          {
-            text: 'No',
-            role: 'cancel',
-            handler: () => {
-              reject();
-            }
-          },
-          {
-            text: 'Yes',
-            handler: () => {
-              alert.dismiss().then(() => {
-                resolve();
-              });
-            }
-          }
-        ]
+        alert.present()
       });
-
-      alert.present();
-    });
+    }
+    else {
+      true
+    }
   }
 
 
   ionViewWillLeave() {
-
     this.mollenSub.unsubscribe();
     this.laatstevoorspellingSub.unsubscribe();
-    this.mollenlijstSub.unsubscribe();
+    // this.mollenlijstSub.unsubscribe();
   }
 
   logForm() {
 
     this.postvoorspellingSub = this.mollenService.savemolvoorspelling(this.voorspelling.value).subscribe(response => {
       console.log(response);
-      this.navCtrl.parent.select(0);
+      this.showAlertMessage = false;
+      this.pushPage();
 
     });
     console.log(this.voorspelling.value)

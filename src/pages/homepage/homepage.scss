@@ -1,0 +1,49 @@
+page-homepage {
+
+  scroll-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  ion-grid {
+    padding: 0;
+    height: 100%;
+  }
+
+  ion-row {
+    flex: 2;
+  }
+
+  ion-row.login{
+    flex: 1;
+  }
+  img.quiz {
+    border: 0;
+    height: 25vh;
+    position: relative;
+    top: 5vw;
+    margin-left: 12.5vh;
+  }
+
+  img.scoreboard {
+    border: 0;
+    height: 25vh;
+    position: relative;
+  }
+  img.questions {
+    border: 0;
+    height: 25vh;
+    position: relative;
+    margin-left: 2.25vh;
+  }
+
+  img.profile{
+    border: 0;
+    height: 25vh;
+    position: relative;
+    top: 5vw;
+    margin-left: 12.5vh;
+  }
+
+}
+
