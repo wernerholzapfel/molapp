@@ -92,7 +92,9 @@ export class Quizpage {
     question.antwoord.splice(0, question.antwoord.length);
     question.antwoord.push(answer);
 
-    this.postQuizSub = this.quizService.saveAnswer(question).subscribe();
+    this.postQuizSub = this.quizService.saveAnswer(question).subscribe(response => {
+      console.log(response)
+    });
 
     this.countdown = 0;
     this.timer.unsubscribe();
