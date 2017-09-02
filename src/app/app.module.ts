@@ -21,7 +21,7 @@ import {QuizService} from "../services/api/quiz.service";
 import {HomePage} from "../pages/homepage/homepage";
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import {StatusBar} from "@ionic-native";
+import {StatusBar} from "@ionic-native/status-bar";
 
 let storage: Storage = new Storage({});
 
