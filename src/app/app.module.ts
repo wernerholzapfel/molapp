@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {IonicApp, IonicModule} from "ionic-angular";
+import {IonicApp, IonicModule} from 'ionic-angular';
 import {AuthApp} from "./app.component";
 import {TabsPage} from "../pages/tabs/tabs";
 import {ProfilePage} from "../pages/profile/profile";
@@ -19,8 +19,11 @@ import {StandenService} from "../services/api/standen.service";
 import {Detailafleveringstand} from "../pages/detailafleveringstand/detailafleveringstand";
 import {QuizService} from "../services/api/quiz.service";
 import {HomePage} from "../pages/homepage/homepage";
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import {StatusBar} from "@ionic-native";
 
-let storage: Storage = new Storage();
+let storage: Storage = new Storage({});
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
@@ -44,6 +47,8 @@ export function getAuthHttp(http) {
     HomePage
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(AuthApp)
   ],
   bootstrap: [IonicApp],
@@ -70,7 +75,8 @@ export function getAuthHttp(http) {
     MollenService,
     StandenService,
     QuizService,
-    Data
+    Data,
+    StatusBar
   ]
 })
 export class AppModule {

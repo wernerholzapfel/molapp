@@ -36,7 +36,7 @@ export class AuthService {
     }
   });
 
-  storage: Storage = new Storage();
+  storage: Storage = new Storage({});
   refreshSubscription: any;
   user: Object;
   zoneImpl: NgZone;

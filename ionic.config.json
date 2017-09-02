@@ -1,6 +1,6 @@
 {
   "name": "Molloten App",
   "app_id": "2e3e9081",
-  "v2": true,
-  "typescript": true
+  "integrations": {},
+  "type": "ionic-angular"
 }

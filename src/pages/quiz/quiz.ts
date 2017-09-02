@@ -17,7 +17,6 @@ export class Quizpage {
   score: number = 0;
   aantalVragen: number;
   actieveVraag: number = 1;
-  slideOptions: any;
   questions: vragenModel[];
   quizSub: Subscription;
   postQuizSub: Subscription;
@@ -25,9 +24,6 @@ export class Quizpage {
 
   constructor(public navCtrl: NavController, public quizService: QuizService) {
 
-    this.slideOptions = {
-      onlyExternal: true
-    };
   }
 
   ionViewDidLoad() {
