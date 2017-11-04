@@ -5,7 +5,7 @@ import {Observable} from "rxjs/Rx";
 // import {HomePage} from "../../pages/home/home";
 
 // Avoid name not found warnings
-declare let Auth0: any;
+declare let auth0: any;
 declare let Auth0Lock: any;
 
 
@@ -13,9 +13,9 @@ declare let Auth0Lock: any;
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  auth0 = new Auth0({clientID: 'WNjXlR4ChTqf2azaWhPk4MPzViNqoQft', domain: 'werner.eu.auth0.com'});
+  auth0 = new auth0.WebAuth({clientID: 'WNjXlR4ChTqf2azaWhPk4MPzViNqoQft', domain: 'werner.eu.auth0.com'});
   lock = new Auth0Lock('WNjXlR4ChTqf2azaWhPk4MPzViNqoQft', 'werner.eu.auth0.com', {
-    allowSignUp: false,
+    allowSignUp: true,
     allowedConnections: ["Username-Password-Authentication","facebook","google-oauth2"],
     rememberLastLogin: true,
     auth: {
@@ -27,12 +27,12 @@ export class AuthService {
       }
     },
     theme: {
-      logo: 'http://supereleven.nl/assets/global/img/Logo_Super11_klein.png',
-      primaryColor: "#97bf12"
+      logo: '',
+      primaryColor: "#9fc5c6"
     },
     languageDictionary: {
       emailInputPlaceholder: "please enter you email",
-      title: "Super Eleven"
+      title: "Molloten App"
     }
   });
 

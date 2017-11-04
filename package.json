@@ -31,8 +31,8 @@
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.12",
     "angular2-jwt": "0.2.3",
-    "auth0-js": "7.4.0",
-    "auth0-lock": "10.5.1",
+    "auth0-js": "^8.6.0",
+    "auth0-lock": "10.16.0",
     "@types/lodash": "4.14.74",
     "lodash": "^4.17.4"
   },

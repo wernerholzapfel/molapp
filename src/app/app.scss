@@ -47,6 +47,7 @@ ion-thumbnail {
 .item-md p {
   font-size: 1.0rem;
 }
+
 //&.span {
 //  vertical-align: middle;
 //}
@@ -84,7 +85,7 @@ ion-item.item-block {
   background-color: lighten(#cecece, 10%);
 }
 
-.button{
+.button {
   height: 4.4em;
 }
 
@@ -93,6 +94,19 @@ ion-item.item-block {
   min-height: 4em;
 }
 
-ion-list{
+ion-list {
   margin: 0 !important;
 }
+
+//svg {
+//  height: 14px !important;
+//  width: 13px !important;
+//}
+
+svg.auth0-lock-icon {
+  height: 14px !important;
+  width: 13px !important;
+  -webkit-transform: rotateY(0deg) rotateZ(0deg) !important;
+  transform: rotateY(0deg) rotateZ(0deg) !important;
+}
+

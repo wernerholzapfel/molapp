@@ -7,8 +7,8 @@ import {vragenModel} from "../../models/vragenModel";
 
 @Injectable()
 export class QuizService {
-  // api = 'http://localhost:8080/api';
-  api = 'https://mollotenapi.herokuapp.com/api';
+  api = 'http://localhost:8080/api';
+  // api = 'https://mollotenapi.herokuapp.com/api';
 
   constructor(public http: Http, private authHttp: AuthHttp) {
   }
