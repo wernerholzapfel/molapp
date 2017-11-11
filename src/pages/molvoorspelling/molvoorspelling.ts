@@ -64,91 +64,87 @@ export class MolvoorspellingPage {
   }
 
   private slides = [
-    {
-      "_id": "5897068c734d1d3956c4a990",
-      "uid": 1,
-      "name": "Thomas",
-      "mol": true,
-      "laatsteaflevering": null,
-      "winnaar": false
-    },
-    {
-      "_id": "58970cd5734d1d3956c4ab13",
-      "uid": 2,
-      "name": "Jeroen",
-      "mol": false,
-      "laatsteaflevering": null,
-      "winnaar": false
-    },
-    {
-      "_id": "58970ce4734d1d3956c4ab16",
-      "uid": 3,
-      "name": "Jochem",
-      "mol": false,
-      "laatsteaflevering": null,
-      "winnaar": false
-    },
-    {
-      "_id": "58970cf3734d1d3956c4ab19",
-      "uid": 4,
-      "name": "Imanuelle",
-      "mol": false,
-      "laatsteaflevering": 3,
-      "winnaar": false
-    },
-    {
-      "_id": "58970d09734d1d3956c4ab20",
-      "uid": 5,
-      "name": "Sanne",
-      "mol": false,
-      "laatsteaflevering": null,
-      "winnaar": false
-    },
-
-    {
-      "_id": "589717e4734d1d3956c4ad40",
-      "uid": 6,
-      "name": "Diederik",
-      "mol": false,
-      "laatsteaflevering": null,
-      "winnaar": false
-    },
-    {
-      "_id": "589717f8734d1d3956c4ad43",
-      "uid": 7,
-      "name": "Sigrid",
-      "mol": false,
-      "laatsteaflevering": 4,
-      "winnaar": false
-    },
-
-
-    {
-      "_id": "58971803734d1d3956c4ad47",
-      "uid": 8,
-      "name": "Vincent",
-      "mol": false,
-      "laatsteaflevering": 1,
-      "winnaar": false
-    },
-    {
-      "_id": "58971825734d1d3956c4ad5a",
-      "uid": 9,
-      "name": "Yvonne",
-      "mol": false,
-      "laatsteaflevering": 2,
-      "winnaar": false
-    },
-    {
-      "_id": "5897184d734d1d3956c4ad61",
-      "uid": 10,
-      "name": "Roos",
-      "mol": false,
-      "laatsteaflevering": 3,
-      "winnaar": false
-    }
-  ];
-
+      {
+        "_id": "589717e4734d1d3956c4ad40",
+        "uid": 6,
+        "name": "Bella Hay",
+        "mol": false,
+        "laatsteaflevering": null,
+        "winnaar": false
+      },
+      {
+        "_id": "58970cd5734d1d3956c4ab13",
+        "uid": 2,
+        "name": "Emilio Guzman",
+        "mol": null,
+        "laatsteaflevering": null,
+        "winnaar": null
+      },
+      {
+        "_id": "58970cf3734d1d3956c4ab19",
+        "uid": 4,
+        "name": "Jan Versteegh",
+        "mol": null,
+        "laatsteaflevering": null,
+        "winnaar": null
+      },
+      {
+        "_id": "58971825734d1d3956c4ad5a",
+        "uid": 9,
+        "name": "Jean-Marc van Tol",
+        "mol": false,
+        "laatsteaflevering": 2,
+        "winnaar": false
+      },
+      {
+        "_id": "5897068c734d1d3956c4a990",
+        "uid": 1,
+        "name": "Loes Haverkort",
+        "mol": null,
+        "laatsteaflevering": null,
+        "winnaar": null
+      },
+      {
+        "_id": "58970d09734d1d3956c4ab20",
+        "uid": 5,
+        "name": "Olcay Gulsen",
+        "mol": false,
+        "laatsteaflevering": null,
+        "winnaar": false
+      },
+      {
+        "_id": "58970ce4734d1d3956c4ab16",
+        "uid": 3,
+        "name": "Ron Boszhard",
+        "mol": null,
+        "laatsteaflevering": null,
+        "winnaar": null
+      },
+      {
+        "_id": "5897184d734d1d3956c4ad61",
+        "uid": 10,
+        "name": "Ruben Hein",
+        "mol": false,
+        "laatsteaflevering": 3,
+        "winnaar": false
+      },
+      {
+        "_id": "58971803734d1d3956c4ad47",
+        "uid": 8,
+        "name": "Simone Weimans",
+        "mol": false,
+        "laatsteaflevering": 1,
+        "winnaar": false
+      },
+      {
+        "_id": "589717f8734d1d3956c4ad43",
+        "uid": 7,
+        "name": "Stine Jensen",
+        "mol": false,
+        "laatsteaflevering": 4,
+        "winnaar": false
+      }
+    ]
   pushPage() {
     this.navCtrl.pop();
     this.navCtrl.push(ProfilePage)
