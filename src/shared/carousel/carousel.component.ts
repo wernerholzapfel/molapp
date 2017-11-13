@@ -1,23 +1,24 @@
-import { Component, Input, Output, EventEmitter, ElementRef, QueryList, ContentChildren } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 
 export interface CourselItem {
-  '_id': string,
-  'uid': number,
-  'name': string,
-  'mol': boolean,
-  'laatsteaflevering': number,
-  'winnaar': boolean,
-  'selected': boolean
+  id: string;
+  display_name: string;
+  winner: boolean;
+  mol: boolean;
+  finalist: boolean;
+  elimination_round: number;
+  image_url: string;
 }
 
 export interface SlideItem {
-  '_id': string,
-  'uid': number,
-  'name': string,
-  'mol': boolean,
-  'laatsteaflevering': number,
-  'winnaar': boolean,
-  'selected': boolean
+  id: string;
+  display_name: string;
+  winner: boolean;
+  mol: boolean;
+  finalist: boolean;
+  elimination_round: number;
+  image_url: string;
+
 }
 
 
@@ -26,14 +27,15 @@ export interface SlideItem {
   template: `
     <div class="carousel-container" *ngIf="items.length > 0">
       <div class="carousel">
-        <div radio-group class="carousel-slide-item" [ngClass]="{'inactive' : item.laatsteaflevering}"
-        *ngFor="let item of items"
-        (click)="(item.laatsteaflevering || selectItem(item))"
-        [ngStyle]="{'transform': 'rotateY(-'+item.currentPlacement+'deg)  translateZ('+tz+'px)', '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)', '-ms-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)', 
+        <div radio-group class="carousel-slide-item" [ngClass]="{'inactive' : item.elimination_round > 0}"
+             *ngFor="let item of items"
+             (click)="(item.laatsteaflevering || selectItem(item))"
+             [ngStyle]="{'transform': 'rotateY(-'+item.currentPlacement+'deg)  translateZ('+tz+'px)', '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)', '-ms-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)', 
         '-o-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)'}"
-        (swipeleft)="onSwipeLeft($event);"
-        (swiperight)="onSwipeRight($event);">
-          <img class="carousel_image" [ngClass]="{'img_inactive' : item.laatsteaflevering}"  max-height="100%" [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + item.name.toLowerCase() + '.jpg'"/>
+             (swipeleft)="onSwipeLeft($event);"
+             (swiperight)="onSwipeRight($event);">
+          <img class="carousel_image" [ngClass]="{'img_inactive' : item.elimination_round > 0}" max-height="100%"
+               [src]=item.image_url>
         </div>
       </div>
     </div>
@@ -47,27 +49,28 @@ export class CarouselComponent {
 
   @Input() molid;
   @Input() buttonText;
-  @Input() set slides(values: Array<CourselItem>) {
+
+  @Input()
+  set slides(values: Array<CourselItem>) {
     if (!values.length) return;
 
-    let degree: number = 0 - ((this.molid-1) * 360/values.length);
-    console.log("this is the degree: " + degree);
+    let degree: number = 0 - ((this.molid ) * 360 / values.length);
+    console.log('this is the degree: ' + degree);
     this.tz = 250;//Math.round((this.containerWidth / 2) /
-      //Math.tan(Math.PI / values.length));
+    //Math.tan(Math.PI / values.length));
     this.items = <Array<SlideItem>>values.map((item: CourselItem, index: number) => {
       let slideItem = {
         idx: index,
-        '_id': item._id,
-        'uid': item.uid,
-        'name': item.name,
-        'mol': item.mol,
-        'laatsteaflevering': item.laatsteaflevering,
-        'winnaar': item.winnaar,
-        'selected': item.selected,
+        id: item.id,
+        display_name: item.display_name,
+        winner: item.winner,
+        mol: item.mol,
+        finalist: item.finalist,
+        elimination_round: item.elimination_round,
+        image_url: item.image_url,
         currentPlacement: degree
       };
-      console.log("dit is molid: " +this.molid);
-      degree = degree + (360/values.length);
+      degree = degree + (360 / values.length);
       return slideItem;
     })
   }
@@ -75,28 +78,28 @@ export class CarouselComponent {
   @Output() selectSlide = new EventEmitter();
 
   constructor(private eleRef: ElementRef) {
-   }
+  }
 
 
   onSwipeLeft() {
-    this.currentDeg = this.currentDeg - (360/this.items.length);
+    this.currentDeg = this.currentDeg - (360 / this.items.length);
     this.applyStyle();
   }
 
   onSwipeRight() {
-    this.currentDeg = this.currentDeg + 360/this.items.length;
+    this.currentDeg = this.currentDeg + 360 / this.items.length;
     this.applyStyle();
   }
 
   private applyStyle() {
     let ele = this.eleRef.nativeElement.querySelector('.carousel');
-    ele.style[ '-webkit-transform' ] = "rotateY(" + this.currentDeg + "deg)";
-    ele.style[ '-moz-transform' ] = "rotateY(" + this.currentDeg + "deg)";
-    ele.style[ '-o-transform' ] = "rotateY(" + this.currentDeg + "deg)";
-    ele.style[ 'transform' ] = "rotateY(" + this.currentDeg + "deg)";
+    ele.style['-webkit-transform'] = 'rotateY(' + this.currentDeg + 'deg)';
+    ele.style['-moz-transform'] = 'rotateY(' + this.currentDeg + 'deg)';
+    ele.style['-o-transform'] = 'rotateY(' + this.currentDeg + 'deg)';
+    ele.style['transform'] = 'rotateY(' + this.currentDeg + 'deg)';
   }
 
-  selectItem(item:any){
+  selectItem(item: any) {
     this.selectSlide.emit(item);
   }
 }

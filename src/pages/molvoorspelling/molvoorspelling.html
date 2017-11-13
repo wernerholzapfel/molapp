@@ -9,14 +9,17 @@
     <ion-list>
       <ion-item class="headereven" (click)="kiesMol = !kiesMol">
         <ion-thumbnail item-left>
-          <div class="thumbnailtext"></div>
+          <div class="thumbnailtext">
+          </div>
           M
         </ion-thumbnail>
-        {{activeMol?.name}}
+        <span *ngIf="activeMol && activeMol?.elimination_round === 0">{{activeMol?.display_name}}
+        </span>
+        <span *ngIf="(!activeMol && kiesMol) || activeMol?.elimination_round > 0">Kies je mol</span>
         <ion-icon *ngIf="!kiesMol" item-right name="arrow-down"></ion-icon>
         <ion-icon *ngIf="kiesMol" item-right name="arrow-up"></ion-icon>
       </ion-item>
-      <carousel *ngIf="kiesMol" [buttonText]="'Mijn mol'" [slides]="slides" [molid]="activeMolId"
+      <carousel *ngIf="kiesMol" [buttonText]="'Mijn mol'" [slides]="slides" [molid]="activeMolIndex"
                 (selectSlide)="setActiveMol($event);"></carousel>
 
       <ion-item class="headerodd" (click)="kiesWinnaar = !kiesWinnaar">
@@ -24,11 +27,14 @@
           <div class="thumbnailtext"></div>
           W
         </ion-thumbnail>
-        {{activeWinnaar?.name}}
+        <span *ngIf="activeWinnaar && activeWinnaar?.elimination_round === 0">{{activeWinnaar?.display_name}}
+</span>
+        <span *ngIf="(!activeWinnaar && kiesWinnaar) || activeWinnaar?.elimination_round > 0">Kies je winnaar</span>
+
         <ion-icon *ngIf="!kiesWinnaar" item-right name="arrow-down"></ion-icon>
         <ion-icon *ngIf="kiesWinnaar" item-right name="arrow-up"></ion-icon>
       </ion-item>
-      <carousel *ngIf="kiesWinnaar" [buttonText]="'De Winnaar'" [slides]="slides" [molid]="activeWinnaarId"
+      <carousel *ngIf="kiesWinnaar" [buttonText]="'De Winnaar'" [slides]="slides" [molid]="activeWinnaarIndex"
                 (selectSlide)="setWinnaar($event);"></carousel>
 
       <ion-item class="headereven" (click)="kiesAfvaller = !kiesAfvaller">
@@ -36,11 +42,13 @@
           <div class="thumbnailtext"></div>
           A
         </ion-thumbnail>
-        {{activeAfvaller?.name}}
+        <span *ngIf="activeAfvaller && activeAfvaller?.elimination_round === 0">{{activeAfvaller?.display_name}}
+</span>
+        <span *ngIf="(!activeAfvaller && kiesAfvaller) || activeAfvaller?.elimination_round > 0">Kies je afvaller</span>
         <ion-icon *ngIf="!kiesAfvaller" item-right name="arrow-down"></ion-icon>
         <ion-icon *ngIf="kiesAfvaller" item-right name="arrow-up"></ion-icon>
       </ion-item>
-      <carousel *ngIf="kiesAfvaller" [buttonText]="'Afvaller'" [slides]="slides" [molid]="activeAfvallerId"
+      <carousel *ngIf="kiesAfvaller" [buttonText]="'Afvaller'" [slides]="slides" [molid]="activeAfvallerIndex"
                 (selectSlide)="setAfvaller($event);"></carousel>
     </ion-list>
 
@@ -48,6 +56,7 @@
 </ion-content>
 
 <ion-footer>
-  <button [disabled]="!voorspelling.valid" ion-button color="button" full type="submit" (click)="logForm()">Opslaan</button>
+  <button [disabled]="!voorspelling.valid" ion-button color="button" full type="submit" (click)="logForm()">Opslaan
+  </button>
 </ion-footer>
 

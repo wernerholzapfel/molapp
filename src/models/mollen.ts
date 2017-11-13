@@ -1,9 +1,9 @@
 export interface mollenModel {
-    '_id': string,
-    'uid': number,
-    'name': string,
-    'mol': boolean,
-    'laatsteaflevering': number,
-    'winnaar': boolean,
-    'selected': boolean
+  'id': string,
+  'display_name': string,
+  'image_url': string,
+  'mol': boolean,
+  'winner': boolean,
+  'elimination_round': number,
 }
+

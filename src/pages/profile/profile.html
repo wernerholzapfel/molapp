@@ -18,29 +18,26 @@
 
 
     <div *ngFor="let voorspelling of molvoorspellingen">
-    <ion-item text-center color="navbar">
-          Aflevering {{voorspelling?.aflevering}}
+      <ion-item text-center color="navbar">
+        Aflevering {{voorspelling?.aflevering}}
       </ion-item>
       <ion-item class="even">
         <ion-thumbnail item-left>
-          <img
-            [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + voorspelling?.mol.toLowerCase() + '.jpg'">
+          <img [src]=voorspelling?.mol.image_url>
         </ion-thumbnail>
-        <h2>De Mol:{{ voorspelling?.mol }}</h2>
+        <h2>De Mol:{{ voorspelling?.mol.display_name }}</h2>
       </ion-item>
       <ion-item class="odd">
         <ion-thumbnail item-left>
-          <img
-            [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + voorspelling?.winnaar.toLowerCase() + '.jpg'">
+          <img [src]=voorspelling?.winnaar.image_url>
         </ion-thumbnail>
-        <h2>De Winnaar:{{ voorspelling?.winnaar }}</h2>
+        <h2>De Winnaar:{{ voorspelling?.winnaar.display_name }}</h2>
       </ion-item>
       <ion-item class="even">
         <ion-thumbnail item-left>
-          <img
-            [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + voorspelling?.afvaller.toLowerCase() + '.jpg'">
+          <img [src]=voorspelling?.afvaller.image_url>
         </ion-thumbnail>
-        <h2>Afvaller:{{ voorspelling?.afvaller }}</h2>
+        <h2>Afvaller:{{ voorspelling?.afvaller.display_name }}</h2>
       </ion-item>
     </div>
   </ion-list>

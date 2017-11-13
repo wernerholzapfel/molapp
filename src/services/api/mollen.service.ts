@@ -3,23 +3,23 @@ import {Http} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import {mollenModel} from "../../models/mollen";
-import {molvoorspellingModel} from "../../models/molvoorspelling"
+import {deelnemer, molvoorspellingModel} from '../../models/molvoorspelling'
 import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class MollenService {
-  api = 'https://mollotenapi.herokuapp.com/api';
+  api = 'https://molapi.herokuapp.com/api/v1';
 
   constructor(public http: Http,private authHttp: AuthHttp) {
   }
 
   getmollen(): Observable<mollenModel[]> {
-    return this.http.get(`${this.api}/mollen`)
+    return this.http.get(`${this.api}/kandidaten`)
       .map(res => <mollenModel[]>res.json());
   }
 
   getactivemollen(): Observable<mollenModel[]> {
-    return this.http.get(`${this.api}/activemollen`)
+    return this.http.get(`${this.api}/activekandidaten`)
       .map(res => <mollenModel[]>res.json());
   }
 
@@ -28,19 +28,19 @@ export class MollenService {
       .map(res => <molvoorspellingModel>res.json());
   }
 
-  getlaatstemolvoorspelling(): Observable<molvoorspellingModel> {
-    return this.authHttp.get(`${this.api}/molvoorspelling/`)
-      .map(res => <molvoorspellingModel>res.json());
+  getlaatstemolvoorspelling(deelnemerId): Observable<deelnemer> {
+    return this.authHttp.get(`${this.api}/deelnemers/${deelnemerId}/voorspellingen/`)
+      .map(res => <deelnemer>res.json());
   }
 
   savemolvoorspelling(value): Observable<any>{
-    return this.authHttp.post(`${this.api}/molvoorspelling/`,value)
+    return this.authHttp.post(`${this.api}/voorspellingen/`,value)
       .map(res => <any>res.json());
   }
 
-  getmolvoorspellingen(): Observable<molvoorspellingModel[]> {
-    return this.authHttp.get(`${this.api}/molvoorspellingen`)
-      .map(res => <molvoorspellingModel[]>res.json());
+  getmolvoorspellingen(deelnemerId): Observable<deelnemer> {
+    return this.authHttp.get(`${this.api}/deelnemers/${deelnemerId}/voorspellingen/`)
+      .map(res => <deelnemer>res.json());
   }
 }
 
