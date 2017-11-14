@@ -22,6 +22,7 @@ import {HomePage} from "../pages/homepage/homepage";
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import {StatusBar} from "@ionic-native/status-bar";
+import {DeelnemersService} from '../services/api/deelnemers.service';
 
 let storage: Storage = new Storage({});
 
@@ -76,7 +77,8 @@ export function getAuthHttp(http) {
     StandenService,
     QuizService,
     Data,
-    StatusBar
+    StatusBar,
+    DeelnemersService
   ]
 })
 export class AppModule {

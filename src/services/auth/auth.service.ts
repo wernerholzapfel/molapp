@@ -2,6 +2,8 @@ import {Storage} from "@ionic/storage";
 import {AuthHttp, JwtHelper, tokenNotExpired} from "angular2-jwt";
 import {Injectable, NgZone} from "@angular/core";
 import {Observable} from "rxjs/Rx";
+import {DeelnemersService} from '../api/deelnemers.service';
+import {deelnemerModel} from '../../models/deelnemerModel';
 // import {HomePage} from "../../pages/home/home";
 
 // Avoid name not found warnings
@@ -38,11 +40,11 @@ export class AuthService {
 
   storage: Storage = new Storage({});
   refreshSubscription: any;
-  user: Object;
+  user: any;
   zoneImpl: NgZone;
   idToken: string;
 
-  constructor(private authHttp: AuthHttp, zone: NgZone) {
+  constructor(private authHttp: AuthHttp, zone: NgZone, private deelnemerService: DeelnemersService) {
     this.zoneImpl = zone;
     // Check if there is a profile saved in local storage
     this.storage.get('profile').then(profile => {
@@ -73,12 +75,22 @@ export class AuthService {
         this.storage.set('profile', JSON.stringify(profile));
         this.user = profile;
         console.log(profile);
+
+        // create deelnemer if new
+        this.deelnemerService.savedeelnemer(<deelnemerModel>{
+          display_name: this.user.name,
+          email: this.user.email,
+          auth0Identifier: this.user.user_id
+        }).subscribe(response => {
+          console.log(response);
+        });
       });
 
       this.lock.hide();
 
       this.storage.set('refresh_token', authResult.refreshToken);
       this.zoneImpl.run(() => this.user = authResult.profile);
+
       // Schedule a token refresh
       this.scheduleRefresh();
 

@@ -9,6 +9,8 @@ import {mollenModel} from '../../models/mollen';
 import {ProfilePage} from '../profile/profile';
 import {kandidaatModel} from '../../models/kandidaatModel';
 import * as _ from 'lodash';
+import {DeelnemersService} from '../../services/api/deelnemers.service';
+import {deelnemerModel} from '../../models/deelnemerModel';
 
 /*
  Generated class for the Molvoorspelling page.
@@ -30,8 +32,9 @@ export class MolvoorspellingPage {
   mollen: mollenModel[];
   afvallers: mollenModel[];
   winnaars: mollenModel[];
-  mollenSub: Subscription;
   mollenlijstSub: Subscription;
+  deelnemerSub: Subscription;
+  deelnemer: deelnemerModel;
   slides: mollenModel[] = [];
 
   laatsteaflevering: number;
@@ -55,6 +58,7 @@ export class MolvoorspellingPage {
               // public viewCtrl: ViewController,
               public auth: AuthService,
               private mollenService: MollenService,
+              private deelnemersService: DeelnemersService,
               private formBuilder: FormBuilder) {
 
     this.voorspelling = this.formBuilder.group({
@@ -63,7 +67,7 @@ export class MolvoorspellingPage {
       winnaar: ['', Validators.required],
       afvaller: ['', Validators.required],
       aflevering: [this.laatsteaflevering + 1, Validators.required],
-      deelnemer: [{id: 'c2500b11-8802-4f0b-a524-b12de883e3e1'}, Validators.required] // todo get deelnemersId
+      deelnemer: [null, Validators.required] // todo get deelnemersId
     });
   }
 
@@ -75,49 +79,60 @@ export class MolvoorspellingPage {
 
   ionViewWillEnter() {
 
+
     this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
         this.mollen = response;
         this.laatsteaflevering = _.sortBy(response, 'elimination_round').reverse()[0].elimination_round;
       }
     );
+    this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
+      this.deelnemer = response;
+      this.voorspelling.get('deelnemer').setValue({id: this.deelnemer.id});
 
-    this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling('c2500b11-8802-4f0b-a524-b12de883e3e1').subscribe(voorspellingen => {
+      this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling(this.deelnemer.id).subscribe(voorspellingen => {
+        console.log("ik zit erin " + voorspellingen);
 
-      if (voorspellingen) {
-        let laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering').reverse()[0];
-        this.activeMol = laatsteVoorspelling.mol;
-        this.activeMolIndex = this.mollen.findIndex(item => {
-          return item.id === this.activeMol.id
-        });
-        this.activeWinnaar = laatsteVoorspelling.winnaar;
-        this.activeWinnaarIndex = this.mollen.findIndex(item => {
-          return item.id === this.activeWinnaar.id
-        });
-        this.activeAfvaller = laatsteVoorspelling.afvaller;
-        this.activeAfvallerIndex = this.mollen.findIndex(item => {
-          return item.id === this.activeAfvaller.id
-        });
+        if (voorspellingen.voorspellingen.length > 0) {
+          let laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering').reverse()[0];
+          this.activeMol = laatsteVoorspelling.mol;
+          this.activeMolIndex = this.mollen.findIndex(item => {
+            return item.id === this.activeMol.id
+          });
+          this.activeWinnaar = laatsteVoorspelling.winnaar;
+          this.activeWinnaarIndex = this.mollen.findIndex(item => {
+            return item.id === this.activeWinnaar.id
+          });
+          this.activeAfvaller = laatsteVoorspelling.afvaller;
+          this.activeAfvallerIndex = this.mollen.findIndex(item => {
+            return item.id === this.activeAfvaller.id
+          });
 
-        // first set al indexes before you bind it to slides.
-        this.slides = this.mollen;
+          // first set al indexes before you bind it to slides.
+          this.slides = this.mollen;
 
-        if (this.activeMol.elimination_round === 0) {
-          this.voorspelling.get('mol').setValue({id: this.activeMol.id});
-        } else {
-          this.voorspelling.get('mol').setValue('');
+          if (this.activeMol.elimination_round === 0) {
+            this.voorspelling.get('mol').setValue({id: this.activeMol.id});
+          } else {
+            this.voorspelling.get('mol').setValue('');
+          }
+          this.voorspelling.get('winnaar').setValue({id: this.activeWinnaar.id});
+          this.voorspelling.get('afvaller').setValue({id: this.activeAfvaller.id});
+
+          if (this.laatsteaflevering < laatsteVoorspelling.aflevering) {
+            this.nieuweRonde = false;
+            this.voorspelling.get('id').setValue(laatsteVoorspelling.id);
+          } else {
+            this.nieuweRonde = true;
+            this.voorspelling.get('id').setValue(null);
+          }
+          this.voorspelling.get('aflevering').setValue(this.laatsteaflevering + 1);
         }
-        this.voorspelling.get('winnaar').setValue({id: this.activeWinnaar.id});
-        this.voorspelling.get('afvaller').setValue({id: this.activeAfvaller.id});
-
-        if (this.laatsteaflevering < laatsteVoorspelling.aflevering) {
-          this.nieuweRonde = false;
-          this.voorspelling.get('id').setValue(laatsteVoorspelling.id);
-        } else {
+        else {
+          this.slides = this.mollen;
           this.nieuweRonde = true;
-          this.voorspelling.get('id').setValue(null);
+          this.voorspelling.get('aflevering').setValue(this.laatsteaflevering + 1);
         }
-        this.voorspelling.get('aflevering').setValue(this.laatsteaflevering + 1);
-      }
+      });
     });
   };
 
@@ -156,9 +171,9 @@ export class MolvoorspellingPage {
 
 
   ionViewWillLeave() {
-    // this.mollenSub.unsubscribe();
     this.laatstevoorspellingSub.unsubscribe();
-    // this.mollenlijstSub.unsubscribe();
+    this.mollenlijstSub.unsubscribe();
+    this.deelnemerSub.unsubscribe();
   }
 
   logForm() {
