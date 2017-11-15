@@ -6,6 +6,11 @@
 
 
 <ion-content>
+  <!--todo stylen-->
+  <ion-card *ngIf="totaalstand?.length === 0">
+Er is nog geen stand bekend.
+  </ion-card>
+
   <ion-card>
     <detailafleveringstand *ngFor="let standline of totaalstand let index =index;
             let isOdd=odd;

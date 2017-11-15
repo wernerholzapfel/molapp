@@ -16,7 +16,7 @@
         <!--<img class="scoreboard" src="./assets/icon/scoreboard.svg">-->
       </ion-col>
       <ion-col *ngIf="auth.authenticated()" (click)="openVoorspelling()" style="background-color: #80CBC4; margin-left: 5px;">
-        <h2 text-center>Voorspel</h2>
+        <h2 text-center>Voorspellen</h2>
 
         <!--<img class="questions" src="./assets/icon/questions.svg">-->
       </ion-col>
@@ -24,7 +24,7 @@
 
     <ion-row *ngIf="auth.authenticated()" style="background-color: #80DEEA;">
       <ion-col (click)="openProfile()">
-        <h2 text-center>Jouw profiel</h2>
+        <h2 text-center>Jouw voorspellingen</h2>
 
         <!--<img class="profile" src="./assets/icon/id-card.svg">-->
       </ion-col>
