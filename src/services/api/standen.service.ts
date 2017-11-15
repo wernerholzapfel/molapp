@@ -18,7 +18,7 @@ export class StandenService {
   }
 
   getafleveringstand(deelnemer): Observable<any> {
-    return this.http.get(`${this.api}/afleveringstand/` + deelnemer)
+    return this.http.get(`${this.api}/standen/` + deelnemer)
       .map(res => <any>res.json());
   }
 }

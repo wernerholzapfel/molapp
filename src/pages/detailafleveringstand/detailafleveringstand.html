@@ -19,20 +19,17 @@
               [class.even]="isEven">
       <ion-thumbnail item-left>
         <div class="thumbnailtext"></div>
-        {{afleveringstandline.molafgevallenpunten + afleveringstandline.molpunten + afleveringstandline.afvallerpunten +
-        afleveringstandline.winnaarpunten}}
+        {{afleveringstandline.molpunten + afleveringstandline.afvallerpunten + afleveringstandline.winnaarpunten}}
       </ion-thumbnail>
       <ion-thumbnail item-right>
-        <img
-          [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + afleveringstandline?.afgevallen.toLowerCase() + '.jpg'">
+        <img [src]="afleveringstandline.voorspelling.afvaller.image_url">
       </ion-thumbnail>
-      <h2> Aflevering {{afleveringstandline.aflevering}}
-      </h2>
-      <p>Jouw mol: {{afleveringstandline.mol}} {{afleveringstandline.molafgevallenpunten +
-        afleveringstandline.molpunten}} </p>
-      <p>Jouw afvaller: {{afleveringstandline.afvaller}} {{afleveringstandline.afvallerpunten}}</p>
-      <p *ngIf="afleveringstandline.laatsteaflevering">Jouw winnaar: {{afleveringstandline.winnaar}}
-        {{afleveringstandline.winnaarpunten}}</p>
+      <h2> Aflevering {{afleveringstandline.aflevering}}</h2>
+      <p>Jouw afvaller: {{afleveringstandline.voorspelling.afvaller.display_name}} {{afleveringstandline.afvallerpunten}}</p>
+      <p>Jouw mol: {{afleveringstandline.voorspelling.mol.display_name}}
+        <span *ngIf="afleveringstandline.laatsteaflevering">{{afleveringstandline.molpunten}}</span> </p>
+      <p>Jouw winnaar: {{afleveringstandline.voorspelling.winnaar.display_name}}
+        <span *ngIf="afleveringstandline.laatsteaflevering">{{afleveringstandline.winnaarpunten}}</span></p>
 
     </ion-item>
   </ion-list>

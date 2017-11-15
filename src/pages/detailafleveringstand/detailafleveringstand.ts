@@ -38,7 +38,7 @@ export class Detailafleveringstand {
 
   fetchDetails(){
     console.log("button geklikt");
-    this.afleveringstandSub = this.standenService.getafleveringstand(this.totaalstandline.molloot).subscribe((response => {
+    this.afleveringstandSub = this.standenService.getafleveringstand(this.totaalstandline.deelnemerId).subscribe((response => {
       console.log(response);
       this.afleveringstand = response;
       this.showDetails = !this.showDetails

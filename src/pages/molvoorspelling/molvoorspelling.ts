@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
 import {Subscription} from 'rxjs';
-import {molvoorspellingModel} from '../../models/molvoorspelling';
+import {molvoorspellingModel, voorspelling} from '../../models/molvoorspelling';
 import {AuthService} from '../../services/auth/auth.service';
 import {MollenService} from '../../services/api/mollen.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -12,12 +12,6 @@ import * as _ from 'lodash';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 
-/*
- Generated class for the Molvoorspelling page.
-
- See http://ionicframework.com/docs/v2/components/#navigation for more info on
- Ionic pages and navigation.
- */
 @Component({
   selector: 'page-molvoorspelling',
   templateUrl: 'molvoorspelling.html'
@@ -49,13 +43,12 @@ export class MolvoorspellingPage {
   activeMolIndex: number = 0;
   activeWinnaarIndex: number = 0;
   activeAfvallerIndex: number = 0;
-  laatstevoorspelling: molvoorspellingModel;
+  laatsteVoorspelling: voorspelling;
 
   // We need to inject AuthService so that we can
   // use it in the view
-  constructor(public alertCtrl: AlertController,
-              public navCtrl: NavController,
-              // public viewCtrl: ViewController,
+  constructor(public navCtrl: NavController,
+              public alertCtrl: AlertController,
               public auth: AuthService,
               private mollenService: MollenService,
               private deelnemersService: DeelnemersService,
@@ -93,16 +86,16 @@ export class MolvoorspellingPage {
         console.log("ik zit erin " + voorspellingen);
 
         if (voorspellingen.voorspellingen.length > 0) {
-          let laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering').reverse()[0];
-          this.activeMol = laatsteVoorspelling.mol;
+          this.laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering').reverse()[0];
+          this.activeMol = this.laatsteVoorspelling.mol;
           this.activeMolIndex = this.mollen.findIndex(item => {
             return item.id === this.activeMol.id
           });
-          this.activeWinnaar = laatsteVoorspelling.winnaar;
+          this.activeWinnaar = this.laatsteVoorspelling.winnaar;
           this.activeWinnaarIndex = this.mollen.findIndex(item => {
             return item.id === this.activeWinnaar.id
           });
-          this.activeAfvaller = laatsteVoorspelling.afvaller;
+          this.activeAfvaller = this.laatsteVoorspelling.afvaller;
           this.activeAfvallerIndex = this.mollen.findIndex(item => {
             return item.id === this.activeAfvaller.id
           });
@@ -118,9 +111,9 @@ export class MolvoorspellingPage {
           this.voorspelling.get('winnaar').setValue({id: this.activeWinnaar.id});
           this.voorspelling.get('afvaller').setValue({id: this.activeAfvaller.id});
 
-          if (this.laatsteaflevering < laatsteVoorspelling.aflevering) {
+          if (this.laatsteaflevering < this.laatsteVoorspelling.aflevering) {
             this.nieuweRonde = false;
-            this.voorspelling.get('id').setValue(laatsteVoorspelling.id);
+            this.voorspelling.get('id').setValue(this.laatsteVoorspelling.id);
           } else {
             this.nieuweRonde = true;
             this.voorspelling.get('id').setValue(null);
@@ -137,7 +130,7 @@ export class MolvoorspellingPage {
   };
 
   ionViewCanLeave() {
-    if (this.showAlertMessage && this.laatsteaflevering + 1 !== this.laatstevoorspelling.aflevering) {
+    if (this.showAlertMessage && this.laatsteaflevering + 1 !== this.laatsteVoorspelling.aflevering) {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
           title: 'Voorspellingen incompleet',
@@ -165,10 +158,9 @@ export class MolvoorspellingPage {
       });
     }
     else {
-      true
+      return true;
     }
   }
-
 
   ionViewWillLeave() {
     this.laatstevoorspellingSub.unsubscribe();
