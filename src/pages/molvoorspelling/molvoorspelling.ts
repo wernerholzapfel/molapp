@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
 import {Subscription} from 'rxjs';
-import {molvoorspellingModel, voorspelling} from '../../models/molvoorspelling';
+import {voorspelling} from '../../models/molvoorspelling';
 import {AuthService} from '../../services/auth/auth.service';
 import {MollenService} from '../../services/api/mollen.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -44,7 +44,7 @@ export class MolvoorspellingPage {
   activeWinnaarIndex: number = 0;
   activeAfvallerIndex: number = 0;
   laatsteVoorspelling: voorspelling;
-
+  isLoading: boolean
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public navCtrl: NavController,
@@ -71,7 +71,7 @@ export class MolvoorspellingPage {
   }
 
   ionViewWillEnter() {
-
+    this.isLoading = true;
 
     this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
         this.mollen = response;
@@ -83,7 +83,7 @@ export class MolvoorspellingPage {
       this.voorspelling.get('deelnemer').setValue({id: this.deelnemer.id});
 
       this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling(this.deelnemer.id).subscribe(voorspellingen => {
-        console.log("ik zit erin " + voorspellingen);
+        console.log('ik zit erin ' + voorspellingen);
 
         if (voorspellingen.voorspellingen.length > 0) {
           this.laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering').reverse()[0];
@@ -125,6 +125,7 @@ export class MolvoorspellingPage {
           this.nieuweRonde = true;
           this.voorspelling.get('aflevering').setValue(this.laatsteaflevering + 1);
         }
+        this.isLoading = false;
       });
     });
   };
@@ -133,7 +134,7 @@ export class MolvoorspellingPage {
     if (this.showAlertMessage && this.laatsteaflevering + 1 !== this.laatsteVoorspelling.aflevering) {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
-          title: 'Voorspellingen incompleet',
+          title: 'Voorspellingen niet opgeslagen',
           subTitle: 'Je voorspellingen zijn nog niet opgeslagen, weet je zeker dat je de pagina wilt verlaten?',
           buttons: [
             {

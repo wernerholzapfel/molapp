@@ -3,9 +3,12 @@
     <ion-title>Je voorspellingen</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content *ngIf="auth.authenticated()">
-  <form [formGroup]="voorspelling" (ngSubmit)="logForm()">
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <form *ngIf="!isLoading" [formGroup]="voorspelling" (ngSubmit)="logForm()">
     <ion-list>
       <ion-item class="headereven" (click)="kiesMol = !kiesMol">
         <ion-thumbnail item-left>
