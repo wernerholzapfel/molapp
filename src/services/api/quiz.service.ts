@@ -21,7 +21,7 @@ export class QuizService {
   }
 
   saveAnswer(answer): Observable<any>{
-    return this.authHttp.post(`${this.api}/deelnemerantwoord`,answer)
+    return this.authHttp.post(`${this.api}/quizresultaten`,answer)
       .map(res => <any>res.json())
       .share();
   }

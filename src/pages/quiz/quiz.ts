@@ -89,13 +89,13 @@ export class Quizpage {
     console.log('antwoord: ' + answer);
     console.log('question: ' + question);
 
-    let request =
-      {
+    let request = {
         'aflevering' : question.aflevering,
-        'antwoordId': answer.id,
-        'vragenId': question.id,
-
+        'antwoord': {id: answer.id},
+        'vraag': {id: question.id},
+        'deelnemer': {id: 'f9202ede-9f70-4359-90f4-461dac3b1673'},
       };
+
     this.postQuizSub = this.quizService.saveAnswer(request).subscribe(response => {
       console.log(response)
     });
