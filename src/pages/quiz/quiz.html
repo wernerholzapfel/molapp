@@ -9,8 +9,8 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <button ion-button color="button" (click)="nextSlide()">Start!</button>
-            <button ion-button color="button" (click)="goBack()">Terug!</button>
+            <button ion-button color="quizbutton" (click)="nextSlide()">Start!</button>
+            <button ion-button color="quizbutton" (click)="goBack()">Terug!</button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -18,7 +18,7 @@
 
     <ion-slide *ngFor="let question of questions; let i = index;">
       <ion-grid>
-        <ion-row style="background-color: #f1c40f;">
+        <ion-row>
           <ion-col>
             Vraag {{actieveVraag}}
             <h3>{{question.vraag}}</h3>
@@ -33,9 +33,9 @@
             </div>
           </ion-col>
         </ion-row>
-        <ion-row style="background-color: purple;">
+        <ion-row>
           <ion-col col-12>
-            <button ion-button color="button" full *ngFor="let answer of question.antwoord; let i = index;"
+            <button ion-button color="quizbutton" full *ngFor="let answer of question.antwoorden; let i = index;"
                     (click)="selectAnswer(answer, question)">
               {{i+1}}. {{answer.antwoord}}
             </button>
@@ -43,13 +43,21 @@
         </ion-row>
       </ion-grid>
     </ion-slide>
+
     <ion-slide>
-      <h2>Dit waren de vragen, keer terug naar het hoofdmenu</h2>
-
-      <button ion-button (click)="goBack()" full color="button">Menu</button>
-
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h2>Dit waren de vragen, keer terug naar het hoofdmenu</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button (click)="goBack()" full color="quizbutton">Menu</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
 
   </ion-slides>
-
 </ion-content>

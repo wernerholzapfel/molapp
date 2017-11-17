@@ -2,6 +2,12 @@
 
   page-quiz {
 
+    ion-content{
+      background-color: #000;
+      color: #38764E;
+    }
+
+
     .slide-zoom {
       height: 100%;
     }
@@ -68,7 +74,7 @@ body {
 }
 
 .countdown-number {
-  color: orangered;
+  color: #38764E;
   //display: inline-block;
   line-height: 40px;
 }
@@ -87,7 +93,7 @@ svg circle {
   stroke-dashoffset: 0px;
   stroke-linecap: round;
   stroke-width: 2px;
-  stroke: orangered;
+  stroke: #38764E;
   fill: none;
   //animation: countdown 10s linear infinite forwards;
 }

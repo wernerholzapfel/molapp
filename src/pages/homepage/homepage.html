@@ -2,7 +2,7 @@
 
   <ion-grid>
 
-    <ion-row *ngIf="auth.authenticated() && false" style="background-color: #90CAF9;">
+    <ion-row *ngIf="auth.authenticated()" style="background-color: #90CAF9;">
       <ion-col (click)="startQuiz()">
         <h2 text-center>Start de Quiz</h2>
         <!--<img class="quiz" src="../../assets/icon/quiz-on-computer-with-question-signs-around.svg">-->
