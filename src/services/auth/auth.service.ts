@@ -1,7 +1,7 @@
 import {Storage} from "@ionic/storage";
 import {AuthHttp, JwtHelper, tokenNotExpired} from "angular2-jwt";
 import {Injectable, NgZone} from "@angular/core";
-import {Observable} from "rxjs/Rx";
+import { Observable } from "rxjs/Observable";
 import {DeelnemersService} from '../api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 // import {HomePage} from "../../pages/home/home";
