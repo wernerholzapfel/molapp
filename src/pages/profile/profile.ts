@@ -9,7 +9,6 @@ import {DeelnemersService} from '../../services/api/deelnemers.service';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  molvoorspellingSub: Subscription;
   deelnemerSub: Subscription;
   molvoorspellingen: voorspelling[];
 
@@ -20,14 +19,11 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(deelnemer => {
-      this.molvoorspellingSub = this.mollenService.getmolvoorspellingen(deelnemer.id).subscribe(response => {
-        this.molvoorspellingen = response.voorspellingen;
+        this.molvoorspellingen = deelnemer.voorspellingen;
       });
-    })
   }
 
   ionViewWillLeave() {
-    this.molvoorspellingSub.unsubscribe();
     this.deelnemerSub.unsubscribe();
   }
 }

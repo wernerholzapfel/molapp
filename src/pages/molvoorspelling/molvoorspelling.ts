@@ -83,7 +83,7 @@ export class MolvoorspellingPage {
       this.deelnemer = response;
       this.voorspelling.get('deelnemer').setValue({id: this.deelnemer.id});
 
-      this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling().subscribe(voorspellingen => {
+      this.laatstevoorspellingSub = this.mollenService.getLoggedinDeelnemer().subscribe(voorspellingen => {
         console.log('ik zit erin ' + voorspellingen);
 
         if (voorspellingen.voorspellingen.length > 0) {

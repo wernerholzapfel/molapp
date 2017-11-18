@@ -30,32 +30,15 @@ export class Quizpage {
 
   ionViewWillEnter() {
 
-    this.quizSub = this.quizService.getquiz(1).subscribe(data => {
-      this.aantalVragen = data.length;
-      // data.map((question) => {
-      //   let originalOrder = question.antwoord;
-      //   question.antwoord = this.randomizeAnswers(originalOrder);
-      //   return question;
-      // });
-      this.questions = data;
+    this.quizSub = this.quizService.getquiz(1).subscribe(vragen => {
+      this.aantalVragen = vragen.length;
+      this.questions = vragen;
     });
-
   }
 
   ionViewWillLeave() {
     this.quizSub.unsubscribe();
-    this.postQuizSub.unsubscribe();
   };
-
-  // this.dataService.load().then((data) => {
-  //   this.aantalVragen = data.length;
-  //   data.map((question) => {
-  //     let originalOrder = question.answers;
-  //     question.answers = this.randomizeAnswers(originalOrder);
-  //     return question;
-  //   });
-  //   this.questions = data;
-  // });
 
   nextSlide(actieveVraag?) {
     this.slides.slideNext();
@@ -90,15 +73,19 @@ export class Quizpage {
     console.log('question: ' + question);
 
     let request = {
-        'aflevering' : question.aflevering,
-        'antwoord': {id: answer.id},
-        'vraag': {id: question.id},
-        'deelnemer': {id: 'f9202ede-9f70-4359-90f4-461dac3b1673'},
-      };
+      'aflevering': question.aflevering,
+      'antwoord': {id: answer.id},
+      'vraag': {id: question.id},
+      'deelnemer': {id: 'f9202ede-9f70-4359-90f4-461dac3b1673'},
+    };
 
     this.postQuizSub = this.quizService.saveAnswer(request).subscribe(response => {
-      console.log(response)
-    });
+      console.log(response);
+      this.postQuizSub.unsubscribe();
+    }, (err => {
+      console.log(err);
+      this.postQuizSub.unsubscribe();
+    }));
 
     this.countdown = 0;
     this.timer.unsubscribe();
