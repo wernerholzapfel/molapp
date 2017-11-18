@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
-// import {Data} from "../../providers/data";
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
+import { Observable } from 'rxjs/Observable'
 import {QuizService} from '../../services/api/quiz.service';
 import {vragenModel} from '../../models/vragenModel';
 
