@@ -4,6 +4,6 @@ export interface mollenModel {
   'image_url': string,
   'mol': boolean,
   'winner': boolean,
-  'elimination_round': number,
+  'aflevering': number,
 }
 

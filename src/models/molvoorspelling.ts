@@ -27,5 +27,5 @@ export interface kandidaat {
   winner: boolean,
   mol: boolean,
   finalist: boolean,
-  elimination_round: number
+  aflevering: number
 }

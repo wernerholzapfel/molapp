@@ -16,9 +16,9 @@
           </div>
           M
         </ion-thumbnail>
-        <span *ngIf="activeMol && activeMol?.elimination_round === 0">{{activeMol?.display_name}}
+        <span *ngIf="activeMol && !activeMol?.afgevallen">{{activeMol?.display_name}}
         </span>
-        <span *ngIf="(!activeMol && kiesMol) || activeMol?.elimination_round > 0">Kies je mol</span>
+        <span *ngIf="(!activeMol && kiesMol) || activeMol?.afgevallen">Kies je mol</span>
         <ion-icon *ngIf="!kiesMol" item-right name="arrow-down"></ion-icon>
         <ion-icon *ngIf="kiesMol" item-right name="arrow-up"></ion-icon>
       </ion-item>
@@ -30,9 +30,9 @@
           <div class="thumbnailtext"></div>
           W
         </ion-thumbnail>
-        <span *ngIf="activeWinnaar && activeWinnaar?.elimination_round === 0">{{activeWinnaar?.display_name}}
+        <span *ngIf="activeWinnaar && !activeWinnaar?.afgevallen">{{activeWinnaar?.display_name}}
 </span>
-        <span *ngIf="(!activeWinnaar && kiesWinnaar) || activeWinnaar?.elimination_round > 0">Kies je winnaar</span>
+        <span *ngIf="(!activeWinnaar && kiesWinnaar) || activeWinnaar?.afgevallen">Kies je winnaar</span>
 
         <ion-icon *ngIf="!kiesWinnaar" item-right name="arrow-down"></ion-icon>
         <ion-icon *ngIf="kiesWinnaar" item-right name="arrow-up"></ion-icon>
@@ -45,9 +45,9 @@
           <div class="thumbnailtext"></div>
           A
         </ion-thumbnail>
-        <span *ngIf="activeAfvaller && activeAfvaller?.elimination_round === 0">{{activeAfvaller?.display_name}}
+        <span *ngIf="activeAfvaller && !activeAfvaller?.afgevallen">{{activeAfvaller?.display_name}}
 </span>
-        <span *ngIf="(!activeAfvaller && kiesAfvaller) || activeAfvaller?.elimination_round > 0">Kies je afvaller</span>
+        <span *ngIf="(!activeAfvaller && kiesAfvaller) || activeAfvaller?.afgevallen">Kies je afvaller</span>
         <ion-icon *ngIf="!kiesAfvaller" item-right name="arrow-down"></ion-icon>
         <ion-icon *ngIf="kiesAfvaller" item-right name="arrow-up"></ion-icon>
       </ion-item>

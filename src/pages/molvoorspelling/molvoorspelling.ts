@@ -75,7 +75,9 @@ export class MolvoorspellingPage {
 
     this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
         this.mollen = response;
-        this.laatsteaflevering = _.sortBy(response, 'elimination_round').reverse()[0].elimination_round;
+        this.mollenService.getLaatsteAflevering().subscribe(response => {
+          this.laatsteaflevering = response.aflevering
+        })
       }
     );
 
@@ -104,7 +106,7 @@ export class MolvoorspellingPage {
           // first set al indexes before you bind it to slides.
           this.slides = this.mollen;
 
-          if (this.activeMol.elimination_round === 0) {
+          if (!this.activeMol.afgevallen) {
             this.voorspelling.get('mol').setValue({id: this.activeMol.id});
           } else {
             this.voorspelling.get('mol').setValue('');
@@ -189,6 +191,9 @@ export class MolvoorspellingPage {
     console.log(mol.display_name + 'is de mol');
     this.voorspelling.get('mol').setValue({id: mol.id});
     this.activeMol = mol;
+    this.activeMolIndex = this.mollen.findIndex(item => {
+      return item.id === this.activeMol.id
+    });
     this.setKiesWinnaar();
   }
 
@@ -196,6 +201,9 @@ export class MolvoorspellingPage {
     console.log(winnaar.display_name + 'is de winnaar');
     this.voorspelling.get('winnaar').setValue({id: winnaar.id});
     this.activeWinnaar = winnaar;
+    this.activeWinnaarIndex = this.mollen.findIndex(item => {
+      return item.id === this.activeWinnaar.id
+    });
     this.setKiesAfvaller();
   }
 
@@ -203,6 +211,9 @@ export class MolvoorspellingPage {
     console.log(afvaller.display_name + 'is de afvaller');
     this.voorspelling.get('afvaller').setValue({id: afvaller.id});
     this.activeAfvaller = afvaller;
+    this.activeAfvallerIndex = this.mollen.findIndex(item => {
+      return item.id === this.activeAfvaller.id
+    });
     this.setKiesNiks();
   }
 

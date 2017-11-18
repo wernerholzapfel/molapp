@@ -6,7 +6,8 @@ export interface CourselItem {
   winner: boolean;
   mol: boolean;
   finalist: boolean;
-  elimination_round: number;
+  aflevering?: number;
+  afgevallen?: boolean;
   image_url: string;
 }
 
@@ -16,7 +17,8 @@ export interface SlideItem {
   winner: boolean;
   mol: boolean;
   finalist: boolean;
-  elimination_round: number;
+  aflevering?: number;
+  afgevallen?: boolean;
   image_url: string;
 
 }
@@ -27,14 +29,14 @@ export interface SlideItem {
   template: `
     <div class="carousel-container" *ngIf="items.length > 0">
       <div class="carousel">
-        <div radio-group class="carousel-slide-item" [ngClass]="{'inactive' : item.elimination_round > 0}"
+        <div radio-group class="carousel-slide-item" [ngClass]="{'inactive' : item.afgevallen}"
              *ngFor="let item of items"
              (click)="(item.laatsteaflevering || selectItem(item))"
              [ngStyle]="{'transform': 'rotateY(-'+item.currentPlacement+'deg)  translateZ('+tz+'px)', '-webkit-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)', '-ms-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)', 
         '-o-transform': 'rotateY('+item.currentPlacement+'deg)  translateZ('+tz+'px)'}"
              (swipeleft)="onSwipeLeft($event);"
              (swiperight)="onSwipeRight($event);">
-          <img class="carousel_image" [ngClass]="{'img_inactive' : item.elimination_round > 0}" max-height="100%"
+          <img class="carousel_image" [ngClass]="{'img_inactive' : item.afgevallen}" max-height="100%"
                [src]=item.image_url>
         </div>
       </div>
@@ -66,8 +68,9 @@ export class CarouselComponent {
         winner: item.winner,
         mol: item.mol,
         finalist: item.finalist,
-        elimination_round: item.elimination_round,
+        aflevering: item.aflevering ? item.aflevering : 0,
         image_url: item.image_url,
+        afgevallen: item.afgevallen,
         currentPlacement: degree
       };
       degree = degree + (360 / values.length);
