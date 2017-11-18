@@ -25,11 +25,12 @@
         <img [src]="afleveringstandline.voorspelling.afvaller.image_url">
       </ion-thumbnail>
       <h2> Aflevering {{afleveringstandline.aflevering}}</h2>
-      <p>Jouw afvaller: {{afleveringstandline.voorspelling.afvaller.display_name}} {{afleveringstandline.afvallerpunten}}</p>
-      <p>Jouw mol: {{afleveringstandline.voorspelling.mol.display_name}}
-        <span *ngIf="afleveringstandline.laatsteaflevering">{{afleveringstandline.molpunten}}</span> </p>
-      <p>Jouw winnaar: {{afleveringstandline.voorspelling.winnaar.display_name}}
-        <span *ngIf="afleveringstandline.laatsteaflevering">{{afleveringstandline.winnaarpunten}}</span></p>
+      <p>Afvaller: {{afleveringstandline.voorspelling.afvaller.display_name}} {{afleveringstandline.afvallerpunten}}</p>
+      <p>Mol: {{afleveringstandline.voorspelling.mol.display_name}} {{afleveringstandline.molpunten}} </p>
+      <p>Winnaar: {{afleveringstandline.voorspelling.winnaar.display_name}} {{afleveringstandline.winnaarpunten}}</p>
+      <p>Testscore:
+              <!--show punten-->
+        <span>50</span></p>
 
     </ion-item>
   </ion-list>
