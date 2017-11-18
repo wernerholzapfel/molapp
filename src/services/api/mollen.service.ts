@@ -28,8 +28,8 @@ export class MollenService {
       .map(res => <molvoorspellingModel>res.json());
   }
 
-  getlaatstemolvoorspelling(deelnemerId): Observable<deelnemer> {
-    return this.authHttp.get(`${this.api}/deelnemers/${deelnemerId}/voorspellingen/`)
+  getlaatstemolvoorspelling(): Observable<deelnemer> {
+    return this.authHttp.get(`${this.api}/deelnemers/loggedIn`)
       .map(res => <deelnemer>res.json());
   }
 

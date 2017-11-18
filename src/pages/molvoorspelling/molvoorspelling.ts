@@ -78,11 +78,12 @@ export class MolvoorspellingPage {
         this.laatsteaflevering = _.sortBy(response, 'elimination_round').reverse()[0].elimination_round;
       }
     );
+
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
       this.deelnemer = response;
       this.voorspelling.get('deelnemer').setValue({id: this.deelnemer.id});
 
-      this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling(this.deelnemer.id).subscribe(voorspellingen => {
+      this.laatstevoorspellingSub = this.mollenService.getlaatstemolvoorspelling().subscribe(voorspellingen => {
         console.log('ik zit erin ' + voorspellingen);
 
         if (voorspellingen.voorspellingen.length > 0) {
