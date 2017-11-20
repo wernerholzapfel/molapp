@@ -4,4 +4,5 @@ export interface afleveringstandModel {
   "molpunten": number,
   "afvallerpunten": number,
   "winnaarpunten": number
+  "quizpunten": number
 }

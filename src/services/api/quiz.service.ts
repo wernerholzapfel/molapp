@@ -16,7 +16,7 @@ export class QuizService {
 
   // todo aflevering weer meegeven
   getquiz(aflevering: number): Observable<vragenModel[]> {
-    return this.authHttp.get(`${this.api}/quizvragen/`)
+    return this.authHttp.get(`${this.api}/quizvragen/${aflevering}`)
       .map(res => <vragenModel[]>res.json());
   }
 

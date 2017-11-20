@@ -31,9 +31,10 @@ export class MolvoorspellingPage {
   deelnemer: deelnemerModel;
   slides: mollenModel[] = [];
 
-  laatsteaflevering: number;
+  laatsteaflevering: number = 0;
   nieuweRonde: boolean;
   laatstevoorspellingSub: Subscription;
+  laatsteVoorspelling: voorspelling;
   voorspelling: FormGroup;
   opslaanView = false;
   kiesMol = true;
@@ -43,7 +44,6 @@ export class MolvoorspellingPage {
   activeMolIndex: number = 0;
   activeWinnaarIndex: number = 0;
   activeAfvallerIndex: number = 0;
-  laatsteVoorspelling: voorspelling;
   isLoading: boolean
   // We need to inject AuthService so that we can
   // use it in the view

@@ -1,9 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {Subscription} from 'rxjs';
-import { Observable } from 'rxjs/Observable'
+import {Observable} from 'rxjs'
 import {QuizService} from '../../services/api/quiz.service';
 import {vragenModel} from '../../models/vragenModel';
+import {deelnemer} from '../../models/molvoorspelling';
+import {DeelnemersService} from '../../services/api/deelnemers.service';
+import {deelnemerModel} from '../../models/deelnemerModel';
+import {MollenService} from '../../services/api/mollen.service';
 
 @Component({
   selector: 'page-quiz',
@@ -20,8 +24,15 @@ export class Quizpage {
   quizSub: Subscription;
   postQuizSub: Subscription;
   answer: any;
+  deelnemerSub: Subscription;
+  deelnemer: deelnemerModel;
+  laatsteaflevering: number = 0;
 
-  constructor(public navCtrl: NavController, public quizService: QuizService) {
+
+  constructor(public navCtrl: NavController, public quizService: QuizService,
+              private deelnemersService: DeelnemersService,
+              private mollenService: MollenService,
+  ) {
 
   }
 
@@ -30,14 +41,24 @@ export class Quizpage {
 
   ionViewWillEnter() {
 
-    this.quizSub = this.quizService.getquiz(1).subscribe(vragen => {
-      this.aantalVragen = vragen.length;
-      this.questions = vragen;
+    this.mollenService.getLaatsteAflevering().subscribe(response => {
+      this.laatsteaflevering = response.aflevering-1;
+      this.quizSub = this.quizService.getquiz(this.laatsteaflevering).subscribe(vragen => {
+        this.aantalVragen = vragen.length;
+        this.questions = vragen;
+      });
     });
+
+    this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
+      this.deelnemer = response;
+    });
+
+
   }
 
   ionViewWillLeave() {
     this.quizSub.unsubscribe();
+    this.deelnemerSub.unsubscribe();
   };
 
   nextSlide(actieveVraag?) {
@@ -76,7 +97,7 @@ export class Quizpage {
       'aflevering': question.aflevering,
       'antwoord': {id: answer.id},
       'vraag': {id: question.id},
-      'deelnemer': {id: 'f9202ede-9f70-4359-90f4-461dac3b1673'},
+      'deelnemer': {id: this.deelnemer.id},
     };
 
     this.postQuizSub = this.quizService.saveAnswer(request).subscribe(response => {
