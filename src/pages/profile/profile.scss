@@ -1,3 +1,19 @@
-page-profile {
-
-}
+//page-profile {
+  ion-thumbnail {
+    opacity: 1;
+    &.afgevallen {
+      background: red;
+    }
+    &.volgenderonde {
+      background: green;
+    }
+  }
+  ion-thumbnail img {
+    &.afgevallen {
+      opacity: 0.4;
+    }
+    &.volgenderonde {
+      opacity: 0.4;
+    }
+  }
+//}

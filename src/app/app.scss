@@ -30,25 +30,61 @@ ion-card {
 .headerodd {
   background-color: lighten(cadetblue, 20%);
 }
-
-div.thumbnailtext {
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  //height: 85px;
-  border-radius: 100%;
-  border: 1px solid;
-  height: 3em;
-  width: 3em;
-  margin-left: 0.5em;
-}
-
-ion-thumbnail {
-  height: 4.0em;
-  width: 4.0em;
-  line-height: 4.0em;
-  text-align: center;
-}
+//
+//span.deltatotaalpunten{
+//  margin: auto;
+//  position: absolute;
+//  top: 25px;
+//  left: 0;
+//  bottom: 0;
+//  right: 0;
+//  height: 3.5em;
+//  width: 3.5em;
+//  margin-left: 0.5em;
+//}
+//span.totaalpunten{
+//  margin: auto;
+//  position: absolute;
+//  top: -10px;
+//  left: 0;
+//  bottom: 0;
+//  right: 0;
+//  height: 3.5em;
+//  width: 3.5em;
+//  margin-left: 0.5em;
+//}
+//div.thumbnailtext {
+//  margin: auto;
+//  position: absolute;
+//  top: 0; left: 0; bottom: 0; right: 0;
+//  //height: 85px;
+//  border-radius: 100%;
+//  border: 1px solid;
+//  height: 3.5em;
+//  width: 3.5em;
+//  margin-left: 0.5em;
+//}
+//
+//ion-thumbnail {
+//  height: 3.5em;
+//  width: 3.5em;
+//  line-height: 4.0em;
+//  text-align: center;
+//}
+//
+//ion-avatar {
+//  height: 3.5em !important;
+//  width: 3.5em !important;
+//  line-height: 4.0em;
+//  text-align: center;
+//}
+//
+//ion-avatar img {
+//  height: 3.5em !important;;
+//  width: 3.5em !important;;
+//  line-height: 4.0em;
+//  text-align: center;
+//}
 
 .item-md p {
   font-size: 1.0rem;
@@ -58,8 +94,8 @@ ion-thumbnail {
 //  vertical-align: middle;
 //}
 ion-thumbnail img {
-  max-height: 4.0em !important;
-  max-width: 4.0em !important;
+  max-height: 3.5em !important;
+  max-width: 3.5em !important;
 }
 
 ion-thumbnail[item-left] {
@@ -96,8 +132,8 @@ ion-item.item-block {
 }
 
 .item-md ion-thumbnail {
-  min-width: 4em;
-  min-height: 4em;
+  min-width: 3.5em;
+  min-height: 3.5em;
 }
 
 ion-list {

@@ -22,7 +22,7 @@ export class AuthService {
     rememberLastLogin: true,
     auth: {
       redirect: false,
-      sso: false,
+      // sso: false,
       params: {
         scope: 'openid offline_access',
         device: "mobile device"
@@ -35,7 +35,19 @@ export class AuthService {
     languageDictionary: {
       emailInputPlaceholder: "please enter you email",
       title: "Molloten App"
-    }
+    },
+    additionalSignUpFields: [{
+      name: "naam",
+      placeholder: "Je naam",
+      // The following properties are optional
+      icon: "https://example.com/assests/address_icon.png",
+      validator: function(name) {
+        return {
+          valid: name.length >= 3,
+          hint: "Naam moet minimaal 3 tekens hebben." // optional
+        };
+      }
+    }]
   });
 
   storage: Storage = new Storage({});

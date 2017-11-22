@@ -6,6 +6,9 @@
 
 
 <ion-content>
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
   <!--todo stylen-->
   <ion-card *ngIf="totaalstand?.length === 0">
 Er is nog geen stand bekend.

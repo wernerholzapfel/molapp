@@ -3,7 +3,11 @@
             [class.headereven]="isEven" (click)="fetchDetails()">
     <ion-thumbnail item-left>
       <div class="thumbnailtext"></div>
-      {{totaalstandline.totaalpunten}}
+      <span class="totaalpunten">
+        {{totaalstandline.totaalpunten}}</span>
+      <span class="deltatotaalpunten" [ngClass]="totaalstandline.delta_totaalpunten >= 0 ? 'stijger' : 'daler'">
+      {{totaalstandline.delta_totaalpunten}}
+  </span>
     </ion-thumbnail>
     {{totaalstandline.display_name}}
     <ion-icon *ngIf="!showDetails" item-right name="arrow-down"></ion-icon>
@@ -19,40 +23,26 @@
               [class.even]="isEven">
       <ion-thumbnail item-left>
         <div class="thumbnailtext"></div>
-        {{afleveringstandline.molpunten + afleveringstandline.afvallerpunten + afleveringstandline.winnaarpunten}}
+        <span class="totaalpunten">
+        {{afleveringstandline.totaalpunten}}
+        </span>
+        <!--<span class="deltatotaalpunten" [ngClass]="afleveringstandline.delta_totaalpunten >= 0 ? 'stijger' : 'daler'">-->
+          <!--{{afleveringstandline.delta_totaalpunten }} </span>-->
       </ion-thumbnail>
-      <ion-thumbnail item-right>
+      <ion-avatar [ngClass]="afleveringstandline.voorspelling.afvaller.afgevallen ? 'afgevallen' : ''" item-right>
         <img [src]="afleveringstandline.voorspelling.afvaller.image_url">
-      </ion-thumbnail>
+      </ion-avatar>
       <h2> Aflevering {{afleveringstandline.aflevering}}</h2>
       <p>Afvaller: {{afleveringstandline.voorspelling.afvaller.display_name}} {{afleveringstandline.afvallerpunten}}</p>
-      <p>Mol: {{afleveringstandline.voorspelling.mol.display_name}} {{afleveringstandline.molpunten}} </p>
-      <p>Winnaar: {{afleveringstandline.voorspelling.winnaar.display_name}} {{afleveringstandline.winnaarpunten}}</p>
-      <p>Testscore: {{afleveringstandline.quizpunten}}</p>
+      <p>Mol: {{afleveringstandline.voorspelling.mol.display_name}} {{afleveringstandline.molpunten}}
+        <span *ngIf="afleveringstandline.delta_molpunten !== 0" [ngClass]="afleveringstandline.delta_molpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_molpunten}})</span></p>
+      <p>Winnaar: {{afleveringstandline.voorspelling.winnaar.display_name}} {{afleveringstandline.winnaarpunten}}
+        <span *ngIf="afleveringstandline.delta_winnaarpunten !== 0" [ngClass]="afleveringstandline.delta_winnaarpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_winnaarpunten}})</span></p>
+      <p>Testscore: {{afleveringstandline.quizpunten}}
+        <span *ngIf="afleveringstandline.delta_quizpunten !== 0" [ngClass]="afleveringstandline.delta_quizpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_quizpunten}})</span></p>
 
     </ion-item>
   </ion-list>
-  <!--odd en even omgedraaid, omdat er een extra item getoond wordt -->
-  <div *ngFor="let afleveringstandline of afleveringstand; let index =index;
-            let isOdd=odd;
-            let isEven=even">
-    <ion-list *ngIf="showDetails && afleveringstandline.laatsteaflevering">
-      <ion-item [class.even]="isOdd"
-                [class.odd]="isEven">
-        <ion-thumbnail item-left>
-          <div class="thumbnailtext"></div>
-          9999
-        </ion-thumbnail>
-        <h2>Punten voor de quiz</h2>
-        <p>Totaal punten: 9999</p>
-        <ion-thumbnail *ngIf="afleveringstandline.laatsteaflevering" item-right>
-          <img
-            [src]="'http://wieisdemol.avrotros.nl/typo3conf/ext/widm_resources/Resources/Public/GFX/avatar_' + afleveringstandline?.ditisdemol.toLowerCase() + '.jpg'">
-        </ion-thumbnail>
-      </ion-item>
-    </ion-list>
-  </div>
-
 </ion-list>
 
 

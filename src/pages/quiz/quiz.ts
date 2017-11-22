@@ -1,13 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {Subscription} from 'rxjs';
-import {Observable} from 'rxjs'
+import {Observable} from 'rxjs/Observable';
 import {QuizService} from '../../services/api/quiz.service';
 import {vragenModel} from '../../models/vragenModel';
-import {deelnemer} from '../../models/molvoorspelling';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 import {MollenService} from '../../services/api/mollen.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-quiz',
@@ -128,7 +127,7 @@ export class Quizpage {
 
   }
 
-  //restart on
+  // restart on
   // restartQuiz() {
   //   this.actieveVraag = 1;
   //   this.score = 0;

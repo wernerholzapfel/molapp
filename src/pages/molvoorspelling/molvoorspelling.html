@@ -12,11 +12,9 @@
     <ion-list>
       <ion-item class="headereven" (click)="kiesMol = !kiesMol">
         <ion-thumbnail item-left>
-          <div class="thumbnailtext">
-          </div>
-          M
+          <img [src]="activeMol?.image_url" *ngIf="activeMol && !activeMol?.afgevallen">
         </ion-thumbnail>
-        <span *ngIf="activeMol && !activeMol?.afgevallen">{{activeMol?.display_name}}
+        <span *ngIf="activeMol && !activeMol?.afgevallen">{{activeMol?.display_name}} is je mol
         </span>
         <span *ngIf="(!activeMol && kiesMol) || activeMol?.afgevallen">Kies je mol</span>
         <ion-icon *ngIf="!kiesMol" item-right name="arrow-down"></ion-icon>
@@ -27,10 +25,9 @@
 
       <ion-item class="headerodd" (click)="kiesWinnaar = !kiesWinnaar">
         <ion-thumbnail item-left>
-          <div class="thumbnailtext"></div>
-          W
+          <img [src]="activeWinnaar?.image_url" *ngIf="activeWinnaar && !activeWinnaar?.afgevallen">
         </ion-thumbnail>
-        <span *ngIf="activeWinnaar && !activeWinnaar?.afgevallen">{{activeWinnaar?.display_name}}
+        <span *ngIf="activeWinnaar && !activeWinnaar?.afgevallen">{{activeWinnaar?.display_name}} is je winnaar
 </span>
         <span *ngIf="(!activeWinnaar && kiesWinnaar) || activeWinnaar?.afgevallen">Kies je winnaar</span>
 
@@ -42,10 +39,9 @@
 
       <ion-item class="headereven" (click)="kiesAfvaller = !kiesAfvaller">
         <ion-thumbnail item-left>
-          <div class="thumbnailtext"></div>
-          A
+          <img [src]="activeAfvaller?.image_url" *ngIf="activeAfvaller && !activeAfvaller?.afgevallen">
         </ion-thumbnail>
-        <span *ngIf="activeAfvaller && !activeAfvaller?.afgevallen">{{activeAfvaller?.display_name}}
+        <span *ngIf="activeAfvaller && !activeAfvaller?.afgevallen">{{activeAfvaller?.display_name}} is je afvaller
 </span>
         <span *ngIf="(!activeAfvaller && kiesAfvaller) || activeAfvaller?.afgevallen">Kies je afvaller</span>
         <ion-icon *ngIf="!kiesAfvaller" item-right name="arrow-down"></ion-icon>

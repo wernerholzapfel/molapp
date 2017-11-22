@@ -44,7 +44,7 @@ export class MolvoorspellingPage {
   activeMolIndex: number = 0;
   activeWinnaarIndex: number = 0;
   activeAfvallerIndex: number = 0;
-  isLoading: boolean
+  isLoading: boolean;
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public navCtrl: NavController,

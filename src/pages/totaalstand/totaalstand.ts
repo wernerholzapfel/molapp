@@ -21,7 +21,7 @@ export class TotaalstandPage {
   totaalstand: totaalstandModel[];
   afleveringstand: afleveringstandModel[];
   showAfleveringstand: boolean = false;
-
+  isLoading: boolean;
   constructor(public navCtrl: NavController,
               private standenService: StandenService) {
   }
@@ -33,8 +33,12 @@ export class TotaalstandPage {
 
   ionViewWillEnter() {
 
+    this.isLoading = true;
     this.totaalstandSub = this.standenService.gettotaalstand().subscribe(response => {
       this.totaalstand = response;
+      this.isLoading = false;
+    }, err => {
+      this.isLoading = false;
     });
   }
 

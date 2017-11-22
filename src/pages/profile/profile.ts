@@ -11,16 +11,20 @@ import {DeelnemersService} from '../../services/api/deelnemers.service';
 export class ProfilePage {
   deelnemerSub: Subscription;
   molvoorspellingen: voorspelling[];
-
+isLoading: boolean;
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public auth: AuthService, private mollenService: MollenService, private deelnemersService: DeelnemersService) {
   }
 
   ionViewWillEnter() {
+    this.isLoading = true;
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(deelnemer => {
         this.molvoorspellingen = deelnemer.voorspellingen;
-      });
+        this.isLoading = false;
+      }, err => {
+      this.isLoading = false;
+    });
   }
 
   ionViewWillLeave() {

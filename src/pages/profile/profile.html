@@ -5,8 +5,11 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
 
-  <ion-list *ngIf="auth.authenticated()">
+  <ion-list *ngIf="auth.authenticated() && !isLoading">
 
     <ion-item *ngIf="auth.user">
       <ion-thumbnail item-left>
@@ -22,26 +25,25 @@
         Aflevering {{voorspelling?.aflevering}}
       </ion-item>
       <ion-item class="even">
-        <ion-thumbnail item-left>
-          <img [src]=voorspelling?.mol.image_url>
+        <ion-thumbnail  [ngClass]="voorspelling?.mol.afgevallen && voorspelling?.mol.aflevering === voorspelling?.aflevering ? 'afgevallen' : 'volgenderonde'" item-left>
+          <img [src]=voorspelling?.mol.image_url [ngClass]="voorspelling?.mol.afgevallen && voorspelling?.mol.aflevering === voorspelling?.aflevering ? 'afgevallen' : 'volgenderonde'" >
         </ion-thumbnail>
         <h2>De Mol:{{ voorspelling?.mol.display_name }}</h2>
       </ion-item>
       <ion-item class="odd">
-        <ion-thumbnail item-left>
-          <img [src]=voorspelling?.winnaar.image_url>
+        <ion-thumbnail item-left [ngClass]="voorspelling?.winnaar.afgevallen && voorspelling?.winnaar.aflevering === voorspelling?.aflevering ? 'afgevallen' : 'volgenderonde'">
+          <img [src]=voorspelling?.winnaar.image_url [ngClass]="voorspelling?.winnaar.afgevallen && voorspelling?.winnaar.aflevering === voorspelling?.aflevering ? 'afgevallen' : 'volgenderonde'" >
         </ion-thumbnail>
         <h2>De Winnaar:{{ voorspelling?.winnaar.display_name }}</h2>
       </ion-item>
       <ion-item class="even">
-        <ion-thumbnail item-left>
-          <img [src]=voorspelling?.afvaller.image_url>
+        <ion-thumbnail item-left [ngClass]="voorspelling?.afvaller.afgevallen && voorspelling?.afvaller.aflevering === voorspelling?.aflevering ? 'afgevallen' : 'volgenderonde'">
+          <img [src]=voorspelling?.afvaller.image_url [ngClass]="voorspelling?.afvaller.afgevallen && voorspelling?.afvaller.aflevering === voorspelling?.aflevering ? 'afgevallen' : 'volgenderonde'" >
         </ion-thumbnail>
         <h2>Afvaller:{{ voorspelling?.afvaller.display_name }}</h2>
       </ion-item>
     </div>
   </ion-list>
-
 
 </ion-content>
 <ion-footer>
