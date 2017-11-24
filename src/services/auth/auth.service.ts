@@ -19,10 +19,10 @@ export class AuthService {
   lock = new Auth0Lock('WNjXlR4ChTqf2azaWhPk4MPzViNqoQft', 'werner.eu.auth0.com', {
     allowSignUp: true,
     allowedConnections: ["Username-Password-Authentication","facebook","google-oauth2"],
-    rememberLastLogin: true,
+    rememberLastLogin: false,
     auth: {
       redirect: false,
-      // sso: false,
+      sso: false,
       params: {
         scope: 'openid offline_access',
         device: "mobile device"

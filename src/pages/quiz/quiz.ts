@@ -1,12 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/Rx';
 import {QuizService} from '../../services/api/quiz.service';
 import {vragenModel} from '../../models/vragenModel';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 import {MollenService} from '../../services/api/mollen.service';
 import {Subscription} from 'rxjs/Subscription';
+import 'rxjs/add/observable/timer'
+import 'rxjs/operator/take';
+import 'rxjs/operator/timeInterval';
+import 'rxjs/operator/pluck';
 
 @Component({
   selector: 'page-quiz',
@@ -15,7 +19,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class Quizpage {
   @ViewChild('slides') slides: any;
   countdown: any;
-  timer: Subscription;
+  timer: any;
   score: number = 0;
   aantalVragen: number;
   actieveVraag: number = 1;
@@ -27,11 +31,9 @@ export class Quizpage {
   deelnemer: deelnemerModel;
   laatsteaflevering: number = 0;
 
-
   constructor(public navCtrl: NavController, public quizService: QuizService,
               private deelnemersService: DeelnemersService,
-              private mollenService: MollenService,
-  ) {
+              private mollenService: MollenService,) {
 
   }
 
@@ -41,7 +43,7 @@ export class Quizpage {
   ionViewWillEnter() {
 
     this.mollenService.getLaatsteAflevering().subscribe(response => {
-      this.laatsteaflevering = response.aflevering-1;
+      this.laatsteaflevering = response.aflevering - 1;
       this.quizSub = this.quizService.getquiz(this.laatsteaflevering).subscribe(vragen => {
         this.aantalVragen = vragen.length;
         this.questions = vragen;
@@ -61,6 +63,23 @@ export class Quizpage {
   };
 
   nextSlide(actieveVraag?) {
+
+    // let source = Observable.timer(200, 100)
+    //   .timeInterval()
+    //   .pluck('interval')
+    //   .take(3);
+    //
+    // let subscription = source.subscribe(
+    //   function (x) {
+    //     console.log('Next: ' + x);
+    //   },
+    //   function (err) {
+    //     console.log('Error: ' + err);
+    //   },
+    //   function () {
+    //     console.log('Completed');
+    //   });
+
     this.slides.slideNext();
     if (this.actieveVraag <= this.aantalVragen) {
       //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss
@@ -68,7 +87,7 @@ export class Quizpage {
 
       let source = Observable.timer(1000, 1000)
         .timeInterval()
-        .pluck('interval')
+          .pluck('interval')
         .take(this.countdown);
 
       this.timer = source.subscribe((x) => {
@@ -79,7 +98,7 @@ export class Quizpage {
         console.log('next slide');
 
         this.nextSlide(this.actieveVraag++);
-      });
+      })
     }
   }
 

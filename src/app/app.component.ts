@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthService } from '../services/auth/auth.service';
 import {HomePage} from "../pages/homepage/homepage";
+import Auth0Cordova from '@auth0/cordova';
 
 
 @Component({
@@ -20,6 +21,10 @@ export class AuthApp {
       // Schedule a token refresh on app start up
       auth.startupTokenRefresh();
       statusBar.styleDefault();
+
+      (<any>window).handleOpenURL = (url) => {
+        Auth0Cordova.onRedirectUri(url);
+      };
     });
   }
 }

@@ -1,4 +1,4 @@
-import {molvoorspellingModel, voorspelling} from './molvoorspelling';
+import {voorspelling} from './molvoorspelling';
 
 export interface deelnemerModel {
   id: string;
