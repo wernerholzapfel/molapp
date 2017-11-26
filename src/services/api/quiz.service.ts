@@ -7,17 +7,16 @@ import {vragenModel} from "../../models/vragenModel";
 
 @Injectable()
 export class QuizService {
-  // api = 'http://localhost:8080/api';
+  // api = 'http://localhost:3000/api/v1';
   api = 'https://molapi.herokuapp.com/api/v1';
 
   constructor(public http: Http, private authHttp: AuthHttp) {
   }
 
-
   // todo aflevering weer meegeven
-  getquiz(aflevering: number): Observable<vragenModel[]> {
-    return this.authHttp.get(`${this.api}/quizvragen/${aflevering}`)
-      .map(res => <vragenModel[]>res.json());
+  getquiz(): Observable<any> {
+    return this.authHttp.get(`${this.api}/quizvragen`)
+      .map(res => <any[]>res.json());
   }
 
   saveAnswer(answer): Observable<any>{
@@ -26,5 +25,9 @@ export class QuizService {
       .share();
   }
 
+  getanswers(): Observable<any[]>{
+    return this.authHttp.get(`${this.api}/quizresultaten`)
+      .map(res => <any>res.json())
+  }
 }
 

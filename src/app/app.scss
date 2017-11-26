@@ -15,12 +15,8 @@
 // automatically applied to the <body> element in the app.
 
 body{
+  // needed for Iphone X
   padding-top: env(safe-area-inset-top);
-}
-
-ion-card {
-  margin: 0 !important;
-  width: 100% !important;
 }
 
 .headereven {
@@ -30,69 +26,11 @@ ion-card {
 .headerodd {
   background-color: lighten(cadetblue, 20%);
 }
-//
-//span.deltatotaalpunten{
-//  margin: auto;
-//  position: absolute;
-//  top: 25px;
-//  left: 0;
-//  bottom: 0;
-//  right: 0;
-//  height: 3.5em;
-//  width: 3.5em;
-//  margin-left: 0.5em;
-//}
-//span.totaalpunten{
-//  margin: auto;
-//  position: absolute;
-//  top: -10px;
-//  left: 0;
-//  bottom: 0;
-//  right: 0;
-//  height: 3.5em;
-//  width: 3.5em;
-//  margin-left: 0.5em;
-//}
-//div.thumbnailtext {
-//  margin: auto;
-//  position: absolute;
-//  top: 0; left: 0; bottom: 0; right: 0;
-//  //height: 85px;
-//  border-radius: 100%;
-//  border: 1px solid;
-//  height: 3.5em;
-//  width: 3.5em;
-//  margin-left: 0.5em;
-//}
-//
-//ion-thumbnail {
-//  height: 3.5em;
-//  width: 3.5em;
-//  line-height: 4.0em;
-//  text-align: center;
-//}
-//
-//ion-avatar {
-//  height: 3.5em !important;
-//  width: 3.5em !important;
-//  line-height: 4.0em;
-//  text-align: center;
-//}
-//
-//ion-avatar img {
-//  height: 3.5em !important;;
-//  width: 3.5em !important;;
-//  line-height: 4.0em;
-//  text-align: center;
-//}
 
 .item-md p {
   font-size: 1.0rem;
 }
 
-//&.span {
-//  vertical-align: middle;
-//}
 ion-thumbnail img {
   max-height: 3.5em !important;
   max-width: 3.5em !important;
@@ -105,12 +43,12 @@ ion-thumbnail[item-left] {
 ion-thumbnail[item-right] {
   margin: 0 0 0 16px !important;
 }
-
+//
 ion-item.item-block {
-  padding-left: 0;
+//  padding-left: 0;
   border-top: 0 !important;
   border-bottom: 0 !important;
-  min-height: 4.0em;
+//  min-height: 4.0em;
 }
 
 .item-inner {
@@ -137,7 +75,7 @@ ion-item.item-block {
 }
 
 ion-list {
-  margin: 0 !important;
+  //margin: 0 !important;
 }
 
 //svg {
@@ -162,4 +100,9 @@ div.spinner {
 .spinner svg {
   //width: 19% !important;
   height: 85px !important;
+}
+
+ion-footer .button {
+    margin: 0;
+
 }

@@ -21,15 +21,19 @@ export class Quizpage {
   countdown: any;
   timer: any;
   score: number = 0;
-  aantalVragen: number;
-  actieveVraag: number = 1;
-  questions: vragenModel[];
+  aflevering: number;
+  question: any;
   quizSub: Subscription;
   postQuizSub: Subscription;
+  quizResults: Subscription;
   answer: any;
   deelnemerSub: Subscription;
   deelnemer: deelnemerModel;
+  quizAntwoorden: any[];
   laatsteaflevering: number = 0;
+  showstartscherm: boolean = true;
+  showquizscherm: boolean = false;
+  showeindscherm: boolean = false;
 
   constructor(public navCtrl: NavController, public quizService: QuizService,
               private deelnemersService: DeelnemersService,
@@ -41,65 +45,50 @@ export class Quizpage {
   }
 
   ionViewWillEnter() {
-
-    this.mollenService.getLaatsteAflevering().subscribe(response => {
-      this.laatsteaflevering = response.aflevering - 1;
-      this.quizSub = this.quizService.getquiz(this.laatsteaflevering).subscribe(vragen => {
-        this.aantalVragen = vragen.length;
-        this.questions = vragen;
-      });
-    });
-
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
       this.deelnemer = response;
     });
-
-
   }
 
   ionViewWillLeave() {
-    this.quizSub.unsubscribe();
     this.deelnemerSub.unsubscribe();
+    this.quizResults ? this.quizResults.unsubscribe() : '';
   };
 
-  nextSlide(actieveVraag?) {
+  nextSlide() {
+    this.quizSub = this.quizService.getquiz().subscribe(vraag => {
+      this.question = vraag;
+      if (this.question.aantalOpenVragen > 0) {
+        this.showquizschermFunc();
+        //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss
+        this.countdown = 100;
 
-    // let source = Observable.timer(200, 100)
-    //   .timeInterval()
-    //   .pluck('interval')
-    //   .take(3);
-    //
-    // let subscription = source.subscribe(
-    //   function (x) {
-    //     console.log('Next: ' + x);
-    //   },
-    //   function (err) {
-    //     console.log('Error: ' + err);
-    //   },
-    //   function () {
-    //     console.log('Completed');
-    //   });
-
-    this.slides.slideNext();
-    if (this.actieveVraag <= this.aantalVragen) {
-      //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss
-      this.countdown = 10;
-
-      let source = Observable.timer(1000, 1000)
-        .timeInterval()
+        let source = Observable.timer(1000, 1000)
+          .timeInterval()
           .pluck('interval')
-        .take(this.countdown);
+          .take(this.countdown);
 
-      this.timer = source.subscribe((x) => {
-        this.countdown--;
-      }, (err) => {
-        console.log('Error: ' + err);
-      }, () => {
-        console.log('next slide');
+        this.timer = source.subscribe((x) => {
+          this.countdown--;
+        }, (err) => {
+          console.log('Error: ' + err);
+        }, () => {
+          console.log('next slide');
+          this.selectAnswer(null, this.question);
+          this.question = null;
+        })
+      }
+      else {
+        this.showquizscherm = false;
+        this.showstartscherm = false;
+        this.showeindscherm = true;
 
-        this.nextSlide(this.actieveVraag++);
-      })
-    }
+       this.quizResults = this.quizService.getanswers().subscribe(response => {
+          this.quizAntwoorden = response;
+          this.aflevering = response[0].aflevering;
+        })
+      }
+    });
   }
 
 
@@ -111,26 +100,29 @@ export class Quizpage {
     console.log('antwoord: ' + answer);
     console.log('question: ' + question);
 
-    let request = {
+    let request: any = {
       'aflevering': question.aflevering,
-      'antwoord': {id: answer.id},
       'vraag': {id: question.id},
       'deelnemer': {id: this.deelnemer.id},
+      'antwoord': null,
     };
+
+    if (answer) {
+      request.antwoord = {id: answer.id};
+    }
 
     this.postQuizSub = this.quizService.saveAnswer(request).subscribe(response => {
       console.log(response);
       this.postQuizSub.unsubscribe();
+      this.timer.unsubscribe();
+      this.countdown = 0;
+      this.nextSlide();
     }, (err => {
       console.log(err);
       this.postQuizSub.unsubscribe();
     }));
 
-    this.countdown = 0;
-    this.timer.unsubscribe();
-    this.countdown = 0;
 
-    this.nextSlide(this.actieveVraag++);
   }
 
   randomizeAnswers(rawAnswers: any[]): any[] {
@@ -144,6 +136,12 @@ export class Quizpage {
 
     return rawAnswers;
 
+  }
+
+  showquizschermFunc() {
+    this.showquizscherm = true;
+    this.showeindscherm = false;
+    this.showstartscherm = false
   }
 
   // restart on

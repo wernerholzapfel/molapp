@@ -1,63 +1,59 @@
 <ion-content class="quiz">
+  <ion-grid *ngIf="showstartscherm">
+    <ion-row align-items-center>
+      <button full ion-button color="quizbutton" (click)="nextSlide()">Start de test!</button>
+    </ion-row>
+  </ion-grid>
 
-  <ion-slides #slides>
-
-    <ion-slide class="start-slide">
-      <ion-grid>
+  <ion-grid *ngIf="showquizscherm">
+    <ion-row>
+      <ion-col>
         <ion-row>
-          <ion-col></ion-col>
+          <ion-card>
+            <ion-card-header class="vragen-header" text-wrap>
+              {{question?.vraag}}
+            </ion-card-header>
+          </ion-card>
         </ion-row>
-        <ion-row>
-          <ion-col>
-            <button ion-button color="quizbutton" (click)="nextSlide()">Start!</button>
-            <button ion-button color="quizbutton" (click)="goBack()">Terug!</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-
-    <ion-slide *ngFor="let question of questions; let i = index;">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            Vraag {{actieveVraag}}
-            <h3>{{question.vraag}}</h3>
-            <div class="countdown">
-              <div class="countdown-number">
-                {{countdown}}
-              </div>
-              <div class="countdown-number"></div>
-              <svg>
-                <circle r="18" cx="20" cy="20"></circle>
-              </svg>
+        <ion-row align-self-center>
+          <div class="countdown">
+            <div class="countdown-number">
+              {{countdown}}
             </div>
-          </ion-col>
+            <div class="countdown-number"></div>
+            <svg>
+              <circle r="27" cx="30" cy="30"></circle>
+            </svg>
+          </div>
         </ion-row>
-        <ion-row>
-          <ion-col col-12>
-            <button ion-button color="quizbutton" full *ngFor="let answer of question.antwoorden; let i = index;"
-                    (click)="selectAnswer(answer, question)">
-              {{i+1}}. {{answer.antwoord}}
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
+      </ion-col>
+    </ion-row>
 
-    <ion-slide>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <h2>Dit waren de vragen, keer terug naar het hoofdmenu</h2>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <button ion-button (click)="goBack()" full color="quizbutton">Menu</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
+    <ion-row>
+      <ion-col align-self-end>
+        <button ion-button color="quizbutton" full *ngFor="let answer of question?.antwoorden; let i = index;"
+                (click)="selectAnswer(answer, question)">
+          {{i+1}}. {{answer.antwoord}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  </ion-slides>
+  <ion-grid *ngIf="showeindscherm">
+    <ion-card>
+      <ion-card-header text-wrap>Je hebt de test afgerond, hieronder zie je jouw antwoorden voor aflevering
+        {{aflevering}}
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let quizAntwoord of quizAntwoorden; let i = index;">
+          <h3>{{quizAntwoord.vraag.vraag}}
+            {{quizAntwoord.antwoord?.antwoord ? quizAntwoord.antwoord.antwoord : 'geen antwoord'}}</h3>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-grid>
 </ion-content>
+<ion-footer *ngIf="showeindscherm || showstartscherm">
+  <button ion-button (click)="goBack()" full color="quizbutton">Keer terug naar het menu</button>
+</ion-footer>
+

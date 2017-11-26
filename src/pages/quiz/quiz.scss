@@ -1,49 +1,48 @@
 .ios, .md {
 
   page-quiz {
-
-    ion-content{
-      background-color: #000;
-      color: #38764E;
+    ion-card {
+      background-color: map-get($colors, primary);
+    }
+    ion-card-header {
+      color: #ffffff;
+    }
+    .vragen-header {
+      font-size: 2.5em;
+    }
+    ion-content {
+      background-color: map-get($colors, primary);
+      color: #ffffff;
+    }
+    scroll-content {
+      //display: flex;
+      //flex-direction: column;
     }
 
-
-    .slide-zoom {
+    ion-grid {
+      padding: 0;
       height: 100%;
     }
-    ion-slide {
-      align-items: flex-start;
 
-      scroll-content {
-        display: flex;
-        flex-direction: column;
-      }
-
-      ion-grid {
-        padding: 0;
-        height: 100%;
-      }
-
-      ion-row {
-        flex: 1;
-      }
-
+    ion-row {
+      flex: 1;
     }
 
     ion-item {
       margin-bottom: 5px;
       font-size: 1.2em;
       background-color: map-get($colors, primary);
+      color: #ffffff;
     }
 
-    flash-card {
-      color: #000;
-
-      img {
-        width: 70%;
-        height: auto;
-      }
-    }
+    //flash-card {
+    //  color: #ffffff;
+    //
+    //  img {
+    //    width: 70%;
+    //    height: auto;
+    //  }
+    //}
 
     //.start-slide {
     //  justify-content: center;
@@ -54,57 +53,57 @@
     //    font-weight: bold;
     //  }
     //}
+
+    //countdown
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #333;
+    }
+
+    .countdown {
+      position: relative;
+      margin: auto;
+      margin-top: 10px;
+      height: 60px;
+      width: 60px;
+      text-align: center;
+    }
+
+    .countdown-number {
+      color: #38764E;
+      //display: inline-block;
+      line-height: 60px;
+      font-size: 2em
+    }
+
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      transform: rotateY(-180deg) rotateZ(-90deg);
+    }
+
+    svg circle {
+      stroke-dasharray: 170px;
+      stroke-dashoffset: 0px;
+      stroke-linecap: round;
+      stroke-width: 2px;
+      stroke: #38764E;
+      fill: none;
+      //animation: countdown 10s linear infinite forwards;
+    }
+
+    @keyframes countdown {
+      from {
+        stroke-dashoffset: 0px;
+      }
+      to {
+        stroke-dashoffset: 113px;
+      }
+    }
+
   }
 }
-
-//countdown
-body {
-  height: 100%;
-  width: 100%;
-  background-color: #333;
-}
-
-.countdown {
-  position: relative;
-  margin: auto;
-  margin-top: 10px;
-  height: 40px;
-  width: 40px;
-  text-align: center;
-}
-
-.countdown-number {
-  color: #38764E;
-  //display: inline-block;
-  line-height: 40px;
-}
-
-svg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  transform: rotateY(-180deg) rotateZ(-90deg);
-}
-
-svg circle {
-  stroke-dasharray: 113px;
-  stroke-dashoffset: 0px;
-  stroke-linecap: round;
-  stroke-width: 2px;
-  stroke: #38764E;
-  fill: none;
-  //animation: countdown 10s linear infinite forwards;
-}
-
-@keyframes countdown {
-  from {
-    stroke-dashoffset: 0px;
-  }
-  to {
-    stroke-dashoffset: 113px;
-  }
-}
-
-

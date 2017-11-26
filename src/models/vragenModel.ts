@@ -1,10 +1,11 @@
 export interface vragenModel {
-  'uid': number,
-  'aflevering': number,
-  'id': number,
-  'vraag': string,
-  'antwoord': antwoordModel[],
-  'molloot': string
+  uid?: number,
+  aflevering?: number,
+  id?: number,
+  vraag?: string,
+  aantalOpenVragen?: number,
+  antwoord?: antwoordModel[],
+  molloot?: string
 }
 
 export interface antwoordModel {
