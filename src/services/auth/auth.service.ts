@@ -90,7 +90,7 @@ export class AuthService {
 
         // create deelnemer if new
         this.deelnemerService.savedeelnemer(<deelnemerModel>{
-          display_name: this.user.name,
+          display_name: this.user.user_metadata ? this.user.user_metadata.naam : this.user.nickname,
           email: this.user.email,
           auth0Identifier: this.user.user_id
         }).subscribe(response => {

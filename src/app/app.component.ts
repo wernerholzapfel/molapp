@@ -25,6 +25,19 @@ export class AuthApp {
       (<any>window).handleOpenURL = (url) => {
         Auth0Cordova.onRedirectUri(url);
       };
+
+      // OneSignal Code start:
+      // Enable to debug issues:
+      // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+      let notificationOpenedCallback = function(jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+
+      window["plugins"].OneSignal
+        .startInit("798e58d5-586c-4b03-90e6-72adacc8b22f") // todo "YOUR_GOOGLE_PROJECT_NUMBER_IF_ANDROID"
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
     });
   }
 }

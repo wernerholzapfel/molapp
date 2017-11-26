@@ -75,4 +75,5 @@
         <variable name="ANDROID_HOST" value="werner.eu.auth0.com" />
         <variable name="ANDROID_PATHPREFIX" value="/cordova/com.wernerholzapfel.mollotenapp/callback" />
     </plugin>
+    <plugin name="onesignal-cordova-plugin" spec="~2.2.2" />
 </widget>
