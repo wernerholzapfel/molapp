@@ -8,7 +8,11 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  <form *ngIf="!isLoading" [formGroup]="voorspelling" (ngSubmit)="logForm()">
+  <ion-card *ngIf="isLaatsteaflevering">
+    <ion-card-header>De laatste aflevering is geweest.</ion-card-header>
+  </ion-card>
+
+  <form *ngIf="!isLoading && !isLaatsteaflevering" [formGroup]="voorspelling" (ngSubmit)="logForm()">
     <ion-list>
       <ion-item class="headereven" (click)="kiesMol = !kiesMol">
         <ion-thumbnail item-left>

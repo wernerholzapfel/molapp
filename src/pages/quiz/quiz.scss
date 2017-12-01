@@ -28,6 +28,11 @@
       flex: 1;
     }
 
+    ion-card {
+      background-color: map-get($colors, primary);
+      color: #ffffff;
+      box-shadow: none;
+    }
     ion-item {
       margin-bottom: 5px;
       font-size: 1.2em;

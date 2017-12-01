@@ -32,6 +32,7 @@ export class MolvoorspellingPage {
   slides: mollenModel[] = [];
 
   laatsteaflevering: number = 0;
+  isLaatsteaflevering: boolean;
   nieuweRonde: boolean;
   laatstevoorspellingSub: Subscription;
   laatsteVoorspelling: voorspelling;
@@ -76,7 +77,8 @@ export class MolvoorspellingPage {
     this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
         this.mollen = response;
         this.mollenService.getLaatsteAflevering().subscribe(response => {
-          this.laatsteaflevering = response.aflevering
+          this.laatsteaflevering = response.aflevering;
+          this.isLaatsteaflevering = response.laatseAflevering;
         })
       }
     );
@@ -134,7 +136,7 @@ export class MolvoorspellingPage {
   };
 
   ionViewCanLeave() {
-    if (this.showAlertMessage && this.laatsteaflevering + 1 !== this.laatsteVoorspelling.aflevering) {
+    if (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteaflevering + 1 !== this.laatsteVoorspelling.aflevering) {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
           title: 'Voorspellingen niet opgeslagen',

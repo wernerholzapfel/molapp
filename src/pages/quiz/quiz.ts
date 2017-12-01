@@ -2,7 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {Observable} from 'rxjs/Rx';
 import {QuizService} from '../../services/api/quiz.service';
-import {vragenModel} from '../../models/vragenModel';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 import {MollenService} from '../../services/api/mollen.service';
@@ -27,6 +26,7 @@ export class Quizpage {
   postQuizSub: Subscription;
   quizResults: Subscription;
   answer: any;
+  laatsteAfleveringSub: Subscription;
   deelnemerSub: Subscription;
   deelnemer: deelnemerModel;
   quizAntwoorden: any[];
@@ -48,10 +48,16 @@ export class Quizpage {
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
       this.deelnemer = response;
     });
+    this.laatsteAfleveringSub = this.mollenService.getLaatsteAflevering().subscribe(response => {
+      if (response.laatseAflevering) {
+        this.showeindschermFunc();
+      }
+    })
   }
 
   ionViewWillLeave() {
     this.deelnemerSub.unsubscribe();
+    this.laatsteAfleveringSub.unsubscribe();
     this.quizResults ? this.quizResults.unsubscribe() : '';
   };
 
@@ -79,14 +85,7 @@ export class Quizpage {
         })
       }
       else {
-        this.showquizscherm = false;
-        this.showstartscherm = false;
-        this.showeindscherm = true;
-
-       this.quizResults = this.quizService.getanswers().subscribe(response => {
-          this.quizAntwoorden = response;
-          this.aflevering = response[0].aflevering;
-        })
+        this.showeindschermFunc();
       }
     });
   }
@@ -142,6 +141,17 @@ export class Quizpage {
     this.showquizscherm = true;
     this.showeindscherm = false;
     this.showstartscherm = false
+  }
+
+  showeindschermFunc() {
+    this.showquizscherm = false;
+    this.showstartscherm = false;
+    this.showeindscherm = true;
+
+    this.quizResults = this.quizService.getanswers().subscribe(response => {
+      this.quizAntwoorden = response;
+      this.aflevering = response[0].aflevering;
+    })
   }
 
   // restart on
