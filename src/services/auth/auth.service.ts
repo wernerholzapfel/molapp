@@ -18,7 +18,7 @@ export class AuthService {
   auth0 = new auth0.WebAuth({clientID: 'WNjXlR4ChTqf2azaWhPk4MPzViNqoQft', domain: 'werner.eu.auth0.com'});
   lock = new Auth0Lock('WNjXlR4ChTqf2azaWhPk4MPzViNqoQft', 'werner.eu.auth0.com', {
     allowSignUp: true,
-    allowedConnections: ["Username-Password-Authentication","facebook","google-oauth2"],
+    allowedConnections: ["Username-Password-Authentication"], //"facebook","google-oauth2"
     rememberLastLogin: false,
     auth: {
       redirect: false,

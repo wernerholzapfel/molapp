@@ -34,6 +34,7 @@ export class Quizpage {
   showstartscherm: boolean = true;
   showquizscherm: boolean = false;
   showeindscherm: boolean = false;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController, public quizService: QuizService,
               private deelnemersService: DeelnemersService,
@@ -45,8 +46,10 @@ export class Quizpage {
   }
 
   ionViewWillEnter() {
+    this.isLoading = true;
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
       this.deelnemer = response;
+      this.isLoading = false;
     });
     this.laatsteAfleveringSub = this.mollenService.getLaatsteAflevering().subscribe(response => {
       if (response.laatseAflevering) {
@@ -62,6 +65,8 @@ export class Quizpage {
   };
 
   nextSlide() {
+    this.isLoading = true;
+    this.showquizscherm = false;
     this.quizSub = this.quizService.getquiz().subscribe(vraag => {
       this.question = vraag;
       if (this.question.aantalOpenVragen > 0) {
@@ -138,12 +143,14 @@ export class Quizpage {
   }
 
   showquizschermFunc() {
+    this.isLoading = false;
     this.showquizscherm = true;
     this.showeindscherm = false;
     this.showstartscherm = false
   }
 
   showeindschermFunc() {
+    this.isLoading = false;
     this.showquizscherm = false;
     this.showstartscherm = false;
     this.showeindscherm = true;

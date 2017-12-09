@@ -11,7 +11,7 @@ import {DeelnemersService} from '../../services/api/deelnemers.service';
 export class ProfilePage {
   deelnemerSub: Subscription;
   molvoorspellingen: voorspelling[];
-isLoading: boolean;
+  isLoading: boolean;
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public auth: AuthService, private mollenService: MollenService, private deelnemersService: DeelnemersService) {

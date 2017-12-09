@@ -1,6 +1,10 @@
 .ios, .md {
 
   page-quiz {
+
+    .spinner-ios-crescent circle {
+      stroke: #fff;
+    }
     ion-card {
       background-color: map-get($colors, primary);
     }
@@ -82,7 +86,7 @@
       font-size: 2em
     }
 
-    svg {
+    .quizscherm svg {
       position: absolute;
       top: 0;
       right: 0;
@@ -91,7 +95,7 @@
       transform: rotateY(-180deg) rotateZ(-90deg);
     }
 
-    svg circle {
+    .quizscherm svg circle {
       stroke-dasharray: 170px;
       stroke-dashoffset: 0px;
       stroke-linecap: round;

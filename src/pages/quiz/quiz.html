@@ -1,11 +1,15 @@
 <ion-content class="quiz">
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
   <ion-grid *ngIf="showstartscherm">
     <ion-row align-items-center>
       <button full ion-button color="quizbutton" (click)="nextSlide()">Start de test!</button>
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="showquizscherm">
+  <ion-grid class="quizscherm" *ngIf="showquizscherm">
     <ion-row>
       <ion-col>
         <ion-row>
