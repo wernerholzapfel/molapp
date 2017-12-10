@@ -22,7 +22,7 @@
 
     <div *ngFor="let quizpunt of quizpunten">
       <ion-item text-center color="navbar">
-        Aflevering {{quizpunt?.aflevering}} {{quizpunt?.afleveringpunten}} punten
+        Aflevering {{quizpunt?.aflevering}} <span item-right>{{quizpunt?.afleveringpunten}} punten </span>
       </ion-item>
       <ion-item *ngFor="let vraag of quizpunt.vragen; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
         <h2>{{vraag.quizresultaat.vraag.vraag}}</h2>
@@ -31,6 +31,9 @@
           <div class="thumbnailtext"></div>
           <span class="totaalpunten">
         {{vraag.quizpunten}}
+        </span>
+          <span class="deltatotaalpunten" [hidden]="vraag.deltaQuizpunten === 0" [ngClass]="vraag.deltaQuizpunten >= 0 ? 'stijger' : 'daler'">
+      {{vraag.deltaQuizpunten}}
         </span>
         </ion-thumbnail>
       </ion-item>

@@ -4,13 +4,14 @@ import {Subscription} from 'rxjs';
 import {voorspelling} from '../../models/molvoorspelling';
 import {MollenService} from '../../services/api/mollen.service';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
+import {deelnemerModel} from '../../models/deelnemerModel';
 
 @Component({
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
   deelnemerSub: Subscription;
-  molvoorspellingen: voorspelling[];
+  molvoorspellingen: deelnemerModel;
   isLoading: boolean;
   // We need to inject AuthService so that we can
   // use it in the view
