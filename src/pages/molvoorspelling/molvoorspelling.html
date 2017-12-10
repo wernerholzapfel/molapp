@@ -12,6 +12,12 @@
     <ion-card-header>De laatste aflevering is geweest.</ion-card-header>
   </ion-card>
 
+  <ion-card>
+    <ion-card-content>
+      Sla je voorspellingen op voor: {{deadlineDatetime | date:'d MMMM HH:mm'}}
+    </ion-card-content>
+  </ion-card>
+
   <form *ngIf="!isLoading && !isLaatsteaflevering" [formGroup]="voorspelling" (ngSubmit)="logForm()">
     <ion-list>
       <ion-item class="headereven" (click)="kiesMol = !kiesMol">

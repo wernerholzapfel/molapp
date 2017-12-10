@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.wernerholzapfel.mollotenapp" version="0.0.8" xmlns="http://www.w3.org/ns/widgets">
+<widget id="com.wernerholzapfel.mollotenapp" version="0.1.0" xmlns="http://www.w3.org/ns/widgets">
     <name>Molloot</name>
     <description>Spel gedurende wie is de mol.</description>
     <author email="werner.holzapfel@gmail.com" href="http://molapi.herokuapp.com/">Werner holzapfel</author>
@@ -75,6 +75,6 @@
         <variable name="ANDROID_PATHPREFIX" value="/cordova/com.wernerholzapfel.mollotenapp/callback" />
     </plugin>
     <plugin name="onesignal-cordova-plugin" spec="~2.2.2" />
-    <engine name="ios" spec="~4.3.1" />
     <plugin name="cordova-plugin-disable-ios11-statusbar" spec="~1.0.0" />
+    <engine name="ios" spec="~4.3.1" />
 </widget>

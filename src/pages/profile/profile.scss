@@ -1,3 +1,4 @@
+//profile-page {
   ion-thumbnail {
     opacity: 1;
     &.afgevallen {
@@ -15,14 +16,15 @@
       opacity: 0.4;
     }
   }
-  ion-item.item-block {
-    padding-left: 0 !important;
-    border-top: 0 !important;
-    border-bottom: 0 !important;
-    min-height: 4.0em;
-  }
-
-  ion-card {
-    margin: 0 !important;
-    width: 100% !important;
-  }
+  //ion-item.item-block {
+  //  padding-left: 0 !important;
+  //  border-top: 0 !important;
+  //  border-bottom: 0 !important;
+  //  min-height: 4.0em;
+  //}
+  //
+  //ion-card {
+  //  margin: 0 !important;
+  //  width: 100% !important;
+  //}
+//}

@@ -19,8 +19,8 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(deelnemer => {
-        this.molvoorspellingen = deelnemer.voorspellingen;
+    this.deelnemerSub = this.deelnemersService.getvoorspellingen().subscribe(deelnemer => {
+        this.molvoorspellingen = deelnemer;
         this.isLoading = false;
       }, err => {
       this.isLoading = false;

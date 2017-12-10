@@ -24,6 +24,11 @@ export class MollenService {
       .map(res => <any>res.json());
   }
 
+  getCurrentAflevering(): Observable<any> {
+    return this.http.get(`${this.api}/afleveringen/current`)
+      .map(res => <any>res.json());
+  }
+
   getactivemollen(): Observable<mollenModel[]> {
     return this.http.get(`${this.api}/activekandidaten`)
       .map(res => <mollenModel[]>res.json());

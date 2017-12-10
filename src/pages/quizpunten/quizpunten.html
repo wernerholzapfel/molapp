@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>Test resultaten</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading" class="spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="auth.authenticated() && !isLoading">
+
+    <ion-item *ngIf="auth.user">
+      <ion-thumbnail item-left>
+        <img src="{{ auth.user.picture }}">
+      </ion-thumbnail>
+      <h2>{{ auth.user.nickname }}</h2>
+      <p>{{ auth.user.email }}</p>
+    </ion-item>
+
+
+    <div *ngFor="let quizpunt of quizpunten">
+      <ion-item text-center color="navbar">
+        Aflevering {{quizpunt?.aflevering}} {{quizpunt?.afleveringpunten}} punten
+      </ion-item>
+      <ion-item *ngFor="let vraag of quizpunt.vragen; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
+        <h2>{{vraag.quizresultaat.vraag.vraag}}</h2>
+        <h3>{{vraag.quizresultaat.antwoord.antwoord}}</h3>
+        <ion-thumbnail item-left>
+          <div class="thumbnailtext"></div>
+          <span class="totaalpunten">
+        {{vraag.quizpunten}}
+        </span>
+        </ion-thumbnail>
+      </ion-item>
+    </div>
+  </ion-list>
+
+</ion-content>

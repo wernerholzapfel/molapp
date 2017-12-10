@@ -29,5 +29,11 @@ export class QuizService {
     return this.authHttp.get(`${this.api}/quizresultaten`)
       .map(res => <any>res.json())
   }
+
+  getquizresultaat(): Observable<any[]>{
+    return this.authHttp.get(`${this.api}/quizpunten/loggedInDeelnemer`)
+      .map(res => <any>res.json())
+  }
+
 }
 

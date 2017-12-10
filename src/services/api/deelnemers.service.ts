@@ -15,6 +15,11 @@ export class DeelnemersService {
       .map(res => <deelnemerModel>res.json());
   }
 
+  getvoorspellingen(): Observable<deelnemerModel> {
+    return this.authHttp.get(`${this.api}/deelnemers/voorspellingen`)
+      .map(res => <deelnemerModel>res.json());
+  }
+
   savedeelnemer(value: deelnemerModel): Observable<any> {
     return this.authHttp.post(`${this.api}/deelnemers/`, value)
       .map(res => <any>res.json());

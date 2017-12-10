@@ -1,0 +1,34 @@
+page-quizpunten {
+  span.totaalpunten {
+    margin: auto;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 2.5em;
+    width: 2.5em;
+    margin-left: 1em;
+  }
+  div.thumbnailtext {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    //height: 85px;
+    border-radius: 100%;
+    border: 1px solid;
+    height: 2.5em;
+    width: 2.5em;
+    margin-left: 1em;
+  }
+
+  ion-thumbnail {
+    height: 2.5em;
+    width: 2.5em;
+    line-height: 3.0em;
+    text-align: center;
+  }
+}

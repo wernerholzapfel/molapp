@@ -31,8 +31,9 @@ export class MolvoorspellingPage {
   deelnemer: deelnemerModel;
   slides: mollenModel[] = [];
 
-  laatsteaflevering: number = 0;
+  laatsteAfleveringNummer: number = 0;
   isLaatsteaflevering: boolean;
+  deadlineDatetime: any;
   nieuweRonde: boolean;
   laatstevoorspellingSub: Subscription;
   laatsteVoorspelling: voorspelling;
@@ -60,7 +61,7 @@ export class MolvoorspellingPage {
       mol: ['', Validators.required],
       winnaar: ['', Validators.required],
       afvaller: ['', Validators.required],
-      aflevering: [this.laatsteaflevering + 1, Validators.required],
+      aflevering: [this.laatsteAfleveringNummer + 1, Validators.required],
       deelnemer: [null, Validators.required] // todo get deelnemersId
     });
   }
@@ -77,9 +78,13 @@ export class MolvoorspellingPage {
     this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
         this.mollen = response;
         this.mollenService.getLaatsteAflevering().subscribe(response => {
-          this.laatsteaflevering = response.aflevering;
+          this.laatsteAfleveringNummer = response.aflevering;
           this.isLaatsteaflevering = response.laatseAflevering;
-        })
+        });
+
+        this.mollenService.getCurrentAflevering().subscribe(response => {
+          this.deadlineDatetime = response.deadlineDatetime;
+        });
       }
     );
 
@@ -116,19 +121,19 @@ export class MolvoorspellingPage {
           this.voorspelling.get('winnaar').setValue({id: this.activeWinnaar.id});
           this.voorspelling.get('afvaller').setValue({id: this.activeAfvaller.id});
 
-          if (this.laatsteaflevering < this.laatsteVoorspelling.aflevering) {
+          if (this.laatsteAfleveringNummer < this.laatsteVoorspelling.aflevering) {
             this.nieuweRonde = false;
             this.voorspelling.get('id').setValue(this.laatsteVoorspelling.id);
           } else {
             this.nieuweRonde = true;
             this.voorspelling.get('id').setValue(null);
           }
-          this.voorspelling.get('aflevering').setValue(this.laatsteaflevering + 1);
+          this.voorspelling.get('aflevering').setValue(this.laatsteAfleveringNummer + 1);
         }
         else {
           this.slides = this.mollen;
           this.nieuweRonde = true;
-          this.voorspelling.get('aflevering').setValue(this.laatsteaflevering + 1);
+          this.voorspelling.get('aflevering').setValue(this.laatsteAfleveringNummer + 1);
         }
         this.isLoading = false;
       });
@@ -136,7 +141,7 @@ export class MolvoorspellingPage {
   };
 
   ionViewCanLeave() {
-    if (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteaflevering + 1 !== this.laatsteVoorspelling.aflevering) {
+    if (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteAfleveringNummer + 1 !== this.laatsteVoorspelling.aflevering) {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
           title: 'Voorspellingen niet opgeslagen',

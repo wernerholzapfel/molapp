@@ -5,6 +5,7 @@ import {TotaalstandPage} from "../totaalstand/totaalstand";
 import {MolvoorspellingPage} from "../molvoorspelling/molvoorspelling";
 import {ProfilePage} from "../profile/profile";
 import {AuthService} from "../../services/auth/auth.service";
+import {QuizpuntenPage} from '../quizpunten/quizpunten';
 
 /*
   Generated class for the HomePage page.
@@ -38,4 +39,7 @@ export class HomePage {
     this.navCtrl.push(ProfilePage)
   }
 
+  openQuizPunten(){
+    this.navCtrl.push(QuizpuntenPage)
+  }
 }

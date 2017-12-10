@@ -13,8 +13,8 @@ detailafleveringstand {
     left: 0;
     bottom: 0;
     right: 0;
-    height: 3.5em;
-    width: 3.5em;
+    height: 3em;
+    width: 3em;
     margin-left: 0.5em;
   }
   span.totaalpunten {
@@ -24,8 +24,8 @@ detailafleveringstand {
     left: 0;
     bottom: 0;
     right: 0;
-    height: 3.5em;
-    width: 3.5em;
+    height: 3em;
+    width: 3em;
     margin-left: 0.5em;
   }
   div.thumbnailtext {
@@ -38,22 +38,22 @@ detailafleveringstand {
     //height: 85px;
     border-radius: 100%;
     border: 1px solid;
-    height: 3.5em;
-    width: 3.5em;
+    height: 3em;
+    width: 3em;
     margin-left: 0.5em;
   }
 
   ion-thumbnail {
-    height: 3.5em;
-    width: 3.5em;
-    line-height: 4.0em;
+    height: 3em;
+    width: 3em;
+    line-height: 3.5em;
     text-align: center;
   }
 
   ion-avatar {
-    height: 3.5em !important;
-    width: 3.5em !important;
-    line-height: 4.0em;
+    height: 3em !important;
+    width: 3em !important;
+    line-height: 3.5em;
     text-align: center;
     border-radius: 50%;
     opacity: 1;
@@ -66,9 +66,9 @@ detailafleveringstand {
   }
 
   ion-avatar img {
-    height: 3.5em !important;;
-    width: 3.5em !important;;
-    line-height: 4.0em;
+    height: 3em !important;;
+    width: 3em !important;;
+    line-height: 3.5em;
     text-align: center;
     &.afgevallen{
       opacity: 0.4;

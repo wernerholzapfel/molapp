@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {IonicApp, IonicModule} from 'ionic-angular';
 import {AuthApp} from "./app.component";
 import {TabsPage} from "../pages/tabs/tabs";
@@ -23,6 +23,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import {StatusBar} from "@ionic-native/status-bar";
 import {DeelnemersService} from '../services/api/deelnemers.service';
+import {QuizpuntenPage} from '../pages/quizpunten/quizpunten';
+import { registerLocaleData } from '@angular/common';
+import localeNl from '@angular/common/locales/nl';
+
+registerLocaleData(localeNl, 'nl');
 
 let storage: Storage = new Storage({});
 
@@ -41,6 +46,7 @@ export function getAuthHttp(http) {
     MollenPage,
     MolvoorspellingPage,
     Quizpage,
+    QuizpuntenPage,
     TotaalstandPage,
     Detailafleveringstand,
     FlashCardComponent,
@@ -61,12 +67,14 @@ export function getAuthHttp(http) {
     MolvoorspellingPage,
     TotaalstandPage,
     Quizpage,
+    QuizpuntenPage,
     Detailafleveringstand,
     FlashCardComponent,
     CarouselComponent,
     HomePage
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: "nl-nl" },
     AuthService,
     {
       provide: AuthHttp,
