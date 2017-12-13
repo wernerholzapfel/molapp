@@ -6,15 +6,16 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { AuthService } from '../services/auth/auth.service';
 import {HomePage} from "../pages/homepage/homepage";
 import Auth0Cordova from '@auth0/cordova';
-
+import { Storage } from '@ionic/storage';
+import {IntroPage} from '../pages/intro/intro';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class AuthApp {
-  rootPage = HomePage;
+  rootPage;
 
-  constructor(platform: Platform, private auth: AuthService, statusBar: StatusBar) {
+  constructor(platform: Platform, private auth: AuthService, statusBar: StatusBar, public storage: Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -26,6 +27,13 @@ export class AuthApp {
         Auth0Cordova.onRedirectUri(url);
       };
 
+      this.storage.get('introShown').then((result) => {
+        if(result){
+          this.rootPage = HomePage;
+        } else {
+          this.rootPage = IntroPage;
+        }
+      });
       // OneSignal Code start:
       // Enable to debug issues:
       // window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});

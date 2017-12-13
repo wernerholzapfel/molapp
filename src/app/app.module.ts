@@ -7,7 +7,7 @@ import {AuthConfig, AuthHttp} from "angular2-jwt";
 import {AuthService} from "../services/auth/auth.service";
 import {MollenService} from "../services/api/mollen.service";
 import {Http} from "@angular/http";
-import {Storage} from "@ionic/storage";
+import {IonicStorageModule, Storage} from '@ionic/storage';
 import {MollenPage} from "../pages/mollen/mollen";
 import {MolvoorspellingPage} from "../pages/molvoorspelling/molvoorspelling";
 import {Quizpage} from "../pages/quiz/quiz";
@@ -26,6 +26,7 @@ import {DeelnemersService} from '../services/api/deelnemers.service';
 import {QuizpuntenPage} from '../pages/quizpunten/quizpunten';
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
+import {IntroPage} from '../pages/intro/intro';
 
 registerLocaleData(localeNl, 'nl');
 
@@ -51,12 +52,14 @@ export function getAuthHttp(http) {
     Detailafleveringstand,
     FlashCardComponent,
     CarouselComponent,
-    HomePage
+    HomePage,
+    IntroPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(AuthApp)
+    IonicModule.forRoot(AuthApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -71,7 +74,8 @@ export function getAuthHttp(http) {
     Detailafleveringstand,
     FlashCardComponent,
     CarouselComponent,
-    HomePage
+    HomePage,
+    IntroPage
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "nl-nl" },

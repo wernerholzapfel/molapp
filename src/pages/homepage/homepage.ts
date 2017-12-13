@@ -6,6 +6,7 @@ import {MolvoorspellingPage} from "../molvoorspelling/molvoorspelling";
 import {ProfilePage} from "../profile/profile";
 import {AuthService} from "../../services/auth/auth.service";
 import {QuizpuntenPage} from '../quizpunten/quizpunten';
+import {IntroPage} from '../intro/intro';
 
 /*
   Generated class for the HomePage page.
@@ -41,5 +42,9 @@ export class HomePage {
 
   openQuizPunten(){
     this.navCtrl.push(QuizpuntenPage)
+  }
+
+  openIntro(){
+    this.navCtrl.push(IntroPage)
   }
 }

@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="navbar">
     <ion-title>Wie is de Molloot</ion-title>
+    <ion-buttons end>
+      <button color="light" ion-button icon-only (click)="openIntro()">
+        <ion-icon name="ios-information-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content no-padding class="home">
@@ -9,10 +14,8 @@
     <ion-row>
       <ion-col>
         <ion-card (click)="openStand()">
-          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-amsterdam.png">
+          <img src="assets/cardimages/stand.jpeg">
           <div class="card-title" text-center>De stand</div>
-
-          <!--<img class="scoreboard" src="./assets/icon/scoreboard.svg">-->
         </ion-card>
       </ion-col>
     </ion-row>
@@ -20,34 +23,36 @@
     <ion-row *ngIf="auth.authenticated()">
       <ion-col>
         <ion-card (click)="startQuiz()">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgrO7quuI5D6qVjfIKSrwzUZ8nbVd2z_mhVBViaqJpFnju5IALCg">
+          <img src="assets/cardimages/test.jpeg">
           <div class="card-title" text-center>Start de Test</div>
-          <!--<img class="quiz" src="../../assets/icon/quiz-on-computer-with-question-signs-around.svg">-->
-        </ion-card>
-      </ion-col>
-      <ion-col>
-        <ion-card *ngIf="auth.authenticated()" (click)="openVoorspelling()">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgrO7quuI5D6qVjfIKSrwzUZ8nbVd2z_mhVBViaqJpFnju5IALCg">
-          <div class="card-title">Voorspellen</div>
-          <!--<div class="card-title" class="card-subtitle">41 Listings</div>-->
-
-          <!--<img class="questions" src="./assets/icon/questions.svg">-->
         </ion-card>
       </ion-col>
     </ion-row>
 
     <ion-row *ngIf="auth.authenticated()">
       <ion-col>
-        <ion-card *ngIf="auth.authenticated()" (click)="openQuizPunten()">
-          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png">
+        <ion-card (click)="openQuizPunten()">
+          <img src="assets/cardimages/test_results.jpeg">
           <div class="card-title" text-center>
-            Test Resultaten
+            Jouw antwoorden
           </div>
         </ion-card>
       </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="auth.authenticated()">
+      <ion-col>
+        <ion-card *ngIf="auth.authenticated()" (click)="openVoorspelling()">
+          <img src="assets/cardimages/voorspellen.jpeg">
+          <div class="card-title">Voorspellen</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="auth.authenticated()">
       <ion-col>
         <ion-card (click)="openProfile()">
-          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png">
+          <img src="assets/cardimages/voorspellingen.jpeg">
           <div class="card-title" text-center>Jouw voorspellingen</div>
         </ion-card>
       </ion-col>

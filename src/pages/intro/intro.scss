@@ -1,0 +1,20 @@
+.ios, .md {
+
+  page-intro {
+
+    .swiper-pagination-bullet-active {
+      background-color: black;
+    }
+    ion-slide {
+      background-color: map-get($colors, navbar);
+
+    }
+
+    ion-card {
+      height: 70vh !important;
+      width: auto !important;
+    }
+
+  }
+
+}
