@@ -9,10 +9,16 @@
   <div *ngIf="isLoading" class="spinner">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
-  <!--todo stylen-->
-  <ion-card *ngIf="totaalstand?.length === 0">
-Er is nog geen stand bekend.
-  </ion-card>
+
+  <ion-list *ngIf="!totaalstand && !isLoading">
+    <ion-card>
+      <ion-card-content>
+        Er is nog geen stand bekend.
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <div class="afleveringsstand">
 
   <ion-card>
     <detailafleveringstand *ngFor="let standline of totaalstand let index =index;
@@ -21,4 +27,6 @@ Er is nog geen stand bekend.
                            [isEven]="isEven">
     </detailafleveringstand>
   </ion-card>
+  </div>
+
 </ion-content>

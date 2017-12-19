@@ -80,7 +80,7 @@
     }
 
     .countdown-number {
-      color: #38764E;
+      color:  map-get($colors, navbar);;
       //display: inline-block;
       line-height: 60px;
       font-size: 2em
@@ -100,7 +100,7 @@
       stroke-dashoffset: 0px;
       stroke-linecap: round;
       stroke-width: 2px;
-      stroke: #38764E;
+      stroke:  map-get($colors, primary);
       fill: none;
       //animation: countdown 10s linear infinite forwards;
     }

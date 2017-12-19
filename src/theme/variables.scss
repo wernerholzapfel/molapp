@@ -15,7 +15,7 @@ $font-family-base-md: "Rajdhani", sans-serif !default;
 
 $text-color: #000;
 $background-color: #fff;
-
+$toolbar-background: transparent;
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -32,7 +32,7 @@ $colors: (
   dark: #222,
   button: #9fc5c6,
   navbar: #9fc5c6,
-  quizbutton: #38764E
+  quizbutton: #9fc5c6
 );
 
 // App iOS Variables

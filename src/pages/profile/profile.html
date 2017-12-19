@@ -9,7 +9,7 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  <ion-list *ngIf="auth.authenticated() && !isLoading">
+  <ion-list *ngIf="auth.isAuthenticated() && !isLoading">
 
     <ion-item *ngIf="auth.user">
       <ion-thumbnail item-left>
@@ -19,6 +19,9 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
+    <ion-card *ngIf="!molvoorspellingen">
+      <ion-card-content>Er zijn nog geen scores voor je voorspellingen bekend. Ga naar Voorspellen toe om je voorspellingen op te slaan.</ion-card-content>
+    </ion-card>
 
     <div *ngFor="let voorspelling of molvoorspellingen">
       <ion-item text-center color="navbar">

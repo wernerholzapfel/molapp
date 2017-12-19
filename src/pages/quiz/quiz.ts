@@ -27,6 +27,7 @@ export class Quizpage {
   quizResults: Subscription;
   answer: any;
   laatsteAfleveringSub: Subscription;
+  currentAfleveringSub: Subscription;
   deelnemerSub: Subscription;
   deelnemer: deelnemerModel;
   quizAntwoorden: any[];
@@ -34,6 +35,7 @@ export class Quizpage {
   showstartscherm: boolean = true;
   showquizscherm: boolean = false;
   showeindscherm: boolean = false;
+  showgeenquizscherm: boolean = false;
   isLoading: boolean;
 
   constructor(public navCtrl: NavController, public quizService: QuizService,
@@ -49,18 +51,24 @@ export class Quizpage {
     this.isLoading = true;
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
       this.deelnemer = response;
-      this.isLoading = false;
     });
     this.laatsteAfleveringSub = this.mollenService.getLaatsteAflevering().subscribe(response => {
       if (response.laatseAflevering) {
         this.showeindschermFunc();
       }
-    })
+    });
+    this.currentAfleveringSub = this.mollenService.getCurrentAflevering().subscribe(response => {
+      if (response.aflevering === 1) {
+        this.showgeenquizschermFunc();
+      }
+    });
+    this.isLoading = false;
   }
 
   ionViewWillLeave() {
     this.deelnemerSub.unsubscribe();
     this.laatsteAfleveringSub.unsubscribe();
+    this.currentAfleveringSub.unsubscribe();
     this.quizResults ? this.quizResults.unsubscribe() : '';
   };
 
@@ -146,7 +154,17 @@ export class Quizpage {
     this.isLoading = false;
     this.showquizscherm = true;
     this.showeindscherm = false;
-    this.showstartscherm = false
+    this.showstartscherm = false;
+    this.showgeenquizscherm = false;
+
+  }
+
+  showgeenquizschermFunc() {
+    this.isLoading = false;
+    this.showquizscherm = false;
+    this.showeindscherm = false;
+    this.showstartscherm = false;
+    this.showgeenquizscherm = true
   }
 
   showeindschermFunc() {
@@ -154,6 +172,7 @@ export class Quizpage {
     this.showquizscherm = false;
     this.showstartscherm = false;
     this.showeindscherm = true;
+    this.showgeenquizscherm = false;
 
     this.quizResults = this.quizService.getanswers().subscribe(response => {
       this.quizAntwoorden = response;

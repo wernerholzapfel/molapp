@@ -11,6 +11,7 @@ import {kandidaatModel} from '../../models/kandidaatModel';
 import * as _ from 'lodash';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
+import {HomePage} from '../homepage/homepage';
 
 @Component({
   selector: 'page-molvoorspelling',
@@ -68,8 +69,8 @@ export class MolvoorspellingPage {
 
   pushPage() {
     this.navCtrl.pop();
-    this.navCtrl.push(ProfilePage)
-      .catch(() => console.log('should I stay or should I go now'))
+    // this.navCtrl.push(HomePage)
+    //   .catch(() => console.log('should I stay or should I go now'))
   }
 
   ionViewWillEnter() {
@@ -141,7 +142,7 @@ export class MolvoorspellingPage {
   };
 
   ionViewCanLeave() {
-    if (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteAfleveringNummer + 1 !== this.laatsteVoorspelling.aflevering) {
+    if ((!this.isLaatsteaflevering && this.showAlertMessage && !this.laatsteVoorspelling) || (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteAfleveringNummer + 1 !== this.laatsteVoorspelling.aflevering)) {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
           title: 'Voorspellingen niet opgeslagen',

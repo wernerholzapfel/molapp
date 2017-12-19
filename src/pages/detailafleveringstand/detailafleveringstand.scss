@@ -1,9 +1,9 @@
 detailafleveringstand {
   .daler {
-    color: red;
+    color: darkred;
   }
   .stijger {
-    color: green;
+    color: darkgreen;
   }
 
   span.deltatotaalpunten {
@@ -58,10 +58,10 @@ detailafleveringstand {
     border-radius: 50%;
     opacity: 1;
     &.afgevallen {
-      background: red;
+      background: darkred;
     }
     &.volgenderonde {
-      background: green;
+      background: darkgreen;
     }
   }
 

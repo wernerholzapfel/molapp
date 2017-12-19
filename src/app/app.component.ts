@@ -20,7 +20,9 @@ export class AuthApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // Schedule a token refresh on app start up
-      auth.startupTokenRefresh();
+
+      // TODO STARTUPTOKENREFRESH FIXEN
+      // auth.startupTokenRefresh();
       statusBar.styleDefault();
 
       (<any>window).handleOpenURL = (url) => {

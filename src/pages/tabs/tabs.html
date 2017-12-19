@@ -1,6 +1,6 @@
 <ion-tabs color="navbar">
   <ion-tab [root]="tab1Root" tabTitle="Profile" tabIcon="person"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Stand" tabIcon="stats"></ion-tab>
-  <ion-tab *ngIf="auth.authenticated()" [root]="tab3Root" tabTitle="Voorspelling" tabIcon="person"></ion-tab>
-  <ion-tab *ngIf="auth.authenticated()" [root]="tab4Root" tabTitle="Quiz" tabIcon="trophy"></ion-tab>
+  <ion-tab *ngIf="auth.isAuthenticated()" [root]="tab3Root" tabTitle="Voorspelling" tabIcon="person"></ion-tab>
+  <ion-tab *ngIf="auth.isAuthenticated()" [root]="tab4Root" tabTitle="Quiz" tabIcon="trophy"></ion-tab>
 </ion-tabs>

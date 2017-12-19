@@ -3,7 +3,7 @@
     <ion-title>Voorspellen</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content *ngIf="auth.authenticated()">
+<ion-content *ngIf="auth.isAuthenticated()">
   <div *ngIf="isLoading" class="spinner">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
@@ -12,7 +12,7 @@
     <ion-card-header>De laatste aflevering is geweest.</ion-card-header>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="!isLaatsteaflevering">
     <ion-card-content>
       Sla je voorspellingen op voor: {{deadlineDatetime | date:'d MMMM HH:mm'}}
     </ion-card-content>

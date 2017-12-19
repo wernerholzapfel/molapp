@@ -3,7 +3,15 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  <ion-grid *ngIf="showstartscherm">
+  <ion-list *ngIf="showgeenquizscherm">
+  <ion-card>
+    <ion-card-content>
+      De 1e test verschijnt na aflevering 1.
+      Heb je je notificaties ingeschakeld dan krijg je een notificatie wanneer de test beschikbaar is.
+    </ion-card-content>
+  </ion-card></ion-list>
+
+  <ion-grid *ngIf="showstartscherm && !isLoading">
     <ion-row align-items-center>
       <button full ion-button color="quizbutton" (click)="nextSlide()">Start de test!</button>
     </ion-row>
@@ -57,7 +65,7 @@
     </ion-card>
   </ion-grid>
 </ion-content>
-<ion-footer *ngIf="showeindscherm || showstartscherm">
+<ion-footer *ngIf="showeindscherm || showstartscherm || showgeenquizscherm">
   <button ion-button (click)="goBack()" full color="quizbutton">Keer terug naar het menu</button>
 </ion-footer>
 

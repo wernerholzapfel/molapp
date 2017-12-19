@@ -9,7 +9,7 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  <ion-list *ngIf="auth.authenticated() && !isLoading">
+  <ion-list *ngIf="auth.isAuthenticated() && !isLoading">
 
     <ion-item *ngIf="auth.user">
       <ion-thumbnail item-left>
@@ -19,6 +19,11 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
+    <ion-card *ngIf="!quizpunten && !isLoading">
+      <ion-card-content>
+        De testvragen verschijnen hier na aflevering 2. Wil je je antwoorden bekijken ga dan naar de test toe.
+      </ion-card-content>
+    </ion-card>
 
     <div *ngFor="let quizpunt of quizpunten">
       <ion-item text-center color="navbar">
@@ -27,13 +32,10 @@
       <ion-item *ngFor="let vraag of quizpunt.vragen; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
         <h2>{{vraag.quizresultaat.vraag.vraag}}</h2>
         <h3>{{vraag.quizresultaat.antwoord.antwoord}}</h3>
-        <ion-thumbnail item-left>
+        <ion-thumbnail item-left [ngClass]="{daler: vraag.deltaQuizpunten < 0}">
           <div class="thumbnailtext"></div>
           <span class="totaalpunten">
         {{vraag.quizpunten}}
-        </span>
-          <span class="deltatotaalpunten" [hidden]="vraag.deltaQuizpunten === 0" [ngClass]="vraag.deltaQuizpunten >= 0 ? 'stijger' : 'daler'">
-      {{vraag.deltaQuizpunten}}
         </span>
         </ion-thumbnail>
       </ion-item>

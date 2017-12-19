@@ -2,10 +2,10 @@
   ion-thumbnail {
     opacity: 1;
     &.afgevallen {
-      background: red;
+      background: darkred;
     }
     &.volgenderonde {
-      background: green;
+      background: darkgreen;
     }
   }
   ion-thumbnail img {
