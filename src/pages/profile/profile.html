@@ -10,7 +10,6 @@
   </div>
 
   <ion-list *ngIf="auth.isAuthenticated() && !isLoading">
-
     <ion-item *ngIf="auth.user">
       <ion-thumbnail item-left>
         <img src="{{ auth.user.picture }}">
@@ -19,9 +18,42 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
-    <ion-card *ngIf="!molvoorspellingen">
-      <ion-card-content>Er zijn nog geen scores voor je voorspellingen bekend. Ga naar Voorspellen toe om je voorspellingen op te slaan.</ion-card-content>
-    </ion-card>
+    <div *ngIf="!laatsteAflevering">
+      <ion-item text-center color="navbar">
+        Huidige voorspelling
+      </ion-item>
+      <ion-item class="even" *ngIf="!huidigeVoorspelling">
+        <button ion-button color="button" full (click)="goToVoorspelling()">Nog geen voorspelling</button>
+      </ion-item>
+
+      <div *ngIf="huidigeVoorspelling">
+        <ion-item class="even">
+          <ion-thumbnail item-left>
+            <img [src]=huidigeVoorspelling?.mol.image_url>
+          </ion-thumbnail>
+          <h2>De Mol:{{ huidigeVoorspelling?.mol.display_name }}</h2>
+        </ion-item>
+        <ion-item class="odd">
+          <ion-thumbnail item-left>
+            <img [src]=huidigeVoorspelling?.winnaar.image_url>
+          </ion-thumbnail>
+          <h2>De Winnaar:{{ huidigeVoorspelling?.winnaar.display_name }}</h2>
+          <div item-right>
+            {{huidigeVoorspelling?.winnaarpunten}}
+          </div>
+
+        </ion-item>
+        <ion-item class="even">
+          <ion-thumbnail item-left>
+            <img [src]=huidigeVoorspelling?.afvaller.image_url>
+          </ion-thumbnail>
+          <h2>Afvaller:{{ huidigeVoorspelling?.afvaller.display_name }}</h2>
+          <div item-right>
+            {{huidigeVoorspelling?.afvallerpunten}}
+          </div>
+        </ion-item>
+      </div>
+    </div>
 
     <div *ngFor="let voorspelling of molvoorspellingen">
       <ion-item text-center color="navbar">
@@ -30,8 +62,10 @@
       <ion-item class="even">
         <ion-thumbnail
           [ngClass]="voorspelling?.voorspelling.mol.afgevallen
-          && voorspelling?.voorspelling.mol.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'" item-left>
-          <img [src]=voorspelling?.voorspelling.mol.image_url [ngClass]="voorspelling?.voorspelling.mol.afgevallen && voorspelling?.voorspelling.mol.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'" >
+          && voorspelling?.voorspelling.mol.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'"
+          item-left>
+          <img [src]=voorspelling?.voorspelling.mol.image_url
+               [ngClass]="voorspelling?.voorspelling.mol.afgevallen && voorspelling?.voorspelling.mol.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
         </ion-thumbnail>
         <h2>De Mol:{{ voorspelling?.voorspelling.mol.display_name }}</h2>
         <div item-right>
@@ -39,18 +73,22 @@
         </div>
       </ion-item>
       <ion-item class="odd">
-        <ion-thumbnail item-left [ngClass]="voorspelling?.voorspelling.winnaar.afgevallen && voorspelling?.voorspelling.winnaar.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
-          <img [src]=voorspelling?.voorspelling.winnaar.image_url [ngClass]="voorspelling?.voorspelling.winnaar.afgevallen && voorspelling?.voorspelling.winnaar.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'" >
+        <ion-thumbnail item-left
+                       [ngClass]="voorspelling?.voorspelling.winnaar.afgevallen && voorspelling?.voorspelling.winnaar.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
+          <img [src]=voorspelling?.voorspelling.winnaar.image_url
+               [ngClass]="voorspelling?.voorspelling.winnaar.afgevallen && voorspelling?.voorspelling.winnaar.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
         </ion-thumbnail>
         <h2>De Winnaar:{{ voorspelling?.voorspelling.winnaar.display_name }}</h2>
-       <div item-right>
-         {{voorspelling?.winnaarpunten}}
-       </div>
+        <div item-right>
+          {{voorspelling?.winnaarpunten}}
+        </div>
 
       </ion-item>
       <ion-item class="even">
-        <ion-thumbnail item-left [ngClass]="voorspelling?.voorspelling.afvaller.afgevallen && voorspelling?.voorspelling.afvaller.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
-          <img [src]=voorspelling?.voorspelling.afvaller.image_url [ngClass]="voorspelling?.voorspelling.afvaller.afgevallen && voorspelling?.voorspelling.afvaller.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'" >
+        <ion-thumbnail item-left
+                       [ngClass]="voorspelling?.voorspelling.afvaller.afgevallen && voorspelling?.voorspelling.afvaller.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
+          <img [src]=voorspelling?.voorspelling.afvaller.image_url
+               [ngClass]="voorspelling?.voorspelling.afvaller.afgevallen && voorspelling?.voorspelling.afvaller.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
         </ion-thumbnail>
         <h2>Afvaller:{{ voorspelling?.voorspelling.afvaller.display_name }}</h2>
         <div item-right>

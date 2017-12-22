@@ -14,7 +14,7 @@ export interface deelnemer {
 
 export interface voorspelling {
   id: string,
-  aflevering: number,
+  aflevering: any,
   mol: kandidaat,
   afvaller: kandidaat,
   winnaar: kandidaat

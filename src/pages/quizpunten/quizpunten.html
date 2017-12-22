@@ -19,11 +19,18 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
-    <ion-card *ngIf="!quizpunten && !isLoading">
-      <ion-card-content>
-        De testvragen verschijnen hier na aflevering 2. Wil je je antwoorden bekijken ga dan naar de test toe.
-      </ion-card-content>
-    </ion-card>
+    <div *ngIf="quizAntwoorden && !isLoading && !isLaatsteAflevering">
+      <ion-item text-center color="navbar">
+        Huidige aflevering
+      </ion-item>
+      <ion-item class="even" *ngIf="!quizAntwoorden">
+        <button ion-button color="button" full (click)="goToQuiz()">Maak de nieuwe test</button>
+      </ion-item>
+      <ion-item *ngFor="let vraag of quizAntwoorden; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
+        <h2>{{vraag.vraag.vraag}}</h2>
+        <h3>{{vraag.antwoord.antwoord}}</h3>
+      </ion-item>
+    </div>
 
     <div *ngFor="let quizpunt of quizpunten">
       <ion-item text-center color="navbar">

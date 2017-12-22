@@ -31,7 +31,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="auth.isAuthenticated()">
+    <ion-row *ngIf="auth.isAuthenticated() && !laatsteAflevering">
       <ion-col>
         <ion-card (click)="startQuiz()">
           <img src="assets/cardimages/test.jpeg">
@@ -51,7 +51,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="auth.isAuthenticated()">
+    <ion-row *ngIf="auth.isAuthenticated() && !laatsteAflevering">
       <ion-col>
         <ion-card *ngIf="auth.isAuthenticated()" (click)="openVoorspelling()">
           <img src="assets/cardimages/voorspellen.jpeg">
