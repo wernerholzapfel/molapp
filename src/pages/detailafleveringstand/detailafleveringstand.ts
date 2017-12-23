@@ -1,9 +1,9 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {NavController} from "ionic-angular";
-import {Subscription} from "rxjs";
-import {afleveringstandModel} from "../../models/afleveringstandModel";
-import {StandenService} from "../../services/api/standen.service";
-import {totaalstandModel} from "../../models/totaalstand";
+import {Component, Input} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {Subscription} from 'rxjs';
+import {afleveringstandModel} from '../../models/afleveringstandModel';
+import {StandenService} from '../../services/api/standen.service';
+import {totaalstandModel} from '../../models/totaalstand';
 
 /*
  Generated class for the Detailafleveringstand page.
@@ -33,11 +33,11 @@ export class Detailafleveringstand {
   }
 
   ionViewWillEnter() {
-    console.log("ion view enter detail");
+    console.log('ion view enter detail');
   }
 
-  fetchDetails(){
-    console.log("button geklikt");
+  fetchDetails() {
+    console.log('button geklikt');
     this.afleveringstandSub = this.standenService.getafleveringstand(this.totaalstandline.deelnemerId).subscribe((response => {
       console.log(response);
       this.afleveringstand = response;
@@ -48,5 +48,11 @@ export class Detailafleveringstand {
   ionViewWillLeave() {
     this.afleveringstandSub.unsubscribe();
   };
+
+  determineAfvallersClass(afleveringstandline) {
+    if (afleveringstandline.voorspelling) {
+      return afleveringstandline.voorspelling.afvaller.afgevallen ? 'afgevallen' : '';
+    }
+  }
 
 }

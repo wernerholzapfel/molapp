@@ -80,7 +80,7 @@ export class Quizpage {
       if (this.question.aantalOpenVragen > 0) {
         this.showquizschermFunc();
         //if countdown is changed also change   animation: countdown 10s linear infinite forwards; in quiz.scss
-        this.countdown = 10;
+        this.countdown = 20;
 
         let source = Observable.timer(1000, 1000)
           .timeInterval()

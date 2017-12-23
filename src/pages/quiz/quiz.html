@@ -13,6 +13,12 @@
 
   <ion-grid *ngIf="showstartscherm && !isLoading">
     <ion-row align-items-center>
+      <ion-card>
+        <ion-card-header text-wrap>
+          Wanneer je de test start gaat de teller lopen. Je hebt 20 seconden om iedere vraag te beantwoorden.<br>
+          Succes!
+        </ion-card-header>
+      </ion-card>
       <button full ion-button color="quizbutton" (click)="nextSlide()">Start de test!</button>
     </ion-row>
   </ion-grid>

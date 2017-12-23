@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.wernerholzapfel.mollotenapp" version="0.1.0" xmlns="http://www.w3.org/ns/widgets">
+<widget id="com.wernerholzapfel.mollotenapp" version="0.1.1" xmlns="http://www.w3.org/ns/widgets">
     <name>Molloot</name>
     <description>Spel gedurende wie is de mol.</description>
     <author email="werner.holzapfel@gmail.com" href="http://molapi.herokuapp.com/">Werner holzapfel</author>
@@ -58,7 +58,6 @@
     </plugin>
     <plugin name="onesignal-cordova-plugin" spec="~2.2.2" />
     <plugin name="cordova-plugin-disable-ios11-statusbar" spec="~1.0.0" />
-    <engine name="android" spec="~6.1.2" />
     <engine name="ios" spec="~4.3.1" />
     <platform name="ios">
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -94,4 +93,5 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <engine name="android" spec="~6.1.2" />
 </widget>

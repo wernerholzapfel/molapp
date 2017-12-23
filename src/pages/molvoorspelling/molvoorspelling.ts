@@ -1,17 +1,16 @@
 import {Component} from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {AlertController, NavController, ToastController} from 'ionic-angular';
 import {Subscription} from 'rxjs';
 import {voorspelling} from '../../models/molvoorspelling';
 import {AuthService} from '../../services/auth/auth.service';
 import {MollenService} from '../../services/api/mollen.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {mollenModel} from '../../models/mollen';
-import {ProfilePage} from '../profile/profile';
 import {kandidaatModel} from '../../models/kandidaatModel';
 import * as _ from 'lodash';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
-import {HomePage} from '../homepage/homepage';
+import {ProfilePage} from '../profile/profile';
 
 @Component({
   selector: 'page-molvoorspelling',
@@ -55,7 +54,8 @@ export class MolvoorspellingPage {
               public auth: AuthService,
               private mollenService: MollenService,
               private deelnemersService: DeelnemersService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public toastCtrl: ToastController) {
 
     this.voorspelling = this.formBuilder.group({
       id: [''],
@@ -69,7 +69,7 @@ export class MolvoorspellingPage {
 
   pushPage() {
     this.navCtrl.pop();
-    // this.navCtrl.push(HomePage)
+    this.navCtrl.push(ProfilePage);
     //   .catch(() => console.log('should I stay or should I go now'))
   }
 
@@ -122,7 +122,7 @@ export class MolvoorspellingPage {
           this.voorspelling.get('winnaar').setValue({id: this.activeWinnaar.id});
           this.voorspelling.get('afvaller').setValue({id: this.activeAfvaller.id});
 
-          if (this.laatsteAfleveringNummer < this.laatsteVoorspelling.aflevering) {
+          if (this.laatsteAfleveringNummer < this.laatsteVoorspelling.aflevering.aflevering) {
             this.nieuweRonde = false;
             this.voorspelling.get('id').setValue(this.laatsteVoorspelling.id);
           } else {
@@ -142,7 +142,7 @@ export class MolvoorspellingPage {
   };
 
   ionViewCanLeave() {
-    if ((!this.isLaatsteaflevering && this.showAlertMessage && !this.laatsteVoorspelling) || (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteAfleveringNummer + 1 !== this.laatsteVoorspelling.aflevering)) {
+    if ((!this.isLaatsteaflevering && this.showAlertMessage && !this.laatsteVoorspelling) || (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteAfleveringNummer + 1 !== this.laatsteVoorspelling.aflevering.aflevering)) {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
           title: 'Voorspellingen niet opgeslagen',
@@ -189,7 +189,11 @@ export class MolvoorspellingPage {
     this.postvoorspellingSub = this.mollenService.savemolvoorspelling(this.voorspelling.value).subscribe(response => {
       console.log(response);
       this.showAlertMessage = false;
+      this.presentToast('Opslaan is gelukt');
       this.pushPage();
+
+    }, error => {
+      this.presentToast('Er is iets misgegaan.');
 
     });
     console.log(this.voorspelling)
@@ -263,5 +267,15 @@ export class MolvoorspellingPage {
   setPreviousState() {
     if (this.kiesAfvaller) return this.setKiesWinnaar();
     if (this.kiesWinnaar) return this.setKiesMol();
+  }
+
+  presentToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      dismissOnPageChange: false,
+      position: 'bottom'
+    });
+    toast.present();
   }
 }
