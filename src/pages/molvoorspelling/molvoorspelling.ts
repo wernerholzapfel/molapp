@@ -11,6 +11,9 @@ import * as _ from 'lodash';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 import {ProfilePage} from '../profile/profile';
+import {actieModel} from '../../models/actieModel';
+import {ActiesService} from '../../services/api/acties.service';
+import {afleveringModel} from '../../models/afleveringModel';
 
 @Component({
   selector: 'page-molvoorspelling',
@@ -30,10 +33,9 @@ export class MolvoorspellingPage {
   deelnemerSub: Subscription;
   deelnemer: deelnemerModel;
   slides: mollenModel[] = [];
-
-  laatsteAfleveringNummer: number = 0;
-  isLaatsteaflevering: boolean;
-  deadlineDatetime: any;
+  // laatsteAfleveringNummer: number = 0;
+  // laatsteAflevering: afleveringModel;
+  currentAflevering: afleveringModel;
   nieuweRonde: boolean;
   laatstevoorspellingSub: Subscription;
   laatsteVoorspelling: voorspelling;
@@ -47,12 +49,16 @@ export class MolvoorspellingPage {
   activeWinnaarIndex: number = 0;
   activeAfvallerIndex: number = 0;
   isLoading: boolean;
+  actieSub: Subscription;
+  acties: actieModel;
+  afleveringVoorVoorspelling: number = 0;
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               public auth: AuthService,
               private mollenService: MollenService,
+              private actieService: ActiesService,
               private deelnemersService: DeelnemersService,
               private formBuilder: FormBuilder,
               public toastCtrl: ToastController) {
@@ -62,8 +68,8 @@ export class MolvoorspellingPage {
       mol: ['', Validators.required],
       winnaar: ['', Validators.required],
       afvaller: ['', Validators.required],
-      aflevering: [this.laatsteAfleveringNummer + 1, Validators.required],
-      deelnemer: [null, Validators.required] // todo get deelnemersId
+      aflevering: [this.afleveringVoorVoorspelling + 1, Validators.required],
+      deelnemer: [null, Validators.required]
     });
   }
 
@@ -78,13 +84,10 @@ export class MolvoorspellingPage {
 
     this.mollenlijstSub = this.mollenService.getmollen().subscribe(response => {
         this.mollen = response;
-        this.mollenService.getLaatsteAflevering().subscribe(response => {
-          this.laatsteAfleveringNummer = response.aflevering;
-          this.isLaatsteaflevering = response.laatseAflevering;
-        });
-
-        this.mollenService.getCurrentAflevering().subscribe(response => {
-          this.deadlineDatetime = response.deadlineDatetime;
+        this.actieSub = this.actieService.getActies().subscribe(response => {
+          this.acties = response;
+          this.afleveringVoorVoorspelling = this.acties.voorspellingaflevering;
+          if (this.afleveringVoorVoorspelling === null) this.showAlertMessage = false;
         });
       }
     );
@@ -122,27 +125,31 @@ export class MolvoorspellingPage {
           this.voorspelling.get('winnaar').setValue({id: this.activeWinnaar.id});
           this.voorspelling.get('afvaller').setValue({id: this.activeAfvaller.id});
 
-          if (this.laatsteAfleveringNummer < this.laatsteVoorspelling.aflevering.aflevering) {
+          if (this.afleveringVoorVoorspelling === this.laatsteVoorspelling.aflevering.aflevering) {
             this.nieuweRonde = false;
+            this.showAlertMessage = false;
             this.voorspelling.get('id').setValue(this.laatsteVoorspelling.id);
           } else {
             this.nieuweRonde = true;
             this.voorspelling.get('id').setValue(null);
           }
-          this.voorspelling.get('aflevering').setValue(this.laatsteAfleveringNummer + 1);
+          this.voorspelling.get('aflevering').setValue(this.afleveringVoorVoorspelling);
         }
         else {
           this.slides = this.mollen;
           this.nieuweRonde = true;
-          this.voorspelling.get('aflevering').setValue(this.laatsteAfleveringNummer + 1);
+          this.voorspelling.get('aflevering').setValue(this.afleveringVoorVoorspelling);
         }
         this.isLoading = false;
       });
     });
+    console.log(this.voorspelling)
   };
 
   ionViewCanLeave() {
-    if ((!this.isLaatsteaflevering && this.showAlertMessage && !this.laatsteVoorspelling) || (!this.isLaatsteaflevering && this.showAlertMessage && this.laatsteAfleveringNummer + 1 !== this.laatsteVoorspelling.aflevering.aflevering)) {
+    if (this.showAlertMessage)
+      // || (this.afleveringVoorVoorspelling === null || this.afleveringVoorVoorspelling === 0 || (this.laatsteVoorspelling && this.afleveringVoorVoorspelling != this.laatsteVoorspelling.aflevering.aflevering)))
+      {
       return new Promise((resolve, reject) => {
         let alert = this.alertCtrl.create({
           title: 'Voorspellingen niet opgeslagen',
@@ -169,9 +176,9 @@ export class MolvoorspellingPage {
         alert.present()
       });
     }
-    else {
-      return true;
-    }
+    // else {
+    //   return true;
+    // }
   }
 
   ionViewWillLeave() {
@@ -190,9 +197,11 @@ export class MolvoorspellingPage {
       console.log(response);
       this.showAlertMessage = false;
       this.presentToast('Opslaan is gelukt');
+      window['plugins'].OneSignal.sendTag('laatsteVoorspelling', this.voorspelling.get('aflevering').value);
       this.pushPage();
 
     }, error => {
+      // todo error message er uithalen en tonen.
       this.presentToast('Er is iets misgegaan.');
 
     });

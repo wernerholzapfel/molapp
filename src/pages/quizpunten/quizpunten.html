@@ -19,16 +19,26 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
-    <div *ngIf="quizAntwoorden && !isLoading && !isLaatsteAflevering">
+    <div *ngIf="acties?.testaflevering === 0">
       <ion-item text-center color="navbar">
         Huidige aflevering
       </ion-item>
-      <ion-item class="even" *ngIf="!quizAntwoorden">
+      <ion-item text-wrap class="even">
+        De 1e test verschijnt na aflevering 1.
+        Heb je je notificaties ingeschakeld dan krijg je een notificatie wanneer de test beschikbaar is.
+      </ion-item>
+    </div>
+
+    <div *ngIf="acties?.testaflevering > 0">
+      <ion-item text-center color="navbar">
+        Huidige aflevering
+      </ion-item>
+      <ion-item class="even" *ngIf="quizAntwoorden.length === 0">
         <button ion-button color="button" full (click)="goToQuiz()">Maak de nieuwe test</button>
       </ion-item>
       <ion-item *ngFor="let vraag of quizAntwoorden; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
-        <h2>{{vraag.vraag.vraag}}</h2>
-        <h3>{{vraag.antwoord.antwoord}}</h3>
+        <h2 text-wrap>{{vraag.vraag.vraag}}</h2>
+        <h3 text-wrap>{{vraag.antwoord.antwoord}}</h3>
       </ion-item>
     </div>
 
@@ -37,8 +47,8 @@
         Aflevering {{quizpunt?.aflevering}} <span item-right>{{quizpunt?.afleveringpunten}} punten </span>
       </ion-item>
       <ion-item *ngFor="let vraag of quizpunt.vragen; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
-        <h2>{{vraag.quizresultaat.vraag.vraag}}</h2>
-        <h3>{{vraag.quizresultaat.antwoord.antwoord}}</h3>
+        <h2 text-wrap>{{vraag.quizresultaat.vraag.vraag}}</h2>
+        <h3 text-wrap>{{vraag.quizresultaat.antwoord.antwoord}}</h3>
         <ion-thumbnail item-left [ngClass]="{daler: vraag.deltaQuizpunten < 0}">
           <div class="thumbnailtext"></div>
           <span class="totaalpunten">

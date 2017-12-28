@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 import {mollenModel} from "../../models/mollen";
 import {deelnemer, molvoorspellingModel} from '../../models/molvoorspelling'
 import {AuthHttp} from "angular2-jwt";
+import {afleveringModel} from '../../models/afleveringModel';
 
 @Injectable()
 export class MollenService {
@@ -24,9 +25,9 @@ export class MollenService {
       .map(res => <any>res.json());
   }
 
-  getCurrentAflevering(): Observable<any> {
+  getCurrentAflevering(): Observable<afleveringModel> {
     return this.http.get(`${this.api}/afleveringen/current`)
-      .map(res => <any>res.json());
+      .map(res => <afleveringModel>res.json());
   }
 
   getactivemollen(): Observable<mollenModel[]> {

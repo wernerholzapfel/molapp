@@ -1,4 +1,9 @@
 detailafleveringstand {
+
+  button {
+    height: 4em;
+  }
+
   .daler {
     color: darkred;
   }
@@ -66,13 +71,18 @@ detailafleveringstand {
   }
 
   ion-avatar img {
-    height: 3em !important;;
-    width: 3em !important;;
+    height: 3em !important;
+    width: 3em !important;
     line-height: 3.5em;
     text-align: center;
-    &.afgevallen{
+    &.afgevallen {
       opacity: 0.4;
     }
+  }
+
+  .item-ios p,
+  .item-md p{
+    color: #666;
   }
 
 }

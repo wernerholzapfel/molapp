@@ -18,7 +18,7 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
-    <div *ngIf="!laatsteAflevering">
+    <div *ngIf="voorspellingAflevering > 0">
       <ion-item text-center color="navbar">
         Huidige voorspelling
       </ion-item>
@@ -67,7 +67,7 @@
           <img [src]=voorspelling?.voorspelling.mol.image_url
                [ngClass]="voorspelling?.voorspelling.mol.afgevallen && voorspelling?.voorspelling.mol.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
         </ion-thumbnail>
-        <h2>De Mol:{{ voorspelling?.voorspelling.mol.display_name }}</h2>
+        <h2>De Mol: {{ voorspelling?.voorspelling.mol.display_name }}</h2>
         <div item-right>
           {{voorspelling?.molpunten}}
         </div>
@@ -78,7 +78,7 @@
           <img [src]=voorspelling?.voorspelling.winnaar.image_url
                [ngClass]="voorspelling?.voorspelling.winnaar.afgevallen && voorspelling?.voorspelling.winnaar.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
         </ion-thumbnail>
-        <h2>De Winnaar:{{ voorspelling?.voorspelling.winnaar.display_name }}</h2>
+        <h2>De Winnaar: {{ voorspelling?.voorspelling.winnaar.display_name }}</h2>
         <div item-right>
           {{voorspelling?.winnaarpunten}}
         </div>
@@ -90,7 +90,7 @@
           <img [src]=voorspelling?.voorspelling.afvaller.image_url
                [ngClass]="voorspelling?.voorspelling.afvaller.afgevallen && voorspelling?.voorspelling.afvaller.aflevering === voorspelling?.voorspelling.aflevering.aflevering ? 'afgevallen' : 'volgenderonde'">
         </ion-thumbnail>
-        <h2>Afvaller:{{ voorspelling?.voorspelling.afvaller.display_name }}</h2>
+        <h2>Afvaller: {{ voorspelling?.voorspelling.afvaller.display_name }}</h2>
         <div item-right>
           {{voorspelling?.afvallerpunten}}
         </div>

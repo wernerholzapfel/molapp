@@ -6,30 +6,34 @@ import {DeelnemersService} from '../../services/api/deelnemers.service';
 import {deelnemerModel} from '../../models/deelnemerModel';
 import {MolvoorspellingPage} from '../molvoorspelling/molvoorspelling';
 import {NavController} from 'ionic-angular';
+import {afleveringstandModel} from '../../models/afleveringstandModel';
+import {afleveringModel} from '../../models/afleveringModel';
+import {ActiesService} from '../../services/api/acties.service';
 
 @Component({
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  deelnemerSub: Subscription;
+  actiesSub: Subscription;
   voorspellingSub: Subscription;
   molvoorspellingen: deelnemerModel;
   isLoading: boolean;
   huidigeVoorspelling: any;
-  laatsteAflevering: boolean;
+  voorspellingAflevering: number
+  // currentAflevering: afleveringModel;
   // We need to inject AuthService so that we can
   // use it in the view
-  constructor(public auth: AuthService, public navCtrl: NavController, private mollenService: MollenService, private deelnemersService: DeelnemersService) {
+  constructor(public auth: AuthService, public navCtrl: NavController, private actieService: ActiesService, private deelnemersService: DeelnemersService) {
   }
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.deelnemerSub = this.mollenService.getCurrentAflevering().subscribe(currentAflevering => {
-      this.laatsteAflevering = currentAflevering.laatseAflevering;
+    this.actiesSub = this.actieService.getActies().subscribe(response => {
+      this.voorspellingAflevering = response.voorspellingaflevering;
 
       this.deelnemersService.getdeelnemer().subscribe(response => {
         this.huidigeVoorspelling = response.voorspellingen.find(voorspelling => {
-          return voorspelling.aflevering.aflevering === currentAflevering.aflevering;
+          return voorspelling.aflevering.aflevering === this.voorspellingAflevering;
         });
       });
     });
@@ -42,7 +46,7 @@ export class ProfilePage {
   }
 
   ionViewWillLeave() {
-    this.deelnemerSub.unsubscribe();
+    this.actiesSub.unsubscribe();
     this.voorspellingSub.unsubscribe();
   }
 

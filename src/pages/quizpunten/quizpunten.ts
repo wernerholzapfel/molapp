@@ -5,6 +5,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {AuthService} from '../../services/auth/auth.service';
 import {Quizpage} from '../quiz/quiz';
 import {MollenService} from '../../services/api/mollen.service';
+import {actieModel} from '../../models/actieModel';
+import {ActiesService} from '../../services/api/acties.service';
 
 /**
  * Generated class for the QuizpuntenPage page.
@@ -21,22 +23,22 @@ export class QuizpuntenPage {
   isLoading: boolean;
   quizPuntenSub: Subscription;
   quizResultsSub: Subscription;
-  afleveringSub: Subscription;
+  actieSub: Subscription;
   quizpunten: any;
   quizAntwoorden: any;
-  isLaatsteAflevering: boolean;
+  acties: actieModel;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public auth: AuthService,
               public quizService: QuizService,
-              private mollenService: MollenService) {
+              private actieService: ActiesService) {
   }
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.afleveringSub = this.mollenService.getCurrentAflevering().subscribe(currentAflevering => {
-      this.isLaatsteAflevering = currentAflevering.laatseAflevering;
+    this.actieSub = this.actieService.getActies().subscribe(response => {
+      this.acties = response;
     });
     this.quizResultsSub = this.quizService.getanswers().subscribe(response => {
       this.quizAntwoorden = response;
@@ -51,7 +53,7 @@ export class QuizpuntenPage {
   ionViewWillLeave() {
     this.quizPuntenSub.unsubscribe();
     this.quizResultsSub.unsubscribe();
-    this.afleveringSub.unsubscribe();
+    this.actieSub.unsubscribe();
   }
 
   ionViewDidLoad() {

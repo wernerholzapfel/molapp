@@ -97,12 +97,13 @@ export class AuthService {
         // create deelnemer if new
         this.deelnemersService.savedeelnemer(<deelnemerModel>{
           // TODO save displayname.
-          // display_name: this.user.user_metadata.naam ? this.user.user_metadata.naam : this.user.nickname,
-          display_name: profile.nickname,
+          display_name: profile.user_metadata.naam ? profile.user_metadata.naam : profile.name,
+          // display_name: profile.nickname,
           email: profile.email,
           auth0Identifier: profile.user_id
         }).subscribe(response => {
           console.log(response);
+          window["plugins"].OneSignal.sendTag("name", profile.user_metadata.naam ? profile.user_metadata.naam : profile.name);
         });
       });
     });

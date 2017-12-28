@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, ToastController} from 'ionic-angular';
 import {Observable} from 'rxjs/Rx';
 import {QuizService} from '../../services/api/quiz.service';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
@@ -10,6 +10,8 @@ import 'rxjs/add/observable/timer'
 import 'rxjs/operator/take';
 import 'rxjs/operator/timeInterval';
 import 'rxjs/operator/pluck';
+import {ActiesService} from '../../services/api/acties.service';
+import {actieModel} from '../../models/actieModel';
 
 @Component({
   selector: 'page-quiz',
@@ -32,15 +34,18 @@ export class Quizpage {
   deelnemer: deelnemerModel;
   quizAntwoorden: any[];
   laatsteaflevering: number = 0;
-  showstartscherm: boolean = true;
+  showstartscherm: boolean = false;
+  showeindeseizoenscherm: boolean = false;
   showquizscherm: boolean = false;
   showeindscherm: boolean = false;
   showgeenquizscherm: boolean = false;
   isLoading: boolean;
-
+  actieSub: Subscription;
+  acties: actieModel;
   constructor(public navCtrl: NavController, public quizService: QuizService,
               private deelnemersService: DeelnemersService,
-              private mollenService: MollenService,) {
+              private actieService: ActiesService,
+              public toastCtrl: ToastController) {
 
   }
 
@@ -52,14 +57,20 @@ export class Quizpage {
     this.deelnemerSub = this.deelnemersService.getdeelnemer().subscribe(response => {
       this.deelnemer = response;
     });
-    this.laatsteAfleveringSub = this.mollenService.getLaatsteAflevering().subscribe(response => {
-      if (response.laatseAflevering) {
-        this.showeindschermFunc();
-      }
-    });
-    this.currentAfleveringSub = this.mollenService.getCurrentAflevering().subscribe(response => {
-      if (response.aflevering === 1) {
-        this.showgeenquizschermFunc();
+
+    this.actieSub = this.actieService.getActies().subscribe(response => {
+      this.acties = response;
+      switch (true) {
+        case (this.acties.testaflevering === 0):
+          this.showgeenquizschermFunc();
+          break;
+        case (this.acties.testaflevering === null):
+          console.log('testaflevering is null');
+          this.showeindeseizoenschermFunc();
+          break;
+        default:
+          this.showstartscherm = true;
+          break;
       }
     });
     this.isLoading = false;
@@ -67,8 +78,7 @@ export class Quizpage {
 
   ionViewWillLeave() {
     this.deelnemerSub.unsubscribe();
-    this.laatsteAfleveringSub.unsubscribe();
-    this.currentAfleveringSub.unsubscribe();
+    this.actieSub.unsubscribe();
     this.quizResults ? this.quizResults.unsubscribe() : '';
   };
 
@@ -131,10 +141,23 @@ export class Quizpage {
       this.nextSlide();
     }, (err => {
       console.log(err);
+      this.presentToast('er is iets misgegaan start de quiz opnieuw.');
       this.postQuizSub.unsubscribe();
+      this.showstartschermFunc();
     }));
+  }
 
 
+  presentToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 6000,
+      dismissOnPageChange: false,
+      position: 'middle',
+      showCloseButton: true,
+      closeButtonText: 'OK'
+    });
+    toast.present();
   }
 
   randomizeAnswers(rawAnswers: any[]): any[] {
@@ -156,7 +179,16 @@ export class Quizpage {
     this.showeindscherm = false;
     this.showstartscherm = false;
     this.showgeenquizscherm = false;
+    this.showeindeseizoenscherm = false;
+  }
 
+  showstartschermFunc() {
+    this.isLoading = false;
+    this.showquizscherm = false;
+    this.showeindscherm = false;
+    this.showstartscherm = true;
+    this.showgeenquizscherm = false;
+    this.showeindeseizoenscherm = false;
   }
 
   showgeenquizschermFunc() {
@@ -164,7 +196,17 @@ export class Quizpage {
     this.showquizscherm = false;
     this.showeindscherm = false;
     this.showstartscherm = false;
-    this.showgeenquizscherm = true
+    this.showgeenquizscherm = true;
+    this.showeindeseizoenscherm = false;
+  }
+
+  showeindeseizoenschermFunc() {
+    this.isLoading = false;
+    this.showquizscherm = false;
+    this.showeindscherm = false;
+    this.showstartscherm = false;
+    this.showgeenquizscherm = false;
+    this.showeindeseizoenscherm = true
   }
 
   showeindschermFunc() {
@@ -173,9 +215,11 @@ export class Quizpage {
     this.showstartscherm = false;
     this.showeindscherm = true;
     this.showgeenquizscherm = false;
+    this.showeindeseizoenscherm = false;
 
     this.quizResults = this.quizService.getanswers().subscribe(response => {
       this.quizAntwoorden = response;
+      window["plugins"].OneSignal.sendTag("laatstIngevuldeTest", response[0].aflevering);
       this.aflevering = response[0].aflevering;
     })
   }

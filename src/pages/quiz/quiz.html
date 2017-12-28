@@ -11,6 +11,13 @@
     </ion-card-content>
   </ion-card></ion-list>
 
+  <ion-list *ngIf="showeindeseizoenscherm">
+    <ion-card>
+      <ion-card-content>
+        De laatste aflevering van wie is de mol is geweest. Er is geen test meer.
+      </ion-card-content>
+    </ion-card></ion-list>
+
   <ion-grid *ngIf="showstartscherm && !isLoading">
     <ion-row align-items-center>
       <ion-card>
@@ -64,14 +71,14 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item *ngFor="let quizAntwoord of quizAntwoorden; let i = index;">
-          <h3>{{quizAntwoord.vraag.vraag}}
+          <h3 text-wrap>{{quizAntwoord.vraag.vraag}}<br>
             {{quizAntwoord.antwoord?.antwoord ? quizAntwoord.antwoord.antwoord : 'geen antwoord'}}</h3>
         </ion-item>
       </ion-card-content>
     </ion-card>
   </ion-grid>
 </ion-content>
-<ion-footer *ngIf="showeindscherm || showstartscherm || showgeenquizscherm">
+<ion-footer *ngIf="showeindscherm || showstartscherm || showgeenquizscherm || showeindeseizoenscherm">
   <button ion-button (click)="goBack()" full color="quizbutton">Keer terug naar het menu</button>
 </ion-footer>
 

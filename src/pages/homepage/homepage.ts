@@ -9,6 +9,8 @@ import {QuizpuntenPage} from '../quizpunten/quizpunten';
 import {IntroPage} from '../intro/intro';
 import {Subscription} from 'rxjs/Subscription';
 import {MollenService} from '../../services/api/mollen.service';
+import {actieModel} from '../../models/actieModel';
+import {ActiesService} from '../../services/api/acties.service';
 
 /*
   Generated class for the HomePage page.
@@ -21,10 +23,10 @@ import {MollenService} from '../../services/api/mollen.service';
   templateUrl: 'homepage.html'
 })
 export class HomePage {
-  afleveringSub: Subscription;
-  laatsteAflevering: boolean;
+  actieSub: Subscription;
+  acties: actieModel;
 
-  constructor(public auth: AuthService, public navCtrl: NavController, private mollenService: MollenService) {
+  constructor(public auth: AuthService, public navCtrl: NavController, private actieService: ActiesService) {
   }
 
   ionViewDidLoad() {
@@ -32,13 +34,13 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.afleveringSub = this.mollenService.getCurrentAflevering().subscribe(currentAflevering => {
-      this.laatsteAflevering = currentAflevering.laatseAflevering;
+    this.actieSub = this.actieService.getActies().subscribe(response => {
+      this.acties = response;
     });
   }
 
   ionViewWillLeave() {
-    this.afleveringSub.unsubscribe()
+    this.actieSub.unsubscribe()
   }
 
   startQuiz() {

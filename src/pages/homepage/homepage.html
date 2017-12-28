@@ -4,7 +4,7 @@
       <!--Wie is de Molloot-->
       <img class="center" [src]="'assets/logo.png'">
     </ion-title>
-    <ion-buttons start>
+    <ion-buttons left>
       <button *ngIf="!auth.isAuthenticated()" ion-button icon-only (click)="auth.login()">
         <ion-icon name="log-in"></ion-icon>
       </button>
@@ -12,7 +12,7 @@
         <ion-icon name="log-out"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons end>
+    <ion-buttons right>
       <button color="light" ion-button icon-only (click)="openIntro()">
         <ion-icon name="ios-information-circle-outline"></ion-icon>
       </button>
@@ -31,7 +31,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="auth.isAuthenticated() && !laatsteAflevering">
+    <ion-row *ngIf="auth.isAuthenticated()" [hidden]="acties?.testaflevering === null">
       <ion-col>
         <ion-card (click)="startQuiz()">
           <img src="assets/cardimages/test.jpeg">
@@ -51,7 +51,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="auth.isAuthenticated() && !laatsteAflevering">
+    <ion-row *ngIf="auth.isAuthenticated() && acties?.voorspellingaflevering">
       <ion-col>
         <ion-card *ngIf="auth.isAuthenticated()" (click)="openVoorspelling()">
           <img src="assets/cardimages/voorspellen.jpeg">

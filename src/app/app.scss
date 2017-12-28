@@ -14,17 +14,18 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-body{
+body {
   // needed for Iphone X
   padding-top: env(safe-area-inset-top);
 }
 
 .headereven {
-  background-color: cadetblue;
+  background-color: #7fb2b3;
 }
 
 .headerodd {
-  background-color: lighten(cadetblue, 20%);
+  background-color: #9fc5c6;
+
 }
 
 .item-md p {
@@ -43,6 +44,7 @@ ion-thumbnail[item-left] {
 ion-thumbnail[item-right] {
   margin: 0 0 0 16px !important;
 }
+
 //
 ion-item.item-block {
   border-top: 0 !important;
@@ -90,16 +92,20 @@ svg.auth0-lock-icon {
 div.spinner {
   margin: auto;
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   height: 85px;
   text-align: center;
 }
+
 .spinner svg {
   //width: 19% !important;
   height: 85px !important;
 }
 
 ion-footer .button {
-    margin: 0;
+  margin: 0;
 
 }

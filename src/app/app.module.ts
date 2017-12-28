@@ -27,6 +27,7 @@ import {QuizpuntenPage} from '../pages/quizpunten/quizpunten';
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
 import {IntroPage} from '../pages/intro/intro';
+import {ActiesService} from '../services/api/acties.service';
 
 registerLocaleData(localeNl, 'nl');
 
@@ -90,7 +91,8 @@ export function getAuthHttp(http) {
     QuizService,
     Data,
     StatusBar,
-    DeelnemersService
+    DeelnemersService,
+    ActiesService
   ]
 })
 export class AppModule {

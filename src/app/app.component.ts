@@ -45,7 +45,7 @@ export class AuthApp {
       };
 
       window["plugins"].OneSignal
-        .startInit("798e58d5-586c-4b03-90e6-72adacc8b22f") // todo "YOUR_GOOGLE_PROJECT_NUMBER_IF_ANDROID"
+        .startInit("798e58d5-586c-4b03-90e6-72adacc8b22f", "AAAAmmrKnj8:APA91bHDvkX35m2BbghfwY7_oyehpzVc0Zrw32VsQf4iihN6Tn9-8o0idW7JOG_O0kNAu9iPLXbOygZvZfVX5_0fwySf91AVRw3r7XAFXvdr_2fC7PE4lABH7Yqx8k7TcMXsXRyQdLlg") // todo "YOUR_GOOGLE_PROJECT_NUMBER_IF_ANDROID"
         .handleNotificationOpened(notificationOpenedCallback)
         .endInit();
     });
