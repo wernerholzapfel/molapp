@@ -100,7 +100,7 @@ export class MolvoorspellingPage {
         console.log('ik zit erin ' + voorspellingen);
 
         if (voorspellingen.voorspellingen.length > 0) {
-          this.laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering').reverse()[0];
+          this.laatsteVoorspelling = _.sortBy(voorspellingen.voorspellingen, 'aflevering.aflevering').reverse()[0];
           this.activeMol = this.laatsteVoorspelling.mol;
           this.activeMolIndex = this.mollen.findIndex(item => {
             return item.id === this.activeMol.id

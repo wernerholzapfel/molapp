@@ -88,7 +88,6 @@ export class AuthService {
         if (err) {
           throw err;
         }
-        console.log('wernerdeperner');
         // profile.user_metadata = profile.user_metadata || {};
         this.setStorageVariable('profile', profile);
         this.zone.run(() => {
@@ -97,13 +96,13 @@ export class AuthService {
         // create deelnemer if new
         this.deelnemersService.savedeelnemer(<deelnemerModel>{
           // TODO save displayname.
-          display_name: profile.user_metadata.naam ? profile.user_metadata.naam : profile.name,
+          display_name: (profile.user_metadata && profile.user_metadata.naam) ? profile.user_metadata.naam : profile.name,
           // display_name: profile.nickname,
           email: profile.email,
           auth0Identifier: profile.user_id
         }).subscribe(response => {
           console.log(response);
-          window["plugins"].OneSignal.sendTag("name", profile.user_metadata.naam ? profile.user_metadata.naam : profile.name);
+          window["plugins"].OneSignal.sendTag("name", response.display_name);
         });
       });
     });
