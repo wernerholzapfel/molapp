@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, ToastController} from 'ionic-angular';
+import {AlertController, NavController, ToastController} from 'ionic-angular';
 import {Observable} from 'rxjs/Rx';
 import {QuizService} from '../../services/api/quiz.service';
 import {DeelnemersService} from '../../services/api/deelnemers.service';
@@ -12,6 +12,7 @@ import 'rxjs/operator/timeInterval';
 import 'rxjs/operator/pluck';
 import {ActiesService} from '../../services/api/acties.service';
 import {actieModel} from '../../models/actieModel';
+import {QuizpuntenPage} from '../quizpunten/quizpunten';
 
 @Component({
   selector: 'page-quiz',
@@ -42,7 +43,10 @@ export class Quizpage {
   isLoading: boolean;
   actieSub: Subscription;
   acties: actieModel;
+  deadlineVerstreken: boolean;
+
   constructor(public navCtrl: NavController, public quizService: QuizService,
+              public alertCtrl: AlertController,
               private deelnemersService: DeelnemersService,
               private actieService: ActiesService,
               public toastCtrl: ToastController) {
@@ -60,6 +64,7 @@ export class Quizpage {
 
     this.actieSub = this.actieService.getActies().subscribe(response => {
       this.acties = response;
+      this.deadlineVerstreken = this.acties.testDeadlineDatetime <= new Date().toISOString();
       switch (true) {
         case (this.acties.testaflevering === 0):
           this.showgeenquizschermFunc();
@@ -74,6 +79,38 @@ export class Quizpage {
       }
     });
     this.isLoading = false;
+  }
+
+  ionViewDidEnter() {
+    if (this.deadlineVerstreken) this.showDeadlinePopup();
+  }
+
+  showDeadlinePopup() {
+    return new Promise((resolve, reject) => {
+      let alert = this.alertCtrl.create({
+        title: 'Deadline is voorbij',
+        subTitle: 'Helaas de deadline voor de test is verstreken.',
+        buttons: [
+          {
+            text: 'Naar jouw antwoorden',
+            handler: () => {
+              alert.dismiss().then(() => {
+                this.navCtrl.push(QuizpuntenPage).then(() => { this.navCtrl.remove(this.navCtrl.getActive().index - 1, 1); });
+              });
+            }
+          },
+          {
+            text: 'Terug',
+            handler: () => {
+              alert.dismiss().then(() => {
+                this.navCtrl.pop();
+              });
+            }
+          }
+        ]
+      });
+      alert.present()
+    });
   }
 
   ionViewWillLeave() {

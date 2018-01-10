@@ -1,4 +1,6 @@
 export interface actieModel {
   "voorspellingaflevering": number,
-  "testaflevering": number
+  "testaflevering": number,
+  "voorspellingDeadlineDatetime": string,
+  "testDeadlineDatetime": string,
 }

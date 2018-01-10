@@ -52,6 +52,7 @@ export class MolvoorspellingPage {
   actieSub: Subscription;
   acties: actieModel;
   afleveringVoorVoorspelling: number = 0;
+  deadlineVerstreken: boolean;
   // We need to inject AuthService so that we can
   // use it in the view
   constructor(public navCtrl: NavController,
@@ -74,8 +75,8 @@ export class MolvoorspellingPage {
   }
 
   pushPage() {
-    this.navCtrl.pop();
-    this.navCtrl.push(ProfilePage);
+    this.navCtrl.push(ProfilePage).then(() => { this.navCtrl.remove(this.navCtrl.getActive().index - 1, 1); });
+
     //   .catch(() => console.log('should I stay or should I go now'))
   }
 
@@ -86,6 +87,7 @@ export class MolvoorspellingPage {
         this.mollen = response;
         this.actieSub = this.actieService.getActies().subscribe(response => {
           this.acties = response;
+          this.deadlineVerstreken = this.acties.voorspellingDeadlineDatetime <= new Date().toISOString();
           this.afleveringVoorVoorspelling = this.acties.voorspellingaflevering;
           if (this.afleveringVoorVoorspelling === null) this.showAlertMessage = false;
         });
@@ -146,6 +148,38 @@ export class MolvoorspellingPage {
     console.log(this.voorspelling)
   };
 
+  ionViewDidEnter() {
+    if (this.deadlineVerstreken) this.showDeadlinePopup();
+  }
+
+  showDeadlinePopup() {
+    return new Promise((resolve, reject) => {
+      let alert = this.alertCtrl.create({
+        title: 'Deadline is voorbij',
+        subTitle: 'Helaas de deadline voor de voorspelling is verstreken.',
+        buttons: [
+          {
+            text: 'Naar voorspellingen',
+            handler: () => {
+              alert.dismiss().then(() => {
+                this.navCtrl.push(ProfilePage).then(() => { this.navCtrl.remove(this.navCtrl.getActive().index - 1, 1); });
+
+              });
+            }
+          },
+          {
+            text: 'Terug',
+            handler: () => {
+              alert.dismiss().then(() => {
+                this.navCtrl.pop();
+              });
+            }
+          }
+        ]
+      });
+      alert.present()
+    });
+  }
   ionViewCanLeave() {
     if (this.showAlertMessage)
       // || (this.afleveringVoorVoorspelling === null || this.afleveringVoorVoorspelling === 0 || (this.laatsteVoorspelling && this.afleveringVoorVoorspelling != this.laatsteVoorspelling.aflevering.aflevering)))
@@ -209,6 +243,7 @@ export class MolvoorspellingPage {
   }
 
   setActiveMol(mol: kandidaatModel) {
+    this.showAlertMessage = true;
     console.log(mol.display_name + 'is de mol');
     this.voorspelling.get('mol').setValue({id: mol.id});
     this.activeMol = mol;
@@ -219,6 +254,7 @@ export class MolvoorspellingPage {
   }
 
   setWinnaar(winnaar) {
+    this.showAlertMessage = true;
     console.log(winnaar.display_name + 'is de winnaar');
     this.voorspelling.get('winnaar').setValue({id: winnaar.id});
     this.activeWinnaar = winnaar;
@@ -229,6 +265,7 @@ export class MolvoorspellingPage {
   }
 
   setAfvaller(afvaller) {
+    this.showAlertMessage = true;
     console.log(afvaller.display_name + 'is de afvaller');
     this.voorspelling.get('afvaller').setValue({id: afvaller.id});
     this.activeAfvaller = afvaller;
