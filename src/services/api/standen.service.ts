@@ -8,6 +8,7 @@ import {totaalstandModel} from "../../models/totaalstand";
 @Injectable()
 export class StandenService {
   api = 'https://molapi.herokuapp.com/api/v1';
+  // api = 'http://localhost:3000/api/v1';
 
   constructor(public http: Http, private authHttp: AuthHttp) {
   }

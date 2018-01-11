@@ -12,4 +12,56 @@ page-totaalstand {
       width: 100% !important;
     }
   }
+
+  .daler {
+    color: darkred;
+  }
+  .stijger {
+    color: darkgreen;
+  }
+
+  span.deltatotaalpunten {
+    margin: auto;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 3em;
+    width: 3em;
+    margin-left: 0.5em;
+  }
+  span.totaalpunten {
+    margin: auto;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 3em;
+    width: 3em;
+    margin-left: 0.5em;
+  }
+  div.thumbnailtext {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    //height: 85px;
+    border-radius: 100%;
+    border: 1px solid;
+    height: 3em;
+    width: 3em;
+    margin-left: 0.5em;
+  }
+
+  ion-thumbnail {
+    height: 3em;
+    width: 3em;
+    line-height: 3.5em;
+    text-align: center;
+  }
+
 }
