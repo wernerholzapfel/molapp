@@ -243,6 +243,11 @@ export class MolvoorspellingPage {
   }
 
   setActiveMol(mol: kandidaatModel) {
+    if (mol.afgevallen)
+    {
+      this.presentToast(mol.display_name + ' is al afgevallen en kan niet worden geselecteerd.');
+      return;
+    }
     this.showAlertMessage = true;
     console.log(mol.display_name + 'is de mol');
     this.voorspelling.get('mol').setValue({id: mol.id});
@@ -254,6 +259,11 @@ export class MolvoorspellingPage {
   }
 
   setWinnaar(winnaar) {
+    if (winnaar.afgevallen)
+    {
+      this.presentToast(winnaar.display_name + ' is al afgevallen en kan niet worden geselecteerd.');
+      return;
+    }
     this.showAlertMessage = true;
     console.log(winnaar.display_name + 'is de winnaar');
     this.voorspelling.get('winnaar').setValue({id: winnaar.id});
@@ -265,6 +275,11 @@ export class MolvoorspellingPage {
   }
 
   setAfvaller(afvaller) {
+    if (afvaller.afgevallen)
+    {
+      this.presentToast(afvaller.display_name + ' is al afgevallen en kan niet worden geselecteerd.');
+      return;
+    }
     this.showAlertMessage = true;
     console.log(afvaller.display_name + 'is de afvaller');
     this.voorspelling.get('afvaller').setValue({id: afvaller.id});
@@ -323,5 +338,11 @@ export class MolvoorspellingPage {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  magNietOpslaan() {
+    return (this.mollen.find(mol => mol.id === this.voorspelling.get('mol').value.id).afgevallen ||
+    this.mollen.find(mol => mol.id === this.voorspelling.get('winnaar').value.id).afgevallen ||
+    this.mollen.find(mol => mol.id === this.voorspelling.get('afvaller').value.id).afgevallen)
   }
 }
