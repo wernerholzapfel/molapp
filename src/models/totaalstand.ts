@@ -4,6 +4,6 @@ export interface totaalstandModel {
   "molpunten": number,
   "afvallerpunten": number,
   "winnaarpunten": number,
-  "totaalpunten": number
-
+  "totaalpunten": number,
+  "checked" : boolean,
 }

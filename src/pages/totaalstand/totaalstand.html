@@ -1,6 +1,17 @@
 <ion-header>
   <ion-navbar color="navbar">
     <ion-title>De stand</ion-title>
+    <ion-buttons right>
+      <button color="light" ion-button icon-only (click)="toggleStand(isFilterActive = !isFilterActive)">
+        <ion-icon *ngIf="!isFilterActive" name="ios-funnel-outline"></ion-icon>
+        <ion-icon *ngIf="isFilterActive" name="ios-funnel"></ion-icon>
+      </button>
+      <button color="light" ion-button icon-only *ngIf="isFilterActive"
+              (click)="setFavorites(setFavoriteIsActive = !setFavoriteIsActive)">
+        <ion-icon *ngIf="!setFavoriteIsActive" name="ios-options-outline"></ion-icon>
+        <ion-icon *ngIf="setFavoriteIsActive" name="ios-options"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -20,13 +31,38 @@
 
   <div class="afleveringsstand">
 
-  <ion-card>
-    <detailafleveringstand *ngFor="let standline of totaalstand let index =index;
+    <ion-card *ngIf="!setFavoriteIsActive">
+      <ion-card *ngIf="totaalstand?.length === 0 && isFilterActive">
+        <ion-card-content>
+          Klik rechtsboven op het instellingen icoon om je deelnemers te kiezen voor je persoonlijke stand.
+        </ion-card-content>
+      </ion-card>
+      <detailafleveringstand *ngFor="let standline of totaalstand let index =index;
             let isOdd=odd;
             let isEven=even" [totaalstandline]='standline' [isOdd]="isOdd"
-                           [isEven]="isEven">
-    </detailafleveringstand>
-  </ion-card>
+                             [isEven]="isEven">
+      </detailafleveringstand>
+    </ion-card>
+
+    <ion-card *ngIf="setFavoriteIsActive">
+      <ion-list>
+        <ion-item *ngFor="let standline of totaalstand let index =index;
+            let isOdd=odd;
+            let isEven=even" [class.headerodd]="isOdd"
+                  [class.headereven]="isEven">
+          <ion-thumbnail item-left>
+            <div class="thumbnailtext"></div>
+            <span class="totaalpunten">
+        {{standline.totaalpunten}}</span>
+            <span class="deltatotaalpunten" [ngClass]="standline.delta_totaalpunten >= 0 ? 'stijger' : 'daler'">
+      {{standline.delta_totaalpunten}}
+  </span>
+          </ion-thumbnail>
+          <ion-label>{{standline.display_name}}</ion-label>
+          <ion-toggle [(ngModel)]="standline.checked" (ionChange)="setFavorite($event, standline)"></ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-card>
   </div>
 
 </ion-content>
