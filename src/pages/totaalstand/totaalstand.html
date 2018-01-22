@@ -13,6 +13,13 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-searchbar
+    [(ngModel)]="searchInput"
+    [showCancelButton]="true"
+    (ionInput)="onSearchInput($event)"
+    [formControl]="searchControl"
+    (ionCancel)="onSearchCancel($event)">
+  </ion-searchbar>
 </ion-header>
 
 
@@ -32,7 +39,7 @@
   <div class="afleveringsstand">
 
     <ion-card *ngIf="!setFavoriteIsActive">
-      <ion-card *ngIf="totaalstand?.length === 0 && isFilterActive">
+      <ion-card *ngIf="totaalstand?.length === 0 && isFilterActive && !searchInput">
         <ion-card-content>
           Klik rechtsboven op het instellingen icoon om je deelnemers te kiezen voor je persoonlijke stand.
         </ion-card-content>
