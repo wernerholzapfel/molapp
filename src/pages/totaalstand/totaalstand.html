@@ -7,7 +7,7 @@
         <ion-icon *ngIf="isFilterActive" name="ios-funnel"></ion-icon>
       </button>
       <button color="light" ion-button icon-only *ngIf="isFilterActive"
-              (click)="setFavorites(setFavoriteIsActive = !setFavoriteIsActive)">
+              (click)="setFilteredItems(setFavoriteIsActive = !setFavoriteIsActive)">
         <ion-icon *ngIf="!setFavoriteIsActive" name="ios-options-outline"></ion-icon>
         <ion-icon *ngIf="setFavoriteIsActive" name="ios-options"></ion-icon>
       </button>

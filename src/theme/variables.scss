@@ -34,6 +34,8 @@ $colors: (
   navbar: #9fc5c6,
   quizbutton: #9fc5c6
 );
+$searchbar-ios-background-color: map-get($colors, navbar);
+$searchbar-md-background-color: map-get($colors, navbar);;
 
 // App iOS Variables
 // --------------------------------------------------

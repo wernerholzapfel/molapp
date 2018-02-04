@@ -19,6 +19,22 @@ body {
   padding-top: env(safe-area-inset-top);
 }
 
+.item-ios.activated.headereven {
+  background-color: #7fb2b3;
+}
+
+.item-ios.activated.headerodd {
+  background-color: #9fc5c6;
+}
+
+.item-md.activated.headereven {
+  background-color: #7fb2b3;
+}
+
+.item-md.activated.headerodd {
+  background-color: #9fc5c6;
+}
+
 .headereven {
   background-color: #7fb2b3;
 }

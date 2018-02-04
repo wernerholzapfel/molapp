@@ -48,7 +48,9 @@
               [ngClass]="afleveringstandline.delta_winnaarpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_winnaarpunten}})</span>
       </p>
       <p>Afvaller: {{afleveringstandline.voorspelling?.afvaller.display_name}}
-        {{afleveringstandline.afvallerpunten}}</p>
+        {{afleveringstandline.afvallerpunten}}
+        <span *ngIf="afleveringstandline.delta_afvallerpunten !== 0"
+              [ngClass]="afleveringstandline.delta_afvallerpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_afvallerpunten}})</span></p>
       <p>Testscore: {{afleveringstandline.quizpunten}}
         <span *ngIf="afleveringstandline.delta_quizpunten !== 0"
               [ngClass]="afleveringstandline.delta_quizpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_quizpunten}})</span>

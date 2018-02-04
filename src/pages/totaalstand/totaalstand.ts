@@ -94,16 +94,6 @@ export class TotaalstandPage {
     this.setFilteredItems();
   }
 
-  setFavorites(setFavoriteIsActive: boolean) {
-    if (setFavoriteIsActive) {
-      this.storage.get('stand').then(result => this.totaalstand = result);
-      this.setFilteredItems()
-    }
-    else {
-      this.storage.get('stand').then(result => this.totaalstand = result.filter(item => item.checked));
-    }
-  }
-
   setFavorite(event, standline) {
     this.totaalstand.find(line => line.deelnemerId === standline.deelnemerId).checked = event.checked;
 
@@ -132,7 +122,7 @@ export class TotaalstandPage {
   }
 
   onSearchCancel(event) {
-    if (this.isFilterActive) {
+    if (this.isFilterActive && !this.setFavoriteIsActive) {
       this.totaalstand = this.filteredUnmutadedList;
     }
     else {
