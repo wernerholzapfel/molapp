@@ -25,7 +25,7 @@ export class TotaalstandPage {
   filteredUnmutadedList: totaalstandModel[];
   afleveringstand: afleveringstandModel[];
   showAfleveringstand: boolean = false;
-  isLoading: boolean;
+  isLoading: boolean = true;
   isFilterActive: boolean;
   setFavoriteIsActive: boolean;
   searchInput: string = '';
@@ -46,8 +46,7 @@ export class TotaalstandPage {
   ionViewWillEnter() {
     this.isLoading = true;
     this.totaalstandSub = this.standenService.gettotaalstand().subscribe(standResponse => {
-      this.storage.set('stand', standResponse);
-      // this.totaalstandUnmutated = standResponse;
+      this.totaalstandUnmutated = standResponse;
       this.storage.get('isFilterActive').then(result => {
         this.isFilterActive = result
       });
@@ -65,6 +64,7 @@ export class TotaalstandPage {
             }
           });
         }
+        this.storage.set('stand', this.totaalstandUnmutated);
         this.toggleStand(this.isFilterActive);
       });
       this.isLoading = false;
@@ -106,8 +106,8 @@ export class TotaalstandPage {
 
   filterItems(searchInput) {
     if (this.isFilterActive && !this.setFavoriteIsActive) {
-      return this.filteredUnmutadedList.filter((item) => {
-        return item.display_name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1;
+      return this.totaalstandUnmutated.filter((item) => {
+        return item.checked && item.display_name.toLowerCase().indexOf(searchInput.toLowerCase()) > -1;
       });
     }
     else {

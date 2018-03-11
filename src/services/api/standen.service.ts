@@ -5,6 +5,8 @@ import "rxjs/add/operator/map";
 import {AuthHttp} from "angular2-jwt";
 import {totaalstandModel} from "../../models/totaalstand";
 
+
+
 @Injectable()
 export class StandenService {
   api = 'https://molapi.herokuapp.com/api/v1';
@@ -14,13 +16,22 @@ export class StandenService {
   }
 
   gettotaalstand(): Observable<totaalstandModel[]> {
-    return this.http.get(`${this.api}/standen`)
-      .map(res => <totaalstandModel[]>res.json());
+    return this.http.get('assets/standenjson/stand.json')
+      .map(res => res.json())
   }
 
   getafleveringstand(deelnemer): Observable<any> {
-    return this.http.get(`${this.api}/standen/` + deelnemer)
+    return this.http.get(`assets/standenjson/deelnemerstand_${deelnemer}.json`)
       .map(res => <any>res.json());
   }
+  // gettotaalstand(): Observable<totaalstandModel[]> {
+  //   return this.http.get(`${this.api}/standen`)
+  //     .map(res => <totaalstandModel[]>res.json());
+  // }
+
+  // getafleveringstand(deelnemer): Observable<any> {
+  //   return this.http.get(`${this.api}/standen/` + deelnemer)
+  //     .map(res => <any>res.json());
+  // }
 }
 

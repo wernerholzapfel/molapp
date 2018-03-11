@@ -9,7 +9,12 @@
       {{totaalstandline.delta_totaalpunten}}
   </span>
     </ion-thumbnail>
-    {{totaalstandline.display_name}}
+    <h2 text-wrap>
+      {{totaalstandline.display_name}}
+    </h2>
+    <h3 text-wrap>
+    Mol: {{totaalstandline.molpunten}} - Afvaller: {{totaalstandline.afvallerpunten}} - Winnaar: {{totaalstandline.winnaarpunten}} - Test: {{totaalstandline.quizpunten}}
+    </h3>
     <ion-icon *ngIf="!showDetails" item-right name="arrow-down"></ion-icon>
     <ion-icon *ngIf="showDetails" item-right name="arrow-up"></ion-icon>
   </button>
@@ -35,7 +40,8 @@
         <!--<span class="deltatotaalpunten" [ngClass]="afleveringstandline.delta_totaalpunten >= 0 ? 'stijger' : 'daler'">-->
         <!--{{afleveringstandline.delta_totaalpunten }} </span>-->
       </ion-thumbnail>
-      <ion-avatar [ngClass]="determineAfvallersClass(afleveringstandline)" item-right>
+      <ion-avatar *ngIf="afleveringstandline.afgevallenKandidaat.image_url"
+                  [ngClass]="determineAfvallersClass(afleveringstandline)" item-right>
         <img [src]="afleveringstandline.afgevallenKandidaat.image_url">
       </ion-avatar>
       <h2>Aflevering {{afleveringstandline.aflevering}}</h2>
@@ -50,7 +56,8 @@
       <p>Afvaller: {{afleveringstandline.voorspelling?.afvaller.display_name}}
         {{afleveringstandline.afvallerpunten}}
         <span *ngIf="afleveringstandline.delta_afvallerpunten !== 0"
-              [ngClass]="afleveringstandline.delta_afvallerpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_afvallerpunten}})</span></p>
+              [ngClass]="afleveringstandline.delta_afvallerpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_afvallerpunten}})</span>
+      </p>
       <p>Testscore: {{afleveringstandline.quizpunten}}
         <span *ngIf="afleveringstandline.delta_quizpunten !== 0"
               [ngClass]="afleveringstandline.delta_quizpunten >= 0 ? 'stijger' : 'daler'">({{afleveringstandline.delta_quizpunten}})</span>

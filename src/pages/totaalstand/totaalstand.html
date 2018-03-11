@@ -36,7 +36,7 @@
     </ion-card>
   </ion-list>
 
-  <div class="afleveringsstand">
+  <div class="afleveringsstand" *ngIf="!isLoading">
 
     <ion-card *ngIf="!setFavoriteIsActive">
       <ion-card *ngIf="totaalstand?.length === 0 && isFilterActive && !searchInput">
