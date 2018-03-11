@@ -46,7 +46,8 @@ export class TotaalstandPage {
   ionViewWillEnter() {
     this.isLoading = true;
     this.totaalstandSub = this.standenService.gettotaalstand().subscribe(standResponse => {
-      this.totaalstandUnmutated = standResponse;
+      this.storage.set('stand', standResponse);
+      // this.totaalstandUnmutated = standResponse;
       this.storage.get('isFilterActive').then(result => {
         this.isFilterActive = result
       });
@@ -64,7 +65,6 @@ export class TotaalstandPage {
             }
           });
         }
-        this.storage.set('stand', this.totaalstandUnmutated);
         this.toggleStand(this.isFilterActive);
       });
       this.isLoading = false;
@@ -89,7 +89,6 @@ export class TotaalstandPage {
     }
     else {
       this.setFavoriteIsActive = false;
-      // this.totaalstand = this.totaalstandUnmutated;
     }
     this.setFilteredItems();
   }
