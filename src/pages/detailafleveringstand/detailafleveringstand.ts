@@ -22,6 +22,7 @@ export class Detailafleveringstand {
   isLoading: boolean = false;
 
   @Input() totaalstandline: totaalstandModel;
+  @Input() positie: number;
   @Input() isEven: boolean;
   @Input() isOdd: boolean;
 

@@ -47,7 +47,7 @@
       <detailafleveringstand *ngFor="let standline of totaalstand let index =index;
             let isOdd=odd;
             let isEven=even" [totaalstandline]='standline' [isOdd]="isOdd"
-                             [isEven]="isEven">
+                             [isEven]="isEven" [positie]="index + 1">
       </detailafleveringstand>
     </ion-card>
 

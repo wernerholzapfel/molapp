@@ -7,26 +7,16 @@ import {Quizpage} from '../quiz/quiz';
 import {MollenService} from '../../services/api/mollen.service';
 import {actieModel} from '../../models/actieModel';
 import {ActiesService} from '../../services/api/acties.service';
-
-/**
- * Generated class for the QuizpuntenPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'page-quizpunten',
   templateUrl: 'quizpunten.html',
 })
 export class QuizpuntenPage {
-  isLoading: boolean;
-  quizPuntenSub: Subscription;
-  quizResultsSub: Subscription;
-  actieSub: Subscription;
-  quizpunten: any;
-  quizAntwoorden: any;
-  acties: actieModel;
+  quizpunten$: Observable<any>;
+  quizAntwoorden$: Observable<any>;
+  acties$: Observable<actieModel>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -36,24 +26,14 @@ export class QuizpuntenPage {
   }
 
   ionViewWillEnter() {
-    this.isLoading = true;
-    this.actieSub = this.actieService.getActies().subscribe(response => {
-      this.acties = response;
-    });
-    this.quizResultsSub = this.quizService.getanswers().subscribe(response => {
-      this.quizAntwoorden = response;
-    });
+    this.acties$ = this.actieService.getActies();
 
-    this.quizPuntenSub = this.quizService.getquizresultaat().subscribe(response => {
-      this.quizpunten = response;
-      this.isLoading = false;
-    })
+    this.quizAntwoorden$ = this.quizService.getanswers();
+
+    this.quizpunten$ = this.quizService.getquizresultaat();
   }
 
   ionViewWillLeave() {
-    this.quizPuntenSub.unsubscribe();
-    this.quizResultsSub.unsubscribe();
-    this.actieSub.unsubscribe();
   }
 
   ionViewDidLoad() {

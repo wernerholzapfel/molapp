@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="isLoading" class="spinner">
+  <div *ngIf="!(quizpunten$ | async)?.length >= 0" class="spinner">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
@@ -19,7 +19,7 @@
       <p>{{ auth.user.email }}</p>
     </ion-item>
 
-    <div *ngIf="acties?.testaflevering === 0">
+    <div *ngIf="(acties$ | async)?.testaflevering === 0">
       <ion-item text-center color="navbar">
         Huidige aflevering
       </ion-item>
@@ -29,20 +29,20 @@
       </ion-item>
     </div>
 
-    <div *ngIf="acties?.testaflevering > 0">
+    <div *ngIf="(acties$ | async)?.testaflevering > 0">
       <ion-item text-center color="navbar">
         Huidige aflevering
       </ion-item>
-      <ion-item class="even" *ngIf="quizAntwoorden.length === 0">
+      <ion-item class="even" *ngIf="(quizAntwoorden$ | async).length === 0">
         <button ion-button color="button" full (click)="goToQuiz()">Maak de nieuwe test</button>
       </ion-item>
-      <ion-item *ngFor="let vraag of quizAntwoorden; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
+      <ion-item *ngFor="let vraag of quizAntwoorden$ | async; let index=index; let odd=odd; let even=even" [ngClass]="{ odd: odd, even: even }">
         <h2 text-wrap>{{vraag.vraag.vraag}}</h2>
         <h3 text-wrap>{{vraag.antwoord.antwoord}}</h3>
       </ion-item>
     </div>
 
-    <div *ngFor="let quizpunt of quizpunten">
+    <div *ngFor="let quizpunt of quizpunten$ | async">
       <ion-item text-center color="navbar">
         Aflevering {{quizpunt?.aflevering}} <span item-right>{{quizpunt?.afleveringpunten}} punten </span>
       </ion-item>
